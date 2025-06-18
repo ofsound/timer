@@ -3,41 +3,58 @@ import { type ChangeEvent } from "react";
 
 type inputProps = {
   newSequenceCreated: (a: number[]) => void;
+  restartTrigger: boolean;
 };
 
-function InputComponent({ newSequenceCreated }: inputProps) {
+function InputComponent({ newSequenceCreated, restartTrigger }: inputProps) {
   const buttonValueArray = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120];
 
   let firstClick: boolean;
 
-  const [inputValue, setInputValue] = useState("");
+  const [workingArray, setWorkingArray] = useState<number[]>([]);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // console.log(event);
-    setInputValue(event.target.value);
+  // const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const newSeqArray = workingString.split(",").map((item) => parseInt(item.trim()));
 
-    const newSeqArray = inputValue.split(",").map((item) => parseInt(item.trim()));
-
-    newSequenceCreated(newSeqArray);
-  };
+  //   setWorkingArray(newSeqArray);
+  //   newSequenceCreated(newSeqArray);
+  // };
 
   const buttonClickHandler = (buttonValue: number) => {
+    let tempArray = workingArray.map(function (i) {
+      return i;
+    });
+
     if (firstClick) {
       firstClick = false;
-      setInputValue(inputValue + buttonValue);
+      tempArray.push(buttonValue);
+      // setWorkingString(workingString + buttonValue);
     } else {
-      setInputValue(inputValue + "," + buttonValue);
+      // setWorkingString(workingString + "," + buttonValue);
+      tempArray.push(buttonValue);
+      console.log(tempArray);
+
+      // console.log(tempArray);
     }
-    // newSequenceCreated(inputValue);
+
+    setWorkingArray(tempArray);
+    newSequenceCreated(tempArray);
   };
 
   useEffect(() => {
     firstClick = true;
 
-    return () => {
-      // console.log("Component unmounted");
-    };
+    return () => {};
   }, []); // Empty dependency array
+
+  useEffect(() => {
+    if (restartTrigger) {
+      // setWorkingString("");
+      setWorkingArray([]);
+      firstClick = true;
+    }
+    return () => {};
+  }, [restartTrigger]);
 
   const jsxElements = buttonValueArray.map((item, index) => (
     <button
@@ -49,18 +66,15 @@ function InputComponent({ newSequenceCreated }: inputProps) {
     </button>
   ));
 
-  const miniElements = inputValue
-    .split(",")
-    .map((item) => parseInt(item.trim()))
-    .map((inner, index) => (
-      <div
-        style={{ width: `${inner * 2}px` }}
-        key={index}
-        className="mr-2 block rounded-lg bg-gray-200 py-3 text-center font-bold text-black even:bg-gray-500"
-      >
-        {inner}
-      </div>
-    ));
+  const miniElements = workingArray.map((inner, index) => (
+    <div
+      style={{ width: `${inner * 2}px` }}
+      key={index}
+      className="mr-2 block rounded-lg bg-gray-200 py-3 text-center font-bold text-black even:bg-gray-500"
+    >
+      {inner}
+    </div>
+  ));
 
   return (
     <>
@@ -70,13 +84,7 @@ function InputComponent({ newSequenceCreated }: inputProps) {
         <div className="ml-10 flex justify-start">{miniElements}</div>
       </div>
 
-      <input
-        value={inputValue}
-        onChange={handleInputChange}
-        type="text"
-        placeholder="Enter sequence"
-        className="mx-auto mt-10 cursor-pointer rounded-lg border px-5 py-3 text-white"
-      />
+      <div className="text-amber-200">{workingArray.join(" ")}</div>
     </>
   );
 }

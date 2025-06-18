@@ -6,9 +6,18 @@ import TimelineComponent from "./components/TimelineComponent.tsx";
 function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [currentArray, setCurrentArray] = useState<number[]>([]);
+  const [restartInputComponent, setRestartInputComponent] = useState(false);
 
   const handleResetClick = () => {
     setShowTimeline(false);
+    setCurrentArray([]);
+    setRestartInputComponent(true);
+
+    // This manually resesting this back to false.. i want to call a function
+    // not switch a variable and then switch it back
+    setTimeout(() => {
+      setRestartInputComponent(false);
+    }, 2000);
   };
 
   const handleStartClick = () => {
@@ -16,14 +25,17 @@ function App() {
   };
 
   const handleNewSequenceCreated = (data: number[]) => {
-    // alert("new sequence");
     setCurrentArray(data);
+    console.log("set current array in app");
   };
 
   return (
     <>
-      <InputComponent newSequenceCreated={handleNewSequenceCreated} />
-
+      <div className="text-2xl text-amber-400">{currentArray.join(" ")}</div>
+      <InputComponent
+        newSequenceCreated={handleNewSequenceCreated}
+        restartTrigger={restartInputComponent}
+      />
       <button
         onClick={handleStartClick}
         className="mt-3 block cursor-pointer rounded-lg bg-green-800 px-3 py-2 text-white"
@@ -36,7 +48,6 @@ function App() {
       >
         RESET
       </button>
-
       {showTimeline && <TimelineComponent currentArray={currentArray} />}
     </>
   );
