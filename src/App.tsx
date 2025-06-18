@@ -3,15 +3,24 @@ import { useState } from "react";
 import InputComponent from "./components/InputComponent.tsx";
 import TimelineComponent from "./components/TimelineComponent.tsx";
 
+import beepFile from "./assets/beep_01.wav";
+
 function App() {
+  const beepAudio = new Audio(beepFile);
+
   const [showTimeline, setShowTimeline] = useState(false);
   const [currentArray, setCurrentArray] = useState<number[]>([]);
   const [restartInputComponent, setRestartInputComponent] = useState(false);
+
+  const [showInputComponent, setShowInputComponent] = useState(true);
+  const [showStartButton, setShowStartButton] = useState(false);
+  const [showResetButton, setShowResetButton] = useState(false);
 
   const handleResetClick = () => {
     setShowTimeline(false);
     setCurrentArray([]);
     setRestartInputComponent(true);
+    setShowInputComponent(true);
 
     // Manually reseting this back to false
     // i want to call a function,
@@ -23,34 +32,47 @@ function App() {
 
   const handleStartClick = () => {
     setShowTimeline(true);
+    setShowInputComponent(false);
   };
 
   const handleNewSequenceCreated = (data: number[]) => {
-    setCurrentArray(data);
+    setShowStartButton(true);
+    setShowResetButton(true);
+    const tempArray = data.map((item) => item);
+    tempArray.unshift(3);
+    setCurrentArray(tempArray);
+  };
+
+  const handleSetComplete = () => {
+    // beepAudio.play();
   };
 
   return (
     <>
-      <InputComponent
-        newSequenceCreated={handleNewSequenceCreated}
-        restartTrigger={restartInputComponent}
-      />
-
+      {showInputComponent && (
+        <InputComponent
+          newSequenceCreated={handleNewSequenceCreated}
+          restartTrigger={restartInputComponent}
+        />
+      )}
       <div className="flex justify-center gap-4">
-        <button
-          onClick={handleStartClick}
-          className="mt-3 block cursor-pointer rounded-lg bg-green-800 px-3 py-2 text-white"
-        >
-          START
-        </button>
-        <button
-          onClick={handleResetClick}
-          className="mt-3 block cursor-pointer rounded-lg bg-red-800 px-3 py-2 text-white"
-        >
-          RESET
-        </button>
+        {showStartButton && (
+          <button
+            onClick={handleStartClick}
+            className="mt-3 block cursor-pointer rounded-lg bg-green-800 px-3 py-2 text-white"
+          >
+            START
+          </button>
+        )}
+        {showResetButton && (
+          <button
+            onClick={handleResetClick}
+            className="mt-3 block cursor-pointer rounded-lg bg-red-800 px-3 py-2 text-white"
+          >
+            RESET
+          </button>
+        )}
       </div>
-
       {showTimeline && <TimelineComponent currentArray={currentArray} />}
     </>
   );

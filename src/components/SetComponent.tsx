@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
+import beepFile from "../assets/beep_01.wav";
+
 type inputProps = {
   durationMilliseconds: number;
   setComplete: () => void;
@@ -7,6 +9,8 @@ type inputProps = {
 };
 
 function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps) {
+  const beepAudio = new Audio(beepFile);
+
   const [progressValue, setProgressValue] = useState(0);
 
   const [elapsedMilliseconds, setElapsedMilliseconds] = useState(0);
@@ -38,6 +42,8 @@ function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps
     if (tempElapsed >= durationMilliseconds) {
       cancelAnimationFrame(animationRequestID);
       setComplete();
+
+      beepAudio.play();
     } else {
       animationRequestID = requestAnimationFrame(update);
       setProgressValue(Math.min(tempElapsed / durationMilliseconds, 1));
@@ -45,14 +51,13 @@ function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps
   };
 
   return (
-    <section className="mt-8 ml-10 flex w-80 w-xl flex-1 justify-between rounded-lg bg-gray-200 p-2 pr-5">
+    <section
+      className="first:-[.6] mt-8 ml-10 flex w-xl flex-1 justify-between rounded-lg bg-gray-200 p-2 pr-5 first:origin-left first:scale-[.6] first:!bg-gray-700 first:opacity-50 odd:bg-gray-500 first:[&>:first-child]:text-white"
+      style={{ width: `${durationMilliseconds / 40}px` }}
+    >
       <div className="mt-1 min-w-20 shrink-0 text-2xl">
-        {Number(durationMilliseconds / 1000).toFixed(1) + "s"}
+        {Number(Math.abs(durationMilliseconds - elapsedMilliseconds) / 1000).toFixed(1) + "s"}
       </div>
-      <div className="mt-1 min-w-20 shrink-0 text-2xl">
-        {Number(elapsedMilliseconds / 1000).toFixed(1) + "s"}
-      </div>
-      <div className="mt-1 min-w-20 shrink-0 text-2xl"></div>
       <progress value={progressValue} className="mt-2 h-6 w-full"></progress>
     </section>
   );

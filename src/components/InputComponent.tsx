@@ -8,8 +8,6 @@ type inputProps = {
 function InputComponent({ newSequenceCreated, restartTrigger }: inputProps) {
   const buttonValueArray = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120];
 
-  // maybe i shu
-
   const [workingArray, setWorkingArray] = useState<number[]>([]);
 
   const buttonClickHandler = (buttonValue: number) => {
@@ -32,12 +30,12 @@ function InputComponent({ newSequenceCreated, restartTrigger }: inputProps) {
 
   return (
     <>
-      <div className="mx-auto mb-10 flex max-w-60 flex-wrap pt-8">
+      <div className="mx-auto mb-10 flex max-w-66 flex-wrap pt-8">
         {buttonValueArray.map((item, index) => (
           <button
             onClick={() => buttonClickHandler(item)}
             key={index}
-            className="mx-auto mt-2 block w-18 cursor-pointer rounded-lg bg-blue-300 px-5 py-3 text-lg text-white"
+            className="mx-auto mt-3 block w-18 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 px-5 py-3 text-lg text-white"
           >
             {item}
           </button>
