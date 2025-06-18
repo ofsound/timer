@@ -6,14 +6,12 @@ type inputProps = {
 };
 
 function TimelineComponent({ currentArray }: inputProps) {
-  // const beepAudio = new Audio(beepFile);
-
   const [playingArray, setPlayingArray] = useState<boolean[]>([]);
 
-  const handleSetComplete = () => {
-    // beepAudio.play();
+  let localArray: boolean[] = [];
 
-    const updatedArray: boolean[] = playingArray.map((item) => item);
+  const handleSetComplete = () => {
+    const updatedArray: boolean[] = localArray.map((item) => item);
 
     for (let i = 0; i < updatedArray.length; i++) {
       if (updatedArray[i] === false) {
@@ -22,14 +20,17 @@ function TimelineComponent({ currentArray }: inputProps) {
       }
     }
 
-    setPlayingArray(updatedArray);
+    setPlayingArray([...updatedArray]);
   };
 
   useEffect(() => {
-    // beepAudio.play();
     const defaultPlayingArray = new Array(currentArray.length).fill(false);
     defaultPlayingArray[0] = true;
-    setPlayingArray(defaultPlayingArray);
+
+    localArray = defaultPlayingArray;
+
+    // setPlayingArray(defaultPlayingArray);
+    setPlayingArray([...defaultPlayingArray]);
 
     return () => {};
   }, [currentArray]);

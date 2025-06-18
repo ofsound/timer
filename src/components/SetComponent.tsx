@@ -16,39 +16,37 @@ function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps
   const [elapsedMilliseconds, setElapsedMilliseconds] = useState(0);
 
   const hasRunRef = useRef(false);
-
-  let lastTime: number;
-
-  let animationRequestID: number;
+  const lastTime = useRef(0);
+  const animationRequestID = useRef(0);
 
   useEffect(() => {
     if (trigger) {
       if (!hasRunRef.current) {
-        lastTime = performance.now();
+        lastTime.current = performance.now();
         hasRunRef.current = true;
-        update();
+        update.current();
       }
     }
     return () => {
-      cancelAnimationFrame(animationRequestID);
+      cancelAnimationFrame(animationRequestID.current);
     };
   }, [trigger]);
 
-  const update = () => {
-    setElapsedMilliseconds(performance.now() - lastTime);
+  const update = useRef(() => {
+    setElapsedMilliseconds(performance.now() - lastTime.current);
 
-    const tempElapsed = performance.now() - lastTime;
+    const tempElapsed = performance.now() - lastTime.current;
 
     if (tempElapsed >= durationMilliseconds) {
-      cancelAnimationFrame(animationRequestID);
+      cancelAnimationFrame(animationRequestID.current);
       setComplete();
 
       beepAudio.play();
     } else {
-      animationRequestID = requestAnimationFrame(update);
+      animationRequestID.current = requestAnimationFrame(update.current);
       setProgressValue(Math.min(tempElapsed / durationMilliseconds, 1));
     }
-  };
+  });
 
   return (
     <section

@@ -42,18 +42,16 @@ function InputComponent({ newSequenceCreated, restartTrigger }: inputProps) {
         ))}
       </div>
 
-      <div className="min-h-12">
-        <div className="ml-10 flex justify-start">
-          {workingArray.map((inner, index) => (
-            <div
-              style={{ width: `${inner * 2}px` }}
-              key={index}
-              className="mr-2 block rounded-lg bg-gray-200 py-3 text-center font-bold text-black even:bg-gray-500"
-            >
-              {inner}
-            </div>
-          ))}
-        </div>
+      <div className="mx-10 my-10 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border">
+        {workingArray.map((inner, index) => (
+          <div
+            style={{ width: `${inner * 4}px` }}
+            key={index}
+            className="block rounded-lg border border-black bg-gray-200 py-3 text-center font-bold text-black even:bg-gray-500"
+          >
+            {inner}
+          </div>
+        ))}
       </div>
     </>
   );

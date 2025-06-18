@@ -3,11 +3,7 @@ import { useState } from "react";
 import InputComponent from "./components/InputComponent.tsx";
 import TimelineComponent from "./components/TimelineComponent.tsx";
 
-import beepFile from "./assets/beep_01.wav";
-
 function App() {
-  const beepAudio = new Audio(beepFile);
-
   const [showTimeline, setShowTimeline] = useState(false);
   const [currentArray, setCurrentArray] = useState<number[]>([]);
   const [restartInputComponent, setRestartInputComponent] = useState(false);
@@ -22,7 +18,7 @@ function App() {
     setRestartInputComponent(true);
     setShowInputComponent(true);
 
-    // Manually reseting this back to false
+    // Why manually resetting this back to false?
     // i want to call a function,
     // not switch a variable and then switch it back
     setTimeout(() => {
@@ -41,10 +37,6 @@ function App() {
     const tempArray = data.map((item) => item);
     tempArray.unshift(3);
     setCurrentArray(tempArray);
-  };
-
-  const handleSetComplete = () => {
-    // beepAudio.play();
   };
 
   return (
