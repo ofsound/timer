@@ -26,31 +26,27 @@ function TimelineComponent({ currentArray }: inputProps) {
     setPlayingArray(updatedArray);
   };
 
-  let keyIndex = 0;
-
-  const jsxElements = currentArray.map((item) => (
-    <SetComponent
-      durationMilliseconds={item * 1000}
-      key={keyIndex++}
-      setComplete={handleSetComplete}
-      trigger={playingArray[keyIndex]}
-    />
-  ));
-
   useEffect(() => {
     const defaultPlayingArray = new Array(currentArray.length).fill(false);
     defaultPlayingArray[0] = true;
     setPlayingArray(defaultPlayingArray);
 
-    return () => {
-      // console.log("Component unmounted");
-    };
+    return () => {};
   }, [currentArray]);
+
+  let keyIndex = 0;
 
   return (
     <>
       <div>
-        <ul>{jsxElements}</ul>;
+        {currentArray.map((item) => (
+          <SetComponent
+            durationMilliseconds={item * 1000}
+            key={keyIndex++}
+            setComplete={handleSetComplete}
+            trigger={playingArray[keyIndex]}
+          />
+        ))}
       </div>
     </>
   );
