@@ -43,7 +43,7 @@ function TimelineComponent({ currentArray }: inputProps) {
     setPlayingArray(defaultPlayingArray);
 
     return () => {
-      console.log("Component unmounted");
+      // console.log("Component unmounted");
     };
   }, [currentArray]);
 

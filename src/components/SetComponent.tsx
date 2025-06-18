@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type inputProps = {
   durationMilliseconds: number;
@@ -9,40 +9,44 @@ type inputProps = {
 function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps) {
   const [progressValue, setProgressValue] = useState(0);
   const [elapsedSeconds, setElapsedSeconds] = useState("");
+  const [elapsedMilliseconds, setElapsedMilliseconds] = useState(0);
+  // const [lastTime, setLastTime] = useState(4);
 
-  let elapsedMilliseconds = 0;
+  const hasRunRef = useRef(false);
 
+  // let elapsedMilliseconds = 0;
   let lastTime: number;
+
   let animationRequestID: number;
 
   useEffect(() => {
+    if (trigger) {
+      if (!hasRunRef.current) {
+        // setElapsedMilliseconds(0);
+        lastTime = performance.now();
+        hasRunRef.current = true;
+      }
+    }
     return () => {
       cancelAnimationFrame(animationRequestID);
     };
-  }, []);
-
-  useEffect(() => {
-    if (trigger) {
-      startSet();
-    }
   }, [trigger]);
 
   const update = () => {
-    elapsedMilliseconds = performance.now() - lastTime;
+    console.log(performance.now() - lastTime);
+    console.log(durationMilliseconds);
+
+    setElapsedMilliseconds(performance.now() - lastTime);
+
     if (elapsedMilliseconds >= durationMilliseconds) {
       cancelAnimationFrame(animationRequestID);
       setComplete();
     } else {
+      // console.log("updating else");
       animationRequestID = requestAnimationFrame(update);
       setProgressValue(Math.min(elapsedMilliseconds / durationMilliseconds, 1));
       setElapsedSeconds(Number(elapsedMilliseconds / 1000).toFixed(1) + "s");
     }
-  };
-
-  const startSet = () => {
-    elapsedMilliseconds = 0;
-    lastTime = performance.now();
-    update();
   };
 
   return (

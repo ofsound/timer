@@ -16,6 +16,7 @@ function App() {
   };
 
   const handleNewSequenceCreated = (data: number[]) => {
+    // alert("new sequence");
     setCurrentArray(data);
   };
 

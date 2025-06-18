@@ -13,7 +13,7 @@ function InputComponent({ newSequenceCreated }: inputProps) {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
+    // console.log(event);
     setInputValue(event.target.value);
 
     const newSeqArray = inputValue.split(",").map((item) => parseInt(item.trim()));
@@ -24,7 +24,6 @@ function InputComponent({ newSequenceCreated }: inputProps) {
   const buttonClickHandler = (buttonValue: number) => {
     if (firstClick) {
       firstClick = false;
-      console.log(firstClick);
       setInputValue(inputValue + buttonValue);
     } else {
       setInputValue(inputValue + "," + buttonValue);
@@ -36,7 +35,7 @@ function InputComponent({ newSequenceCreated }: inputProps) {
     firstClick = true;
 
     return () => {
-      console.log("Component unmounted");
+      // console.log("Component unmounted");
     };
   }, []); // Empty dependency array
 
