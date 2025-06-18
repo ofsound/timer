@@ -29,7 +29,6 @@ function TimelineComponent({ currentArray }: inputProps) {
 
     localArray = defaultPlayingArray;
 
-    // setPlayingArray(defaultPlayingArray);
     setPlayingArray([...defaultPlayingArray]);
 
     return () => {};

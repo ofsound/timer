@@ -56,7 +56,16 @@ function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps
       <div className="mt-1 min-w-20 shrink-0 text-2xl">
         {Number(Math.abs(durationMilliseconds - elapsedMilliseconds) / 1000).toFixed(1) + "s"}
       </div>
-      <progress value={progressValue} className="mt-2 h-6 w-full"></progress>
+
+      {/*
+      Maybe using a progress element here is a pointless hack if it's not cross browser
+      And I could do more interesting effects
+      */}
+
+      <progress
+        value={progressValue}
+        className="mt-2 h-6 w-full [&::-webkit-progress-bar]:bg-black [&::-webkit-progress-value]:bg-green-400"
+      ></progress>
     </section>
   );
 }
