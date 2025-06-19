@@ -16,15 +16,24 @@ function TimelineComponent({ currentArray }: inputProps) {
   const [playingArray, setPlayingArray] = useState<boolean[]>(defaultPlayingArray);
 
   const handleSetComplete = () => {
+    console.log("timeline: setComplete");
+
+    console.log("playingArray", playingArray);
+
     const updatedArray: boolean[] = [...playingArray];
 
     for (let i = 0; i < updatedArray.length; i++) {
       if (updatedArray[i] === false) {
         updatedArray[i] = true;
         break;
+      } else {
+        updatedArray[i] = false;
       }
     }
-    setPlayingArray(updatedArray);
+
+    // console.log("updatedArray", updatedArray);
+
+    // setPlayingArray(updatedArray);
   };
 
   const beepAudio = new Audio(beepFile);
