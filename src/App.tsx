@@ -14,10 +14,14 @@ function App() {
   const [showResetButton, setShowResetButton] = useState(false);
 
   const handleResetClick = () => {
-    setShowTimeline(false);
     setInputsKey((prevKey) => prevKey + 1);
     setShowInputs(true);
+
+    setShowStartButton(false);
+    setShowResetButton(false);
+
     setCurrentArray([]);
+    setShowTimeline(false);
   };
 
   const handleStartClick = () => {
@@ -36,7 +40,7 @@ function App() {
   return (
     <>
       {showInputs && <Inputs key={InputsKey} newSequenceCreated={handleNewSequenceCreated} />}
-      <div className="flex justify-center gap-4">
+      <div className="mt-10 flex justify-center gap-4">
         {showStartButton && (
           <button
             onClick={handleStartClick}

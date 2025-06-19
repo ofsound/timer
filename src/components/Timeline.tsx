@@ -13,6 +13,14 @@ function Timeline({ currentArray }: inputProps) {
   const defaultPlayingArray = new Array(currentArray.length).fill(false);
   defaultPlayingArray[0] = true;
 
+  let longestDuration = 0;
+
+  for (let i = 0; i < currentArray.length; i++) {
+    if (currentArray[i] > longestDuration) {
+      longestDuration = currentArray[i];
+    }
+  }
+
   const [playingArray, setPlayingArray] = useState<boolean[]>(defaultPlayingArray);
 
   const handleSetComplete = () => {
@@ -31,16 +39,17 @@ function Timeline({ currentArray }: inputProps) {
 
   return (
     <>
-      <div>
+      <section className="mx-10 mt-10 flex flex-col">
         {currentArray.map((item) => (
           <Segment
             durationMilliseconds={item * 1000}
             key={keyIndex++}
+            widthRatio={item / longestDuration}
             setComplete={handleSetComplete}
             trigger={playingArray[keyIndex]}
           />
         ))}
-      </div>
+      </section>
     </>
   );
 }

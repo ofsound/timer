@@ -27,14 +27,14 @@ function Inputs({ newSequenceCreated }: inputProps) {
           <button
             onClick={() => buttonClickHandler(item)}
             key={index}
-            className="mx-auto mt-3 block w-18 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 px-5 py-3 text-lg text-white"
+            className="mx-auto mt-3 block w-18 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 px-5 py-4 text-lg tracking-wider text-white hover:border-blue-300"
           >
             {item}
           </button>
         ))}
       </div>
 
-      <div className="mx-10 my-10 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border">
+      <div className="mx-10 mt-10 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border">
         {workingArray.map((inner, index) => (
           <div
             style={{ width: `${inner * 4}px` }}
