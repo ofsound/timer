@@ -6,7 +6,7 @@ type inputProps = {
   trigger: boolean;
 };
 
-function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps) {
+function Segment({ durationMilliseconds, setComplete, trigger }: inputProps) {
   const handleRunnerComplete = () => {
     setComplete();
   };
@@ -21,4 +21,4 @@ function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps
   );
 }
 
-export default SetComponent;
+export default Segment;

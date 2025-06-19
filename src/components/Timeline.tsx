@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import SetComponent from "./SetComponent.tsx";
+import Segment from "./Segment.tsx";
 
 import beepFile from "../assets/beep_01.wav";
 
@@ -7,7 +7,7 @@ type inputProps = {
   currentArray: number[];
 };
 
-function TimelineComponent({ currentArray }: inputProps) {
+function Timeline({ currentArray }: inputProps) {
   const beepAudio = useRef(new Audio(beepFile));
 
   const defaultPlayingArray = new Array(currentArray.length).fill(false);
@@ -33,7 +33,7 @@ function TimelineComponent({ currentArray }: inputProps) {
     <>
       <div>
         {currentArray.map((item) => (
-          <SetComponent
+          <Segment
             durationMilliseconds={item * 1000}
             key={keyIndex++}
             setComplete={handleSetComplete}
@@ -45,4 +45,4 @@ function TimelineComponent({ currentArray }: inputProps) {
   );
 }
 
-export default TimelineComponent;
+export default Timeline;

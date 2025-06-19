@@ -4,7 +4,7 @@ type inputProps = {
   newSequenceCreated: (a: number[]) => void;
 };
 
-function InputComponent({ newSequenceCreated }: inputProps) {
+function Inputs({ newSequenceCreated }: inputProps) {
   const buttonValueArray = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120];
 
   const [workingArray, setWorkingArray] = useState<number[]>([]);
@@ -49,4 +49,4 @@ function InputComponent({ newSequenceCreated }: inputProps) {
   );
 }
 
-export default InputComponent;
+export default Inputs;

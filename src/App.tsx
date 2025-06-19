@@ -1,28 +1,28 @@
 import { useState } from "react";
 
-import InputComponent from "./components/InputComponent.tsx";
-import TimelineComponent from "./components/TimelineComponent.tsx";
+import Inputs from "./components/Inputs.tsx";
+import Timeline from "./components/Timeline.tsx";
 
 function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [currentArray, setCurrentArray] = useState<number[]>([]);
 
-  const [showInputComponent, setShowInputComponent] = useState(true);
-  const [inputComponentKey, setInputComponentKey] = useState(0);
+  const [showInputs, setShowInputs] = useState(true);
+  const [InputsKey, setInputsKey] = useState(0);
 
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
 
   const handleResetClick = () => {
     setShowTimeline(false);
-    setInputComponentKey((prevKey) => prevKey + 1);
-    setShowInputComponent(true);
+    setInputsKey((prevKey) => prevKey + 1);
+    setShowInputs(true);
     setCurrentArray([]);
   };
 
   const handleStartClick = () => {
     setShowTimeline(true);
-    setShowInputComponent(false);
+    setShowInputs(false);
   };
 
   const handleNewSequenceCreated = (data: number[]) => {
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <>
-      {showInputComponent && <InputComponent key={inputComponentKey} newSequenceCreated={handleNewSequenceCreated} />}
+      {showInputs && <Inputs key={InputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       <div className="flex justify-center gap-4">
         {showStartButton && (
           <button
@@ -54,7 +54,7 @@ function App() {
           </button>
         )}
       </div>
-      {showTimeline && <TimelineComponent currentArray={currentArray} />}
+      {showTimeline && <Timeline currentArray={currentArray} />}
     </>
   );
 }
