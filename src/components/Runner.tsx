@@ -10,7 +10,7 @@ function Runner({ durationMilliseconds, runComplete }: inputProps) {
 
   // These are useRef, so they don't get reset when this whole block constantly re-renders
   const animationRequestID = useRef(0);
-  const lastTime = useRef(0);
+  const lastTime = useRef(performance.now());
   const tempElapsed = useRef(0);
 
   // still be a use ref, stop if from being creatd over and over?
@@ -19,7 +19,6 @@ function Runner({ durationMilliseconds, runComplete }: inputProps) {
 
     if (tempElapsed.current >= durationMilliseconds) {
       cancelAnimationFrame(animationRequestID.current);
-      console.log("runcomplete");
       runComplete();
     } else {
       animationRequestID.current = requestAnimationFrame(update.current);
@@ -28,7 +27,6 @@ function Runner({ durationMilliseconds, runComplete }: inputProps) {
   });
 
   useEffect(() => {
-    lastTime.current = performance.now();
     update.current();
   }, []);
 
