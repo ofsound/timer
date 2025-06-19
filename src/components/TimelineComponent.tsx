@@ -11,7 +11,7 @@ function TimelineComponent({ currentArray }: inputProps) {
   const beepAudio = useRef(new Audio(beepFile));
 
   const defaultPlayingArray = new Array(currentArray.length).fill(false);
-  defaultPlayingArray[0] = true; // auto start the first one
+  defaultPlayingArray[0] = true;
 
   const [playingArray, setPlayingArray] = useState<boolean[]>(defaultPlayingArray);
 
