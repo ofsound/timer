@@ -8,26 +8,16 @@ function App() {
   const [currentArray, setCurrentArray] = useState<number[]>([]);
 
   const [showInputComponent, setShowInputComponent] = useState(true);
+  const [inputComponentKey, setInputComponentKey] = useState(0);
+
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
 
-  const [inputComponentKey, setInputComponentKey] = useState(0); // Initial key
-
   const handleResetClick = () => {
     setShowTimeline(false);
-    setCurrentArray([]);
-    setShowInputComponent(true);
-
     setInputComponentKey((prevKey) => prevKey + 1);
-
-    // setRestartInputComponent(true);
-
-    // Why manually resetting this back to false?
-    // i want to call a function,
-    // not switch a variable and then switch it back
-    setTimeout(() => {
-      // setRestartInputComponent(false);
-    }, 10);
+    setShowInputComponent(true);
+    setCurrentArray([]);
   };
 
   const handleStartClick = () => {

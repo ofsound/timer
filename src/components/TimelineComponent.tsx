@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SetComponent from "./SetComponent.tsx";
 
 type inputProps = {
@@ -6,12 +6,13 @@ type inputProps = {
 };
 
 function TimelineComponent({ currentArray }: inputProps) {
-  const [playingArray, setPlayingArray] = useState<boolean[]>([]);
+  const defaultPlayingArray = new Array(currentArray.length).fill(false);
+  defaultPlayingArray[0] = true;
 
-  let localArray: boolean[] = [];
+  const [playingArray, setPlayingArray] = useState<boolean[]>(defaultPlayingArray);
 
   const handleSetComplete = () => {
-    const updatedArray: boolean[] = localArray.map((item) => item);
+    const updatedArray: boolean[] = [...playingArray];
 
     for (let i = 0; i < updatedArray.length; i++) {
       if (updatedArray[i] === false) {
@@ -19,20 +20,8 @@ function TimelineComponent({ currentArray }: inputProps) {
         break;
       }
     }
-
-    setPlayingArray([...updatedArray]);
+    setPlayingArray(updatedArray);
   };
-
-  useEffect(() => {
-    const defaultPlayingArray = new Array(currentArray.length).fill(false);
-    defaultPlayingArray[0] = true;
-
-    localArray = defaultPlayingArray;
-
-    setPlayingArray([...defaultPlayingArray]);
-
-    return () => {};
-  }, [currentArray]);
 
   let keyIndex = 0;
 
