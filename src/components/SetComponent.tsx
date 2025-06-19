@@ -8,7 +8,6 @@ type inputProps = {
 
 function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps) {
   const handleRunnerComplete = () => {
-    console.log("setcomplete");
     setComplete();
   };
 
@@ -17,10 +16,6 @@ function SetComponent({ durationMilliseconds, setComplete, trigger }: inputProps
       className="first:-[.6] mt-8 ml-10 flex w-xl flex-1 justify-between rounded-lg bg-gray-200 p-2 pr-5 first:origin-left first:scale-[.6] first:!bg-gray-700 first:opacity-50 odd:bg-gray-500 first:[&>:first-child]:text-white"
       style={{ width: `${durationMilliseconds / 30}px` }}
     >
-      <div className="mt-1 min-w-20 shrink-0 text-2xl">
-        {/* {Number(Math.abs(durationMilliseconds - elapsedMilliseconds) / 1000).toFixed(1) + "s"} */}
-      </div>
-
       {trigger && <Runner durationMilliseconds={durationMilliseconds} runComplete={handleRunnerComplete} />}
     </section>
   );

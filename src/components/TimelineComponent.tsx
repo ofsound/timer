@@ -8,32 +8,19 @@ type inputProps = {
 };
 
 function TimelineComponent({ currentArray }: inputProps) {
-  console.log("Timeline Rendered");
-
   const defaultPlayingArray = new Array(currentArray.length).fill(false);
-  defaultPlayingArray[0] = false; // auto start the first one
+  defaultPlayingArray[0] = true; // auto start the first one
 
   const [playingArray, setPlayingArray] = useState<boolean[]>(defaultPlayingArray);
 
   const handleSetComplete = () => {
-    console.log("timeline: setComplete");
+    const afterFirstTrue = 1 + playingArray.findIndex((element) => element === true);
 
-    console.log("playingArray", playingArray);
+    const returnArray: boolean[] = new Array(currentArray.length).fill(false);
 
-    const updatedArray: boolean[] = [...playingArray];
+    if (afterFirstTrue < currentArray.length) returnArray[afterFirstTrue] = true;
 
-    for (let i = 0; i < updatedArray.length; i++) {
-      if (updatedArray[i] === false) {
-        updatedArray[i] = true;
-        break;
-      } else {
-        updatedArray[i] = false;
-      }
-    }
-
-    // console.log("updatedArray", updatedArray);
-
-    // setPlayingArray(updatedArray);
+    setPlayingArray(returnArray);
   };
 
   const beepAudio = new Audio(beepFile);
