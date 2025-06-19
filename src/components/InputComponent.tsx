@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type inputProps = {
   newSequenceCreated: (a: number[]) => void;
-  restartTrigger: boolean;
 };
 
-function InputComponent({ newSequenceCreated, restartTrigger }: inputProps) {
+function InputComponent({ newSequenceCreated }: inputProps) {
   const buttonValueArray = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120];
 
   const [workingArray, setWorkingArray] = useState<number[]>([]);
@@ -20,13 +19,6 @@ function InputComponent({ newSequenceCreated, restartTrigger }: inputProps) {
     // Add the count-in timer to this one .unshift() on the array to alter it?
     newSequenceCreated(updatedArray);
   };
-
-  useEffect(() => {
-    if (restartTrigger) {
-      setWorkingArray([]);
-    }
-    return () => {};
-  }, [restartTrigger]);
 
   return (
     <>

@@ -6,20 +6,19 @@ import TimelineComponent from "./components/TimelineComponent.tsx";
 function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [currentArray, setCurrentArray] = useState<number[]>([]);
-  const [restartInputComponent, setRestartInputComponent] = useState(false);
 
   const [showInputComponent, setShowInputComponent] = useState(true);
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
 
-  const [resetKey, setResetKey] = useState(0); // Initial key
+  const [inputComponentKey, setInputComponentKey] = useState(0); // Initial key
 
   const handleResetClick = () => {
     setShowTimeline(false);
     setCurrentArray([]);
     setShowInputComponent(true);
 
-    setResetKey((prevKey) => prevKey + 1);
+    setInputComponentKey((prevKey) => prevKey + 1);
 
     // setRestartInputComponent(true);
 
@@ -46,13 +45,7 @@ function App() {
 
   return (
     <>
-      {showInputComponent && (
-        <InputComponent
-          key={resetKey}
-          newSequenceCreated={handleNewSequenceCreated}
-          restartTrigger={restartInputComponent}
-        />
-      )}
+      {showInputComponent && <InputComponent key={inputComponentKey} newSequenceCreated={handleNewSequenceCreated} />}
       <div className="flex justify-center gap-4">
         {showStartButton && (
           <button
