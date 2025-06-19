@@ -11,14 +11,14 @@ function InputComponent({ newSequenceCreated, restartTrigger }: inputProps) {
   const [workingArray, setWorkingArray] = useState<number[]>([]);
 
   const buttonClickHandler = (buttonValue: number) => {
-    const tempArray = workingArray.map(function (i) {
-      return i;
-    });
+    const updatedArray = [...workingArray].concat(buttonValue);
 
-    tempArray.push(buttonValue);
+    // If I'm sending this same array name to a function in the parent,
+    // and using it here as a state variable... how connected are those really?
+    setWorkingArray(updatedArray);
 
-    setWorkingArray(tempArray);
-    newSequenceCreated(tempArray);
+    // Add the count-in timer to this one .unshift() on the array to alter it?
+    newSequenceCreated(updatedArray);
   };
 
   useEffect(() => {

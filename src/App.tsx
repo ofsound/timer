@@ -12,17 +12,22 @@ function App() {
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
 
+  const [resetKey, setResetKey] = useState(0); // Initial key
+
   const handleResetClick = () => {
     setShowTimeline(false);
     setCurrentArray([]);
-    setRestartInputComponent(true);
     setShowInputComponent(true);
+
+    setResetKey((prevKey) => prevKey + 1);
+
+    // setRestartInputComponent(true);
 
     // Why manually resetting this back to false?
     // i want to call a function,
     // not switch a variable and then switch it back
     setTimeout(() => {
-      setRestartInputComponent(false);
+      // setRestartInputComponent(false);
     }, 10);
   };
 
@@ -43,6 +48,7 @@ function App() {
     <>
       {showInputComponent && (
         <InputComponent
+          key={resetKey}
           newSequenceCreated={handleNewSequenceCreated}
           restartTrigger={restartInputComponent}
         />
