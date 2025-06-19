@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SetComponent from "./SetComponent.tsx";
 
 import beepFile from "../assets/beep_01.wav";
@@ -8,6 +8,8 @@ type inputProps = {
 };
 
 function TimelineComponent({ currentArray }: inputProps) {
+  const beepAudio = useRef(new Audio(beepFile));
+
   const defaultPlayingArray = new Array(currentArray.length).fill(false);
   defaultPlayingArray[0] = true; // auto start the first one
 
@@ -21,10 +23,9 @@ function TimelineComponent({ currentArray }: inputProps) {
     if (afterFirstTrue < currentArray.length) returnArray[afterFirstTrue] = true;
 
     setPlayingArray(returnArray);
-  };
 
-  const beepAudio = new Audio(beepFile);
-  beepAudio.play();
+    beepAudio.current.play();
+  };
 
   let keyIndex = 0;
 
