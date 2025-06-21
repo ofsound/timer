@@ -40,11 +40,11 @@ function App() {
   return (
     <>
       {showInputs && <Inputs key={InputsKey} newSequenceCreated={handleNewSequenceCreated} />}
-      <div className="mt-10 flex justify-center gap-4">
+      <div className="mt-6 flex justify-center gap-4">
         {showStartButton && (
           <button
             onClick={handleStartClick}
-            className="mt-3 block cursor-pointer rounded-lg bg-green-800 px-3 py-2 text-white"
+            className="block cursor-pointer rounded-lg bg-green-800 px-3 py-2 text-white"
           >
             START
           </button>
@@ -52,7 +52,7 @@ function App() {
         {showResetButton && (
           <button
             onClick={handleResetClick}
-            className="mt-3 block cursor-pointer rounded-lg bg-red-800 px-3 py-2 text-white"
+            className="block cursor-pointer rounded-lg bg-red-800 px-3 py-2 text-white"
           >
             RESET
           </button>

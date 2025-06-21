@@ -22,19 +22,19 @@ function Inputs({ newSequenceCreated }: inputProps) {
 
   return (
     <>
-      <div className="mx-auto mb-10 flex max-w-66 flex-wrap pt-8">
+      <div className="mx-auto mb-6 flex max-w-66 flex-wrap pt-2">
         {buttonValueArray.map((item, index) => (
           <button
             onClick={() => buttonClickHandler(item)}
             key={index}
-            className="mx-auto mt-3 block w-18 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 px-5 py-4 text-lg tracking-wider text-white hover:border-blue-300"
+            className="mx-auto mt-3 block w-18 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 px-5 py-2 text-lg tracking-wider text-white hover:border-blue-300"
           >
             {item}
           </button>
         ))}
       </div>
 
-      <div className="mx-10 mt-10 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border">
+      <div className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border">
         {workingArray.map((inner, index) => (
           <div
             style={{ width: `${inner * 4}px` }}

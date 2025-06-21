@@ -27,6 +27,8 @@ function Runner({ durationMilliseconds, runComplete, isRunning }: inputProps) {
     animationLoop.current();
 
     return () => {
+      console.log("cancel");
+
       cancelAnimationFrame(animationRequestID.current);
     };
   }, []);
