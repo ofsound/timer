@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Inputs from "./components/Inputs.tsx";
+import Map from "./components/Map.tsx";
 import Timeline from "./components/Timeline.tsx";
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
 
   const [showInputs, setShowInputs] = useState(true);
   const [InputsKey, setInputsKey] = useState(0);
+
+  const [showMap, setShowMap] = useState(true);
 
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
@@ -26,12 +29,13 @@ function App() {
 
   const handleStartClick = () => {
     setShowTimeline(true);
-    setShowInputs(false);
+    // setShowInputs(false);
   };
 
   const handleNewSequenceCreated = (data: number[]) => {
     setShowStartButton(true);
     setShowResetButton(true);
+    setShowMap(true);
     const tempArray = data.map((item) => item);
     tempArray.unshift(3);
     setCurrentArray(tempArray);
@@ -40,6 +44,7 @@ function App() {
   return (
     <>
       {showInputs && <Inputs key={InputsKey} newSequenceCreated={handleNewSequenceCreated} />}
+      {showMap && <Map currentArray={currentArray} />}
       <div className="mt-6 flex justify-center gap-4">
         {showStartButton && (
           <button
