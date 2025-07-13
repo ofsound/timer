@@ -5,8 +5,6 @@ type inputProps = {
 };
 
 function Map({ currentArray }: inputProps) {
-  // const [workingArray, setWorkingArray] = useState<number[]>([]);
-
   return (
     <>
       <div className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border">

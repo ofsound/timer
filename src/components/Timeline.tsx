@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import Segment from "./Segment.tsx";
+import Runner from "./Runner.tsx";
 
 import beepFile from "../assets/beep_01.wav";
 
@@ -10,46 +10,36 @@ type inputProps = {
 function Timeline({ currentArray }: inputProps) {
   const beepAudio = useRef(new Audio(beepFile));
 
-  const defaultPlayingArray = new Array(currentArray.length).fill(false);
-  defaultPlayingArray[0] = true;
+  const [runnerID, setRunnerID] = useState(0);
 
-  let longestDuration = 0;
+  const handleRunnerComplete = () => {
+    console.log("handleRunnerComplete called.");
 
-  for (let i = 0; i < currentArray.length; i++) {
-    if (currentArray[i] > longestDuration) {
-      longestDuration = currentArray[i];
-    }
-  }
-
-  const [playingArray, setPlayingArray] = useState<boolean[]>(defaultPlayingArray);
-
-  const handleSetComplete = () => {
-    const afterFirstTrue = 1 + playingArray.findIndex((element) => element === true);
-
-    const returnArray: boolean[] = new Array(currentArray.length).fill(false);
-
-    if (afterFirstTrue < currentArray.length) returnArray[afterFirstTrue] = true;
-
-    setPlayingArray(returnArray);
+    console.log(runnerID);
+    console.log(currentArray.length);
 
     beepAudio.current.play();
+
+    if (runnerID < currentArray.length - 1) {
+      setRunnerID(runnerID + 1);
+    } else {
+      console.log("***");
+    }
   };
 
-  let keyIndex = 0;
+  const handleIsRunning = (runnerRatio: number) => {
+    // setProgressRatio(runnerRatio);
+    console.log(runnerRatio);
+  };
 
   return (
     <>
-      <section className="mx-10 mt-10 flex flex-col">
-        {currentArray.map((item) => (
-          <Segment
-            durationMilliseconds={item * 1000}
-            key={keyIndex++}
-            widthRatio={item / longestDuration}
-            setComplete={handleSetComplete}
-            trigger={playingArray[keyIndex]}
-          />
-        ))}
-      </section>
+      <Runner
+        durationMilliseconds={1000 * currentArray[runnerID]}
+        runComplete={handleRunnerComplete}
+        key={runnerID}
+        isRunning={handleIsRunning}
+      />
     </>
   );
 }
