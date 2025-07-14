@@ -6,6 +6,10 @@ import Map from "./components/Map.tsx";
 
 import Sound from "./components/Sound.tsx";
 
+interface SoundComponent {
+  play: () => void;
+}
+
 function App() {
   const [thisStep, setThisStep] = useState(0);
   const [thisRatio, setThisRatio] = useState(0);
@@ -17,7 +21,7 @@ function App() {
   const [inputsKey, setInputsKey] = useState(0);
 
   const [showSound, setShowSound] = useState(false);
-  const [soundKey, setSoundKey] = useState(0);
+  const soundRef = useRef<SoundComponent>(null);
 
   const [showMap, setShowMap] = useState(true);
 
@@ -58,13 +62,12 @@ function App() {
 
     if (runnerStep !== currentSet.current) {
       currentSet.current = runnerStep;
-      // setShowAudio(true);
-      setSoundKey((prevKey) => prevKey + 1);
+      soundRef.current?.play();
     }
   };
 
   const handleIsComplete = () => {
-    setSoundKey((prevKey) => prevKey + 1);
+    soundRef.current?.play();
   };
 
   return (
@@ -92,7 +95,7 @@ function App() {
       {showTimeline && (
         <Timeline currentArray={currentArray} isRunning={handleIsRunning} isComplete={handleIsComplete} />
       )}
-      {showSound && <Sound key={"sound" + soundKey} />}
+      {showSound && <Sound ref={soundRef} />}
     </>
   );
 }

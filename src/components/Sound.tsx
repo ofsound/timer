@@ -1,15 +1,22 @@
-import { useEffect, useRef } from "react";
+import { forwardRef, useImperativeHandle, useEffect, useRef } from "react";
 import beepFile from "../assets/beep_01.wav";
 
-function Sound() {
+const Sound = forwardRef((_props, ref) => {
   const beepAudio = useRef<HTMLAudioElement | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    play: () => {
+      if (beepAudio.current) {
+        beepAudio.current.play();
+      }
+    },
+  }));
 
   useEffect(() => {
     beepAudio.current = new Audio(beepFile);
-    beepAudio.current.play();
   }, []);
 
   return <></>;
-}
+});
 
 export default Sound;
