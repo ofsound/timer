@@ -3,13 +3,14 @@ import Runner from "./Runner.tsx";
 
 type inputProps = {
   currentArray: number[];
+  isRunning: (a: number, b: number) => void;
 };
 
-function Timeline({ currentArray }: inputProps) {
+function Timeline({ currentArray, isRunning }: inputProps) {
   const [runnerID, setRunnerID] = useState(0);
 
   const handleIsRunning = (runnerRatio: number) => {
-    console.log(runnerRatio);
+    isRunning(runnerID, runnerRatio);
   };
 
   const handleRunnerComplete = () => {

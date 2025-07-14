@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import Inputs from "./components/Inputs.tsx";
-import Map from "./components/Map.tsx";
 import Timeline from "./components/Timeline.tsx";
+import Map from "./components/Map.tsx";
+// import Audio from "./components/Audio.tsx";
+// import Cinema from "./components/Cinema.tsx";
 
 function App() {
+  const [thisStep, setThisStep] = useState(0);
+  const [thisRatio, setThisRatio] = useState(0);
+
   const [showTimeline, setShowTimeline] = useState(false);
   const [currentArray, setCurrentArray] = useState<number[]>([]);
 
@@ -41,10 +46,15 @@ function App() {
     setCurrentArray(tempArray);
   };
 
+  const handleIsRunning = (runnerStep: number, runnerRatio: number) => {
+    setThisRatio(runnerRatio);
+    setThisStep(runnerStep);
+  };
+
   return (
     <>
       {showInputs && <Inputs key={InputsKey} newSequenceCreated={handleNewSequenceCreated} />}
-      {showMap && <Map currentArray={currentArray} />}
+      {showMap && <Map currentArray={currentArray} thisRatio={thisRatio} thisStep={thisStep} />}
       <div className="mt-6 flex justify-center gap-4">
         {showStartButton && (
           <button
@@ -63,7 +73,7 @@ function App() {
           </button>
         )}
       </div>
-      {showTimeline && <Timeline currentArray={currentArray} />}
+      {showTimeline && <Timeline currentArray={currentArray} isRunning={handleIsRunning} />}
     </>
   );
 }
