@@ -18,8 +18,6 @@ function Map({ currentArray, thisRatio, thisStep }: inputProps) {
 
       const innerChild = activeChild.querySelector("#inner") as HTMLElement;
 
-      console.log(innerChild);
-
       if (innerChild) {
         innerChild.style.width = (100 * thisRatio).toString() + "%";
       }
@@ -38,11 +36,8 @@ function Map({ currentArray, thisRatio, thisStep }: inputProps) {
             key={index}
             className="relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-100 text-center font-bold text-black even:bg-gray-500"
           >
-            <div
-              id="inner"
-              className="absolute h-full w-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"
-            ></div>
-            <div className="absolute h-full w-full py-3">{inner}</div>
+            <div id="inner" className="absolute h-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+            <div className="absolute h-full w-full pt-2">{inner}</div>
           </div>
         ))}
       </div>

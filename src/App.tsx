@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import Inputs from "./components/Inputs.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Map from "./components/Map.tsx";
-// import Audio from "./components/Audio.tsx";
-// import Cinema from "./components/Cinema.tsx";
+
+import Sound from "./components/Sound.tsx";
 
 function App() {
   const [thisStep, setThisStep] = useState(0);
@@ -14,12 +14,17 @@ function App() {
   const [currentArray, setCurrentArray] = useState<number[]>([]);
 
   const [showInputs, setShowInputs] = useState(true);
-  const [InputsKey, setInputsKey] = useState(0);
+  const [inputsKey, setInputsKey] = useState(0);
+
+  const [showSound, setShowSound] = useState(false);
+  const [soundKey, setSoundKey] = useState(0);
 
   const [showMap, setShowMap] = useState(true);
 
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
+
+  const currentSet = useRef(0);
 
   const handleResetClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
@@ -34,6 +39,8 @@ function App() {
 
   const handleStartClick = () => {
     setShowTimeline(true);
+    setShowSound(true);
+
     // setShowInputs(false);
   };
 
@@ -48,11 +55,21 @@ function App() {
   const handleIsRunning = (runnerStep: number, runnerRatio: number) => {
     setThisRatio(runnerRatio);
     setThisStep(runnerStep);
+
+    if (runnerStep !== currentSet.current) {
+      currentSet.current = runnerStep;
+      // setShowAudio(true);
+      setSoundKey((prevKey) => prevKey + 1);
+    }
+  };
+
+  const handleIsComplete = () => {
+    setSoundKey((prevKey) => prevKey + 1);
   };
 
   return (
     <>
-      {showInputs && <Inputs key={InputsKey} newSequenceCreated={handleNewSequenceCreated} />}
+      {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       {showMap && <Map currentArray={currentArray} thisRatio={thisRatio} thisStep={thisStep} />}
       <div className="mt-6 flex justify-center gap-4">
         {showStartButton && (
@@ -72,7 +89,10 @@ function App() {
           </button>
         )}
       </div>
-      {showTimeline && <Timeline currentArray={currentArray} isRunning={handleIsRunning} />}
+      {showTimeline && (
+        <Timeline currentArray={currentArray} isRunning={handleIsRunning} isComplete={handleIsComplete} />
+      )}
+      {showSound && <Sound key={"sound" + soundKey} />}
     </>
   );
 }
