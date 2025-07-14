@@ -24,6 +24,7 @@ function App() {
   const soundRef = useRef<SoundComponent>(null);
 
   const [showMap, setShowMap] = useState(true);
+  // const [mapsKey, setMapsKey] = useState(0);
 
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
@@ -34,6 +35,10 @@ function App() {
     setInputsKey((prevKey) => prevKey + 1);
     setShowInputs(true);
 
+    currentSet.current = 0;
+    setThisRatio(0);
+    setThisStep(0);
+
     setShowStartButton(false);
     setShowResetButton(false);
 
@@ -43,8 +48,8 @@ function App() {
 
   const handleStartClick = () => {
     setShowTimeline(true);
+    // do i need this whole showSound structure anymore?
     setShowSound(true);
-
     // setShowInputs(false);
   };
 
