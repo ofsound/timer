@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 import Inputs from "./components/Inputs.tsx";
 import Timeline from "./components/Timeline.tsx";
@@ -37,13 +37,12 @@ function App() {
     // setShowInputs(false);
   };
 
+  // rename this data param
   const handleNewSequenceCreated = (data: number[]) => {
     setShowStartButton(true);
     setShowResetButton(true);
     setShowMap(true);
-    const tempArray = data.map((item) => item);
-    tempArray.unshift(3);
-    setCurrentArray(tempArray);
+    setCurrentArray(data);
   };
 
   const handleIsRunning = (runnerStep: number, runnerRatio: number) => {

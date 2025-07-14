@@ -5,6 +5,7 @@ type inputProps = {
 };
 
 function Inputs({ newSequenceCreated }: inputProps) {
+  const leadDuration = 3;
   const buttonValueArray = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120];
 
   const [workingArray, setWorkingArray] = useState<number[]>([]);
@@ -12,12 +13,9 @@ function Inputs({ newSequenceCreated }: inputProps) {
   const buttonClickHandler = (buttonValue: number) => {
     const updatedArray = [...workingArray].concat(buttonValue);
 
-    // If I'm sending this same array name to a function in the parent,
-    // and using it here as a state variable... how connected are those really?
     setWorkingArray(updatedArray);
 
-    // Add the count-in timer to this one .unshift() on the array to alter it?
-    newSequenceCreated(updatedArray);
+    newSequenceCreated([leadDuration, ...updatedArray]);
   };
 
   return (

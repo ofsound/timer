@@ -5,15 +5,24 @@ type inputProps = {
 };
 
 function Map({ currentArray, thisRatio, thisStep }: inputProps) {
-  // let parentElement = ;
+  const mapElement = document.getElementById("map") as HTMLElement;
 
-  const nthChild = document.getElementById("map")! as HTMLElement;
+  if (mapElement) {
+    [...mapElement.children].forEach((childElement) => {
+      childElement.classList.remove("animate-pulse");
+    });
 
-  if (nthChild) {
-    const activeChild = nthChild.children[thisStep] as HTMLElement;
-
+    const activeChild = mapElement.children[thisStep] as HTMLElement;
     if (activeChild) {
-      activeChild.style.opacity = thisRatio.toString();
+      activeChild.classList.add("animate-pulse");
+
+      const innerChild = activeChild.querySelector("#inner") as HTMLElement;
+
+      console.log(innerChild);
+
+      if (innerChild) {
+        innerChild.style.width = (100 * thisRatio).toString() + "%";
+      }
     }
   }
 
@@ -27,9 +36,13 @@ function Map({ currentArray, thisRatio, thisStep }: inputProps) {
           <div
             style={{ width: `${inner * 4}px` }}
             key={index}
-            className="block rounded-lg border border-black bg-gray-200 py-3 text-center font-bold text-black even:bg-gray-500"
+            className="relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-100 text-center font-bold text-black even:bg-gray-500"
           >
-            {inner}
+            <div
+              id="inner"
+              className="absolute h-full w-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"
+            ></div>
+            <div className="absolute h-full w-full py-3">{inner}</div>
           </div>
         ))}
       </div>
