@@ -34,7 +34,7 @@ function Map({ sequenceArray, thisRatio, thisStep }: inputProps) {
           <div
             style={{ width: `${inner * 4}px` }}
             key={index}
-            className="relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-100 text-center font-bold text-black even:bg-gray-500"
+            className="relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-700 text-center font-bold text-black first:hidden even:bg-gray-100"
           >
             <div id="inner" className="absolute h-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"></div>
             <div className="absolute h-full w-full pt-2">{inner}</div>
