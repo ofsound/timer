@@ -1,10 +1,10 @@
 type inputProps = {
-  currentArray: number[];
+  sequenceArray: number[];
   thisRatio: number;
   thisStep: number;
 };
 
-function Map({ currentArray, thisRatio, thisStep }: inputProps) {
+function Map({ sequenceArray, thisRatio, thisStep }: inputProps) {
   const mapElement = document.getElementById("map") as HTMLElement;
 
   if (mapElement) {
@@ -30,7 +30,7 @@ function Map({ currentArray, thisRatio, thisStep }: inputProps) {
         id="map"
         className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border"
       >
-        {currentArray.map((inner, index) => (
+        {sequenceArray.map((inner, index) => (
           <div
             style={{ width: `${inner * 4}px` }}
             key={index}

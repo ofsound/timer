@@ -2,12 +2,12 @@ import { useState } from "react";
 import Runner from "./Runner.tsx";
 
 type inputProps = {
-  currentArray: number[];
+  sequenceArray: number[];
   isRunning: (a: number, b: number) => void;
   runComplete: () => void;
 };
 
-function Timeline({ currentArray, isRunning, runComplete }: inputProps) {
+function Timeline({ sequenceArray, isRunning, runComplete }: inputProps) {
   const [runnerID, setRunnerID] = useState(0);
 
   const handleIsRunning = (runnerRatio: number) => {
@@ -15,7 +15,7 @@ function Timeline({ currentArray, isRunning, runComplete }: inputProps) {
   };
 
   const handleRunComplete = () => {
-    if (runnerID < currentArray.length - 1) {
+    if (runnerID < sequenceArray.length - 1) {
       setRunnerID(runnerID + 1);
     } else {
       runComplete();
@@ -26,7 +26,7 @@ function Timeline({ currentArray, isRunning, runComplete }: inputProps) {
     <>
       <Runner
         key={runnerID}
-        durationMilliseconds={1000 * currentArray[runnerID]}
+        durationMilliseconds={1000 * sequenceArray[runnerID]}
         isRunning={handleIsRunning}
         runComplete={handleRunComplete}
       />

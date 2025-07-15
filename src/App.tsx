@@ -14,7 +14,7 @@ function App() {
   const [thisRatio, setThisRatio] = useState(0);
 
   const [showTimeline, setShowTimeline] = useState(false);
-  const [currentArray, setCurrentArray] = useState<number[]>([]);
+  const [sequenceArray, setSequenceArray] = useState<number[]>([]);
 
   const [showInputs, setShowInputs] = useState(true);
   const [inputsKey, setInputsKey] = useState(0);
@@ -26,20 +26,20 @@ function App() {
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
 
-  const currentSet = useRef(0);
+  const lastStep = useRef(0);
 
   const handleResetClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
     setShowInputs(true);
 
-    currentSet.current = 0;
+    lastStep.current = 0;
     setThisRatio(0);
     setThisStep(0);
 
     setShowStartButton(false);
     setShowResetButton(false);
 
-    setCurrentArray([]);
+    setSequenceArray([]);
     setShowTimeline(false);
   };
 
@@ -51,15 +51,15 @@ function App() {
     setShowStartButton(true);
     setShowResetButton(true);
     setShowMap(true);
-    setCurrentArray(newSequence);
+    setSequenceArray(newSequence);
   };
 
   const handleIsRunning = (runnerStep: number, runnerRatio: number) => {
     setThisRatio(runnerRatio);
     setThisStep(runnerStep);
 
-    if (runnerStep !== currentSet.current) {
-      currentSet.current = runnerStep;
+    if (runnerStep !== lastStep.current) {
+      lastStep.current = runnerStep;
       soundRef.current?.play();
     }
   };
@@ -71,7 +71,7 @@ function App() {
   return (
     <>
       {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
-      {showMap && <Map currentArray={currentArray} thisRatio={thisRatio} thisStep={thisStep} />}
+      {showMap && <Map sequenceArray={sequenceArray} thisRatio={thisRatio} thisStep={thisStep} />}
       <div className="mt-6 flex justify-center gap-4">
         {showStartButton && (
           <button
@@ -91,7 +91,7 @@ function App() {
         )}
       </div>
       {showTimeline && (
-        <Timeline currentArray={currentArray} isRunning={handleIsRunning} runComplete={handleRunComplete} />
+        <Timeline sequenceArray={sequenceArray} isRunning={handleIsRunning} runComplete={handleRunComplete} />
       )}
       <Sound ref={soundRef} />
     </>
