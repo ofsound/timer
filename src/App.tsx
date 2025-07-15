@@ -3,7 +3,6 @@ import { useState, useRef } from "react";
 import Inputs from "./components/Inputs.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Map from "./components/Map.tsx";
-
 import Sound from "./components/Sound.tsx";
 
 interface SoundComponent {
@@ -20,11 +19,9 @@ function App() {
   const [showInputs, setShowInputs] = useState(true);
   const [inputsKey, setInputsKey] = useState(0);
 
-  const [showSound, setShowSound] = useState(false);
   const soundRef = useRef<SoundComponent>(null);
 
   const [showMap, setShowMap] = useState(true);
-  // const [mapsKey, setMapsKey] = useState(0);
 
   const [showStartButton, setShowStartButton] = useState(false);
   const [showResetButton, setShowResetButton] = useState(false);
@@ -48,9 +45,6 @@ function App() {
 
   const handleStartClick = () => {
     setShowTimeline(true);
-    // do i need this whole showSound structure anymore?
-    setShowSound(true);
-    // setShowInputs(false);
   };
 
   // rename this data param
@@ -100,7 +94,7 @@ function App() {
       {showTimeline && (
         <Timeline currentArray={currentArray} isRunning={handleIsRunning} isComplete={handleIsComplete} />
       )}
-      {showSound && <Sound ref={soundRef} />}
+      <Sound ref={soundRef} />
     </>
   );
 }
