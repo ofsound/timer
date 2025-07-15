@@ -69,9 +69,9 @@ function App() {
   };
 
   return (
-    <>
+    <div className="h-full bg-gray-800">
       {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
-      {showMap && <Map sequenceArray={sequenceArray} thisRatio={thisRatio} thisStep={thisStep} />}
+      {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
       <div className="mt-6 flex justify-center gap-4">
         {showStartButton && (
           <button
@@ -94,7 +94,7 @@ function App() {
         <Timeline sequenceArray={sequenceArray} isRunning={handleIsRunning} runComplete={handleRunComplete} />
       )}
       <Sound ref={soundRef} />
-    </>
+    </div>
   );
 }
 

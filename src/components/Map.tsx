@@ -1,10 +1,10 @@
 type inputProps = {
   sequenceArray: number[];
-  thisRatio: number;
   thisStep: number;
+  thisRatio: number;
 };
 
-function Map({ sequenceArray, thisRatio, thisStep }: inputProps) {
+function Map({ sequenceArray, thisStep, thisRatio }: inputProps) {
   const mapElement = document.getElementById("map") as HTMLElement;
 
   if (mapElement) {
@@ -31,23 +31,21 @@ function Map({ sequenceArray, thisRatio, thisStep }: inputProps) {
   }
 
   return (
-    <>
-      <div
-        id="map"
-        className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border"
-      >
-        {sequenceArray.map((inner, index) => (
-          <div
-            style={{ width: `${inner * 5}px` }}
-            key={index}
-            className="relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-700 text-center font-bold text-black first:hidden even:bg-gray-100"
-          >
-            <div id="inner" className="absolute h-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"></div>
-            <div className="absolute h-full w-full pt-2">{inner}</div>
-          </div>
-        ))}
-      </div>
-    </>
+    <div
+      id="map"
+      className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border"
+    >
+      {sequenceArray.map((inner, index) => (
+        <div
+          style={{ width: `${inner * 5}px` }}
+          key={index}
+          className="relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-700 text-center font-bold text-black first:hidden even:bg-gray-100"
+        >
+          <div id="inner" className="absolute h-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+          <div className="absolute h-full w-full pt-2">{inner}</div>
+        </div>
+      ))}
+    </div>
   );
 }
 
