@@ -10,6 +10,8 @@ interface SoundComponent {
 }
 
 function App() {
+  const appElement = document.getElementById("app") as HTMLElement;
+
   const [thisStep, setThisStep] = useState(-1);
   const [thisRatio, setThisRatio] = useState(0);
 
@@ -60,8 +62,16 @@ function App() {
 
     if (runnerStep !== lastStep.current) {
       lastStep.current = runnerStep;
-      soundRef.current?.play();
+      handleStepComplete();
     }
+  };
+
+  const handleStepComplete = () => {
+    soundRef.current?.play();
+    appElement.classList.add("bg-white");
+    setTimeout(() => {
+      appElement.classList.remove("bg-white");
+    }, 350);
   };
 
   const handleRunComplete = () => {
@@ -69,7 +79,7 @@ function App() {
   };
 
   return (
-    <div className="h-full bg-gray-800">
+    <div id="app" className="h-full bg-gray-800 duration-300">
       {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
       <div className="mt-6 flex justify-center gap-4">
