@@ -47,12 +47,11 @@ function App() {
     setShowTimeline(true);
   };
 
-  // rename this data param
-  const handleNewSequenceCreated = (data: number[]) => {
+  const handleNewSequenceCreated = (newSequence: number[]) => {
     setShowStartButton(true);
     setShowResetButton(true);
     setShowMap(true);
-    setCurrentArray(data);
+    setCurrentArray(newSequence);
   };
 
   const handleIsRunning = (runnerStep: number, runnerRatio: number) => {
@@ -65,7 +64,7 @@ function App() {
     }
   };
 
-  const handleIsComplete = () => {
+  const handleRunComplete = () => {
     soundRef.current?.play();
   };
 
@@ -92,7 +91,7 @@ function App() {
         )}
       </div>
       {showTimeline && (
-        <Timeline currentArray={currentArray} isRunning={handleIsRunning} isComplete={handleIsComplete} />
+        <Timeline currentArray={currentArray} isRunning={handleIsRunning} runComplete={handleRunComplete} />
       )}
       <Sound ref={soundRef} />
     </>

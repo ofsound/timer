@@ -4,22 +4,21 @@ import Runner from "./Runner.tsx";
 type inputProps = {
   currentArray: number[];
   isRunning: (a: number, b: number) => void;
-  isComplete: () => void;
+  runComplete: () => void;
 };
 
-function Timeline({ currentArray, isRunning, isComplete }: inputProps) {
+function Timeline({ currentArray, isRunning, runComplete }: inputProps) {
   const [runnerID, setRunnerID] = useState(0);
 
   const handleIsRunning = (runnerRatio: number) => {
     isRunning(runnerID, runnerRatio);
   };
 
-  const handleRunnerComplete = () => {
+  const handleRunComplete = () => {
     if (runnerID < currentArray.length - 1) {
       setRunnerID(runnerID + 1);
     } else {
-      // console.log("Timeline Complete.");
-      isComplete();
+      runComplete();
     }
   };
 
@@ -29,7 +28,7 @@ function Timeline({ currentArray, isRunning, isComplete }: inputProps) {
         key={runnerID}
         durationMilliseconds={1000 * currentArray[runnerID]}
         isRunning={handleIsRunning}
-        runComplete={handleRunnerComplete}
+        runComplete={handleRunComplete}
       />
     </>
   );
