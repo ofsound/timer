@@ -12,20 +12,20 @@ function Map({ sequenceArray, thisRatio, thisStep }: inputProps) {
       childElement.classList.remove("animate-pulse");
     });
 
-    const activeChild = mapElement.children[thisStep] as HTMLElement;
-    if (activeChild) {
-      if (thisStep == 0) {
-        mapElement.classList.add("animate-pulse");
-      } else {
-        mapElement.classList.remove("animate-pulse");
-      }
+    if (thisStep == 0) {
+      mapElement.classList.add("animate-pulse");
+    } else {
+      mapElement.classList.remove("animate-pulse");
+    }
 
-      activeChild.classList.add("animate-pulse");
+    const activeSegment = mapElement.children[thisStep] as HTMLElement;
+    if (activeSegment) {
+      activeSegment.classList.add("animate-pulse");
 
-      const innerChild = activeChild.querySelector("#inner") as HTMLElement;
+      const innerSegment = activeSegment.querySelector("#inner") as HTMLElement;
 
-      if (innerChild) {
-        innerChild.style.width = (100 * thisRatio).toString() + "%";
+      if (innerSegment) {
+        innerSegment.style.width = (100 * thisRatio).toString() + "%";
       }
     }
   }
