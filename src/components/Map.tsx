@@ -14,6 +14,12 @@ function Map({ sequenceArray, thisRatio, thisStep }: inputProps) {
 
     const activeChild = mapElement.children[thisStep] as HTMLElement;
     if (activeChild) {
+      if (thisStep == 0) {
+        mapElement.classList.add("animate-pulse");
+      } else {
+        mapElement.classList.remove("animate-pulse");
+      }
+
       activeChild.classList.add("animate-pulse");
 
       const innerChild = activeChild.querySelector("#inner") as HTMLElement;
@@ -28,11 +34,11 @@ function Map({ sequenceArray, thisRatio, thisStep }: inputProps) {
     <>
       <div
         id="map"
-        className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-white p-2 has-[div]:border"
+        className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border"
       >
         {sequenceArray.map((inner, index) => (
           <div
-            style={{ width: `${inner * 4}px` }}
+            style={{ width: `${inner * 5}px` }}
             key={index}
             className="relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-700 text-center font-bold text-black first:hidden even:bg-gray-100"
           >

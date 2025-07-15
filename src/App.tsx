@@ -10,7 +10,7 @@ interface SoundComponent {
 }
 
 function App() {
-  const [thisStep, setThisStep] = useState(0);
+  const [thisStep, setThisStep] = useState(-1);
   const [thisRatio, setThisRatio] = useState(0);
 
   const [showTimeline, setShowTimeline] = useState(false);
@@ -34,7 +34,7 @@ function App() {
 
     lastStep.current = 0;
     setThisRatio(0);
-    setThisStep(0);
+    setThisStep(-1);
 
     setShowStartButton(false);
     setShowResetButton(false);
