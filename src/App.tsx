@@ -66,16 +66,16 @@ function App() {
     }
   };
 
+  const handleRunComplete = () => {
+    handleStepComplete();
+  };
+
   const handleStepComplete = () => {
     soundRef.current?.play();
     appElement.classList.add("bg-white");
     setTimeout(() => {
       appElement.classList.remove("bg-white");
     }, 350);
-  };
-
-  const handleRunComplete = () => {
-    soundRef.current?.play();
   };
 
   return (
@@ -100,6 +100,7 @@ function App() {
           </button>
         )}
       </div>
+      {/* maybe isRunning and RunComplete should be timelineIsRunning, timelineCompete  */}
       {showTimeline && (
         <Timeline sequenceArray={sequenceArray} isRunning={handleIsRunning} runComplete={handleRunComplete} />
       )}
