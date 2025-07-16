@@ -4,16 +4,21 @@ type inputProps = {
   sequenceArray: number[];
   thisStep: number;
   thisRatio: number;
-  historyMap?: boolean;
+  isHistoryMap?: boolean;
 };
 
-function Map({ sequenceArray, thisStep, thisRatio, historyMap }: inputProps) {
+function Map({ sequenceArray, thisStep, thisRatio, isHistoryMap }: inputProps) {
   return (
     <div
-      className={`${historyMap && "border-none"} mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border`}
+      className={`${isHistoryMap && "border-none"} mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border`}
     >
-      {sequenceArray.map((inner, index) => (
-        <MapSegment key={index} active={thisStep == index ? true : false} inner={inner} ratio={thisRatio} />
+      {sequenceArray.map((durationSeconds, index) => (
+        <MapSegment
+          key={index}
+          isActive={thisStep == index ? true : false}
+          durationSeconds={durationSeconds}
+          progressRatio={thisRatio}
+        />
       ))}
     </div>
   );

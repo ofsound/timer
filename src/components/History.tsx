@@ -4,19 +4,19 @@ function History() {
   return (
     <div className="">
       <a href="#">
-        <Map sequenceArray={[0, 20, 3, 20, 3, 5]} historyMap={true} thisStep={0} thisRatio={1} />
+        <Map sequenceArray={[0, 20, 3, 20, 3, 5]} isHistoryMap={true} thisStep={0} thisRatio={1} />
       </a>
       <a href="#">
-        <Map sequenceArray={[30, 2, 3, 2, 3]} historyMap={true} thisStep={0} thisRatio={1} />
+        <Map sequenceArray={[30, 2, 3, 2, 3]} isHistoryMap={true} thisStep={0} thisRatio={1} />
       </a>
       <a href="#">
-        <Map sequenceArray={[0, 2, 30, 2, 30]} historyMap={true} thisStep={0} thisRatio={1} />
+        <Map sequenceArray={[0, 2, 30, 2, 30]} isHistoryMap={true} thisStep={0} thisRatio={1} />
       </a>
       <a href="#">
-        <Map sequenceArray={[0, 22, 3]} historyMap={true} thisStep={0} thisRatio={1} />
+        <Map sequenceArray={[0, 22, 3]} isHistoryMap={true} thisStep={0} thisRatio={1} />
       </a>
       <a href="#">
-        <Map sequenceArray={[0, 2, 30]} historyMap={true} thisStep={0} thisRatio={1} />
+        <Map sequenceArray={[0, 2, 30]} isHistoryMap={true} thisStep={0} thisRatio={1} />
       </a>
     </div>
   );
