@@ -10,6 +10,11 @@ interface SoundComponent {
   play: () => void;
 }
 
+interface historyRowObject {
+  isPinned: boolean;
+  sequenceArray: number[];
+}
+
 function App() {
   const appElement = document.getElementById("app") as HTMLElement;
 
@@ -19,7 +24,7 @@ function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [sequenceArray, setSequenceArray] = useState<number[]>([]);
 
-  const [historyArray, setHistoryArray] = useState<Array<Array<number>>>([]);
+  const [historyArray, setHistoryArray] = useState<Array<historyRowObject>>([]);
 
   const [showInputs, setShowInputs] = useState(true);
   const [inputsKey, setInputsKey] = useState(0);
@@ -83,12 +88,14 @@ function App() {
   };
 
   const addToHistoryArray = (launchedSequence: number[]) => {
-    console.log(launchedSequence);
     const tempArray = [...historyArray];
-    console.log(tempArray);
 
-    tempArray.push(launchedSequence);
-    console.log(tempArray);
+    const historyRowObject = {
+      isPinned: false,
+      sequenceArray: launchedSequence,
+    };
+
+    tempArray.push(historyRowObject);
 
     setHistoryArray(tempArray);
   };
@@ -118,7 +125,6 @@ function App() {
           </button>
         )}
       </div>
-      {/* maybe isRunning and RunComplete should be timelineIsRunning, timelineCompete  */}
       {showTimeline && (
         <Timeline
           sequenceArray={sequenceArray}

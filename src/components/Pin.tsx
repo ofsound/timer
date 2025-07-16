@@ -1,10 +1,11 @@
 type inputProps = {
+  isPinned: boolean;
   onClick: React.MouseEventHandler<HTMLElement>;
 };
 
-function Pin({ onClick }: inputProps) {
+function Pin({ onClick, isPinned }: inputProps) {
   return (
-    <div onClick={onClick} className="pt-5 pl-2">
+    <div style={{ opacity: isPinned ? 1 : 0.4 }} onClick={onClick} className="cursor-pointer pt-5 pl-2 select-none">
       📌
     </div>
   );

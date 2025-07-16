@@ -1,33 +1,37 @@
 import Map from "../components/Map.tsx";
 import Pin from "../components/Pin.tsx";
 
+interface historyRowObject {
+  isPinned: boolean;
+  sequenceArray: number[];
+}
+
 type inputProps = {
-  historyArray: Array<Array<number>>;
+  historyArray: historyRowObject[];
   newSequenceCreated: (a: number[]) => void;
 };
 
 function History({ historyArray, newSequenceCreated }: inputProps) {
   const handleRowClick = (index: number) => {
-    newSequenceCreated(historyArray[index]);
+    newSequenceCreated(historyArray[index].sequenceArray);
   };
 
-  const handlePinClick = () => {
-    alert("togglePin!");
+  const handlePinClick = (index: number) => {
+    historyArray[index].isPinned = !historyArray[index].isPinned;
   };
 
   return (
     <div>
-      {historyArray.map((innerArray, index) => (
-        <div className="flex">
+      {historyArray.map((historyRow, index) => (
+        <div key={index} className="flex">
           <Map
-            key={index}
             onClick={() => handleRowClick(index)}
-            sequenceArray={innerArray}
+            sequenceArray={historyRow.sequenceArray}
             isHistoryMap={true}
             thisStep={0}
             thisRatio={1}
           />
-          <Pin onClick={() => handlePinClick()} />
+          <Pin isPinned={historyArray[index].isPinned} onClick={() => handlePinClick(index)} />
         </div>
       ))}
     </div>
