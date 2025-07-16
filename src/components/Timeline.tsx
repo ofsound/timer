@@ -8,15 +8,15 @@ type inputProps = {
 };
 
 function Timeline({ sequenceArray, timelineRunning, timelineComplete }: inputProps) {
-  const [runnerID, setRunnerID] = useState(0);
+  const [runnerIndex, setRunnerIndex] = useState(0);
 
   const handleIsRunning = (runnerRatio: number) => {
-    timelineRunning(runnerID, runnerRatio);
+    timelineRunning(runnerIndex, runnerRatio);
   };
 
   const handleRunComplete = () => {
-    if (runnerID < sequenceArray.length - 1) {
-      setRunnerID(runnerID + 1);
+    if (runnerIndex < sequenceArray.length - 1) {
+      setRunnerIndex(runnerIndex + 1);
     } else {
       timelineComplete();
     }
@@ -25,8 +25,8 @@ function Timeline({ sequenceArray, timelineRunning, timelineComplete }: inputPro
   return (
     <>
       <Runner
-        key={runnerID}
-        durationMilliseconds={1000 * sequenceArray[runnerID]}
+        key={runnerIndex}
+        durationMilliseconds={1000 * sequenceArray[runnerIndex]}
         isRunning={handleIsRunning}
         runComplete={handleRunComplete}
       />
