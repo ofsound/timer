@@ -1,23 +1,22 @@
 import Map from "../components/Map.tsx";
 
-function History() {
+type inputProps = {
+  historyArray: Array<Array<number>>;
+  newSequenceCreated: (a: number[]) => void;
+};
+
+function History({ historyArray, newSequenceCreated }: inputProps) {
+  const handleClick = (index: number) => {
+    newSequenceCreated(historyArray[index]);
+  };
+
   return (
     <div className="">
-      <a href="#">
-        <Map sequenceArray={[0, 20, 3, 20, 3, 5]} isHistoryMap={true} thisStep={0} thisRatio={1} />
-      </a>
-      <a href="#">
-        <Map sequenceArray={[30, 2, 3, 2, 3]} isHistoryMap={true} thisStep={0} thisRatio={1} />
-      </a>
-      <a href="#">
-        <Map sequenceArray={[0, 2, 30, 2, 30]} isHistoryMap={true} thisStep={0} thisRatio={1} />
-      </a>
-      <a href="#">
-        <Map sequenceArray={[0, 22, 3]} isHistoryMap={true} thisStep={0} thisRatio={1} />
-      </a>
-      <a href="#">
-        <Map sequenceArray={[0, 2, 30]} isHistoryMap={true} thisStep={0} thisRatio={1} />
-      </a>
+      {historyArray.map((innerArray, index) => (
+        <button className="block" onClick={() => handleClick(index)}>
+          <Map sequenceArray={innerArray} isHistoryMap={true} thisStep={0} thisRatio={1} />
+        </button>
+      ))}
     </div>
   );
 }

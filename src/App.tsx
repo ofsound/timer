@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-// import History from "./components/History.tsx";
+import History from "./components/History.tsx";
 import Inputs from "./components/Inputs.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Map from "./components/Map.tsx";
@@ -18,6 +18,14 @@ function App() {
 
   const [showTimeline, setShowTimeline] = useState(false);
   const [sequenceArray, setSequenceArray] = useState<number[]>([]);
+
+  const [historyArray, setHistoryArray] = useState<Array<Array<number>>>([
+    [5, 5, 5, 15, 5],
+    [5, 15, 5, 5, 5],
+    [5, 5, 5, 15, 5],
+    [5, 15, 5, 5, 5],
+    [5, 5, 5, 15, 5],
+  ]);
 
   const [showInputs, setShowInputs] = useState(true);
   const [inputsKey, setInputsKey] = useState(0);
@@ -82,7 +90,7 @@ function App() {
   return (
     <div id="app" className="h-full bg-gray-800 px-10 duration-300">
       <div className="flex">
-        {/* <History /> */}
+        <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
         {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       </div>
       {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
