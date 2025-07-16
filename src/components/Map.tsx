@@ -2,9 +2,10 @@ type inputProps = {
   sequenceArray: number[];
   thisStep: number;
   thisRatio: number;
+  historyMap?: boolean;
 };
 
-function Map({ sequenceArray, thisStep, thisRatio }: inputProps) {
+function Map({ sequenceArray, thisStep, thisRatio, historyMap }: inputProps) {
   const mapElement = document.getElementById("map") as HTMLElement;
 
   if (mapElement) {
@@ -33,8 +34,9 @@ function Map({ sequenceArray, thisStep, thisRatio }: inputProps) {
   return (
     <div
       id="map"
-      className="mx-10 mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border"
+      className="mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border"
     >
+      {historyMap && <p>just a link</p>}
       {sequenceArray.map((inner, index) => (
         <div
           style={{ width: `${inner * 5}px` }}

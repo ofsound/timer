@@ -20,7 +20,7 @@ function Inputs({ newSequenceCreated }: inputProps) {
 
   return (
     <>
-      <div className="mx-auto mb-6 flex max-w-66 flex-wrap pt-2">
+      <div className="mb-6 ml-auto flex max-w-66 flex-wrap pt-2">
         {buttonValueArray.map((item, index) => (
           <button
             onClick={() => buttonClickHandler(item)}
