@@ -2,7 +2,7 @@ import Map from "../components/Map.tsx";
 
 function History() {
   return (
-    <div className="bg-amber-900 p-2">
+    <div className="">
       <a href="#">
         <Map sequenceArray={[0, 20, 3, 20, 3, 5]} historyMap={true} thisStep={0} thisRatio={1} />
       </a>

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-import History from "./components/History.tsx";
+// import History from "./components/History.tsx";
 import Inputs from "./components/Inputs.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Map from "./components/Map.tsx";
@@ -82,7 +82,7 @@ function App() {
   return (
     <div id="app" className="h-full bg-gray-800 px-10 duration-300">
       <div className="flex">
-        <History />
+        {/* <History /> */}
         {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       </div>
       {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
