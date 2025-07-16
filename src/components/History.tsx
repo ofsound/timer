@@ -1,4 +1,5 @@
 import Map from "../components/Map.tsx";
+import Pin from "../components/Pin.tsx";
 
 type inputProps = {
   historyArray: Array<Array<number>>;
@@ -6,16 +7,28 @@ type inputProps = {
 };
 
 function History({ historyArray, newSequenceCreated }: inputProps) {
-  const handleClick = (index: number) => {
+  const handleRowClick = (index: number) => {
     newSequenceCreated(historyArray[index]);
   };
 
+  const handlePinClick = () => {
+    alert("togglePin!");
+  };
+
   return (
-    <div className="">
+    <div>
       {historyArray.map((innerArray, index) => (
-        <button className="block" onClick={() => handleClick(index)}>
-          <Map sequenceArray={innerArray} isHistoryMap={true} thisStep={0} thisRatio={1} />
-        </button>
+        <div className="flex">
+          <Map
+            key={index}
+            onClick={() => handleRowClick(index)}
+            sequenceArray={innerArray}
+            isHistoryMap={true}
+            thisStep={0}
+            thisRatio={1}
+          />
+          <Pin onClick={() => handlePinClick()} />
+        </div>
       ))}
     </div>
   );

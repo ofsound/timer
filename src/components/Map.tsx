@@ -5,11 +5,13 @@ type inputProps = {
   thisStep: number;
   thisRatio: number;
   isHistoryMap?: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-function Map({ sequenceArray, thisStep, thisRatio, isHistoryMap }: inputProps) {
+function Map({ sequenceArray, thisStep, thisRatio, isHistoryMap, onClick }: inputProps) {
   return (
     <div
+      onClick={isHistoryMap ? onClick : undefined}
       className={`${isHistoryMap ? "mt-4 flex gap-1 border-none" : "mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border"}`}
     >
       {sequenceArray.map((durationSeconds, index) => (

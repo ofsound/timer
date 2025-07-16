@@ -19,13 +19,7 @@ function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [sequenceArray, setSequenceArray] = useState<number[]>([]);
 
-  const [historyArray, setHistoryArray] = useState<Array<Array<number>>>([
-    [5, 5, 5, 15, 5],
-    [5, 15, 5, 5, 5],
-    [5, 5, 5, 15, 5],
-    [5, 15, 5, 5, 5],
-    [5, 5, 5, 15, 5],
-  ]);
+  const [historyArray, setHistoryArray] = useState<Array<Array<number>>>([]);
 
   const [showInputs, setShowInputs] = useState(true);
   const [inputsKey, setInputsKey] = useState(0);
@@ -56,6 +50,7 @@ function App() {
 
   const handleStartClick = () => {
     setShowTimeline(true);
+    addToHistoryArray(sequenceArray);
   };
 
   const handleNewSequenceCreated = (newSequence: number[]) => {
@@ -85,6 +80,17 @@ function App() {
     setTimeout(() => {
       appElement.classList.remove("bg-white");
     }, 350);
+  };
+
+  const addToHistoryArray = (launchedSequence: number[]) => {
+    console.log(launchedSequence);
+    const tempArray = [...historyArray];
+    console.log(tempArray);
+
+    tempArray.push(launchedSequence);
+    console.log(tempArray);
+
+    setHistoryArray(tempArray);
   };
 
   return (
