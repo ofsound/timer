@@ -10,7 +10,6 @@ type inputProps = {
 function Map({ sequenceArray, thisStep, thisRatio, historyMap }: inputProps) {
   return (
     <div
-      id="map"
       className={`${historyMap && "border-none"} mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border`}
     >
       {sequenceArray.map((inner, index) => (

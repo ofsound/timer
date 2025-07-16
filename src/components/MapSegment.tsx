@@ -11,7 +11,6 @@ function MapSegment({ active, inner, ratio }: inputProps) {
       className={`${active && "animate-pulse"} relative block h-10 overflow-hidden rounded-lg border border-black bg-gray-700 text-center font-bold text-black first:hidden even:bg-gray-100`}
     >
       <div
-        id="inner"
         style={{ width: active ? (100 * ratio).toString() + "%" : "0px" }}
         className="absolute h-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"
       ></div>
