@@ -57,7 +57,7 @@ function App() {
     setSequenceArray(newSequence);
   };
 
-  const handleIsRunning = (runnerStep: number, runnerRatio: number) => {
+  const handleTimelineRunning = (runnerStep: number, runnerRatio: number) => {
     setThisRatio(runnerRatio);
     setThisStep(runnerStep);
 
@@ -67,7 +67,7 @@ function App() {
     }
   };
 
-  const handleRunComplete = () => {
+  const handleTimelineComplete = () => {
     handleStepComplete();
   };
 
@@ -106,7 +106,11 @@ function App() {
       </div>
       {/* maybe isRunning and RunComplete should be timelineIsRunning, timelineCompete  */}
       {showTimeline && (
-        <Timeline sequenceArray={sequenceArray} isRunning={handleIsRunning} runComplete={handleRunComplete} />
+        <Timeline
+          sequenceArray={sequenceArray}
+          timelineRunning={handleTimelineRunning}
+          timelineComplete={handleTimelineComplete}
+        />
       )}
       <Sound ref={soundRef} />
     </div>

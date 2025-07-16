@@ -3,22 +3,22 @@ import Runner from "./Runner.tsx";
 
 type inputProps = {
   sequenceArray: number[];
-  isRunning: (a: number, b: number) => void;
-  runComplete: () => void;
+  timelineRunning: (a: number, b: number) => void;
+  timelineComplete: () => void;
 };
 
-function Timeline({ sequenceArray, isRunning, runComplete }: inputProps) {
+function Timeline({ sequenceArray, timelineRunning, timelineComplete }: inputProps) {
   const [runnerID, setRunnerID] = useState(0);
 
   const handleIsRunning = (runnerRatio: number) => {
-    isRunning(runnerID, runnerRatio);
+    timelineRunning(runnerID, runnerRatio);
   };
 
   const handleRunComplete = () => {
     if (runnerID < sequenceArray.length - 1) {
       setRunnerID(runnerID + 1);
     } else {
-      runComplete();
+      timelineComplete();
     }
   };
 
