@@ -105,11 +105,11 @@ function App() {
       {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
       <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
-      <div className="mt-auto flex justify-center gap-4 border-1 border-white py-3">
+      <div className="mt-auto flex justify-center gap-4 py-4">
         {showStartButton && (
           <button
             onClick={handleStartClick}
-            className="block cursor-pointer rounded-lg bg-green-800 px-3 py-2 text-white"
+            className="block h-20 w-20 cursor-pointer rounded-full bg-green-800 px-3 py-3 text-white"
           >
             START
           </button>

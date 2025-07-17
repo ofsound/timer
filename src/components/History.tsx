@@ -23,7 +23,7 @@ function History({ historyArray, newSequenceCreated }: inputProps) {
   };
 
   return (
-    <div className="">
+    <div className="mx-auto mt-6 max-w-3/4">
       {historyArray.map((historyRow, index) => (
         <div key={index} className="flex">
           <Map
