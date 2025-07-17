@@ -17,11 +17,13 @@ function History({ historyArray, newSequenceCreated }: inputProps) {
   };
 
   const handlePinClick = (index: number) => {
+    console.log(!historyArray[index].isPinned);
+
     historyArray[index].isPinned = !historyArray[index].isPinned;
   };
 
   return (
-    <div>
+    <div className="max-w-3/8">
       {historyArray.map((historyRow, index) => (
         <div key={index} className="flex">
           <Map
