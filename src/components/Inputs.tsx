@@ -20,12 +20,12 @@ function Inputs({ newSequenceCreated }: inputProps) {
 
   return (
     <>
-      <div className="mb-6 ml-auto flex max-w-66 flex-wrap pt-2">
+      <div className="mb-6 ml-auto flex flex-wrap justify-between gap-1 pt-2">
         {buttonValueArray.map((item, index) => (
           <button
             onClick={() => buttonClickHandler(item)}
             key={index}
-            className="mx-auto mt-3 block w-18 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 px-5 py-2 text-lg tracking-wider text-white hover:border-blue-300"
+            className="mt-3 block w-5/16 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 py-2 text-lg tracking-wider text-white hover:border-blue-300"
           >
             {item}
           </button>
