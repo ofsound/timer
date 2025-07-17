@@ -25,7 +25,7 @@ function Inputs({ newSequenceCreated }: inputProps) {
           <button
             onClick={() => buttonClickHandler(item)}
             key={index}
-            className="mt-3 block w-5/16 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 py-2 text-lg tracking-wider text-white hover:border-blue-300"
+            className="mt-3 block w-1/6 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 py-2 text-lg tracking-wider text-white hover:border-blue-300"
           >
             {item}
           </button>

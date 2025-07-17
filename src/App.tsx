@@ -101,13 +101,11 @@ function App() {
   };
 
   return (
-    <div id="app" className="mx-auto h-full max-w-[375px] bg-gray-800 px-10 duration-300">
-      <div className="flex gap-4 [&>div]:max-w-1/2">
-        <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
-        {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
-      </div>
+    <div id="app" className="mx-auto flex h-full max-h-[667px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
+      {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
-      <div className="mt-6 flex justify-center gap-4">
+      <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
+      <div className="mt-auto flex justify-center gap-4 border-1 border-white py-3">
         {showStartButton && (
           <button
             onClick={handleStartClick}
