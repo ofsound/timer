@@ -101,8 +101,8 @@ function App() {
   };
 
   return (
-    <div id="app" className="h-full bg-gray-800 px-10 duration-300">
-      <div className="flex [&>div]:max-w-1/2">
+    <div id="app" className="mx-auto h-full max-w-[375px] bg-gray-800 px-10 duration-300">
+      <div className="flex gap-4 [&>div]:max-w-1/2">
         <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
         {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       </div>
