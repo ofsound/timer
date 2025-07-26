@@ -33,8 +33,8 @@ function App() {
 
   const [showMap, setShowMap] = useState(true);
 
-  const [showStartButton, setShowStartButton] = useState(false);
-  const [showResetButton, setShowResetButton] = useState(false);
+  const [showStartButton] = useState(true);
+  const [showResetButton] = useState(true);
 
   const lastStep = useRef(0);
 
@@ -46,8 +46,8 @@ function App() {
     setThisRatio(0);
     setThisStep(-1);
 
-    setShowStartButton(false);
-    setShowResetButton(false);
+    // setShowStartButton(false);
+    // setShowResetButton(false);
 
     setSequenceArray([]);
     setShowTimeline(false);
@@ -59,8 +59,8 @@ function App() {
   };
 
   const handleNewSequenceCreated = (newSequence: number[]) => {
-    setShowStartButton(true);
-    setShowResetButton(true);
+    // setShowStartButton(true);
+    // setShowResetButton(true);
     setShowMap(true);
     setSequenceArray(newSequence);
   };
@@ -101,15 +101,15 @@ function App() {
   };
 
   return (
-    <div id="app" className="mx-auto flex h-full max-h-[667px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
+    <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
       {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
       <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
-      <div className="mt-auto flex justify-center gap-4 py-4">
+      <div className="mt-auto flex justify-center gap-4 pb-4">
         {showStartButton && (
           <button
             onClick={handleStartClick}
-            className="block h-20 w-20 cursor-pointer rounded-full bg-green-800 px-3 py-3 text-white"
+            className="block h-18 w-18 cursor-pointer rounded-full bg-green-800 px-3 py-3 text-white"
           >
             START
           </button>

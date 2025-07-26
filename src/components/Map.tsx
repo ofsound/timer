@@ -12,7 +12,7 @@ function Map({ sequenceArray, thisStep, thisRatio, isHistoryMap, onClick }: inpu
   return (
     <div
       onClick={isHistoryMap ? onClick : undefined}
-      className={`${isHistoryMap ? "mt-4 flex min-w-0 gap-1 border-none" : "mt-6 flex justify-start gap-2 rounded-lg border-dashed border-gray-300 p-2 has-[div]:border"}`}
+      className={`${isHistoryMap ? "mt-4 flex min-w-0 gap-1 border-none" : "mt-6 flex min-h-15 justify-start gap-2 rounded-lg border border-dashed border-gray-300 p-2"}`}
     >
       {sequenceArray.map((durationSeconds, index) => (
         <MapSegment
