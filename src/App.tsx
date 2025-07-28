@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
 
-import History from "./components/History.tsx";
 import Inputs from "./components/Inputs.tsx";
-import Timeline from "./components/Timeline.tsx";
 import Map from "./components/Map.tsx";
+import History from "./components/History.tsx";
+import Start from "./components/Start.tsx";
+import Timeline from "./components/Timeline.tsx";
 import Sound from "./components/Sound.tsx";
 
 interface SoundComponent {
@@ -32,9 +33,6 @@ function App() {
   const soundRef = useRef<SoundComponent>(null);
 
   const [showMap, setShowMap] = useState(true);
-
-  const [showStartButton] = useState(true);
-  const [showResetButton] = useState(true);
 
   const lastStep = useRef(0);
 
@@ -103,25 +101,17 @@ function App() {
   return (
     <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
       {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
-      {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
+      <div className="flex">
+        {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
+
+        <button onClick={handleResetClick} className="block cursor-pointer pt-6 pl-3">
+          ❌
+        </button>
+      </div>
+
       <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
       <div className="mt-auto flex justify-center gap-4 pb-4">
-        {showStartButton && (
-          <button
-            onClick={handleStartClick}
-            className="block h-18 w-18 cursor-pointer rounded-full bg-green-800 px-3 py-3 text-white"
-          >
-            START
-          </button>
-        )}
-        {showResetButton && (
-          <button
-            onClick={handleResetClick}
-            className="block cursor-pointer rounded-lg bg-red-800 px-3 py-2 text-white"
-          >
-            RESET
-          </button>
-        )}
+        <Start onClick={handleStartClick} />
       </div>
       {showTimeline && (
         <Timeline
