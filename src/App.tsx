@@ -32,8 +32,6 @@ function App() {
 
   const soundRef = useRef<SoundComponent>(null);
 
-  const [showMap, setShowMap] = useState(true);
-
   const lastStep = useRef(0);
 
   const handleResetClick = () => {
@@ -43,9 +41,6 @@ function App() {
     lastStep.current = 0;
     setThisRatio(0);
     setThisStep(-1);
-
-    // setShowStartButton(false);
-    // setShowResetButton(false);
 
     setSequenceArray([]);
     setShowTimeline(false);
@@ -57,9 +52,6 @@ function App() {
   };
 
   const handleNewSequenceCreated = (newSequence: number[]) => {
-    // setShowStartButton(true);
-    // setShowResetButton(true);
-    setShowMap(true);
     setSequenceArray(newSequence);
   };
 
@@ -102,7 +94,7 @@ function App() {
     <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
       {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
       <div className="flex">
-        {showMap && <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />}
+        <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
 
         <button onClick={handleResetClick} className="block cursor-pointer pt-6 pl-3">
           ❌
@@ -111,7 +103,7 @@ function App() {
 
       <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
       <div className="mt-auto flex justify-center gap-4 pb-4">
-        <Start onClick={handleStartClick} />
+        <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} />
       </div>
       {showTimeline && (
         <Timeline
