@@ -5,6 +5,20 @@ type inputProps = {
 };
 
 function Start({ onClick, thisStep, thisRatio }: inputProps) {
+  let thisLabel = "*";
+
+  switch (thisStep) {
+    case -1:
+      thisLabel = "START";
+      break;
+    case 0:
+      thisLabel = Math.ceil(5 - thisRatio * 5).toString();
+      break;
+    default:
+      thisLabel = "PAUSE";
+      break;
+  }
+
   return (
     <button onClick={onClick} className="relative block h-21 w-21">
       <div
@@ -14,7 +28,7 @@ function Start({ onClick, thisStep, thisRatio }: inputProps) {
       <div
         className={`${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-18 w-18 rounded-full`}
       ></div>
-      <div className="absolute top-7 w-21 text-white">{thisStep === 0 ? Math.ceil(5 - thisRatio * 5) : "START"}</div>
+      <div className="absolute top-7 w-21 text-white">{thisLabel}</div>
     </button>
   );
 }
