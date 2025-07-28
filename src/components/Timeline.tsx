@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Runner from "./Runner.tsx";
 
 type inputProps = {
   sequenceArray: number[];
   timelineRunning: (a: number, b: number) => void;
   timelineComplete: () => void;
+  timelinePaused: boolean;
 };
 
-function Timeline({ sequenceArray, timelineRunning, timelineComplete }: inputProps) {
+function Timeline({ sequenceArray, timelineRunning, timelineComplete, timelinePaused }: inputProps) {
   const [runnerIndex, setRunnerIndex] = useState(0);
 
   const handleIsRunning = (runnerRatio: number) => {
@@ -21,6 +22,11 @@ function Timeline({ sequenceArray, timelineRunning, timelineComplete }: inputPro
       timelineComplete();
     }
   };
+
+  useEffect(() => {
+    console.log("pause or unpause timeline", timelinePaused);
+    // Perform side effects here, e.g., fetching data, updating local state, etc.
+  }, [timelinePaused]); // Dependency array: useEffect will re-run when someProp changes
 
   return (
     <>

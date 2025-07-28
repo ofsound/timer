@@ -45,8 +45,17 @@ function App() {
   };
 
   const handleStartClick = () => {
-    setShowTimeline(true);
-    addToHistoryArray(sequenceArray);
+    switch (thisStep) {
+      case -1:
+        setShowTimeline(true);
+        addToHistoryArray(sequenceArray);
+        break;
+      case 0:
+        break;
+      default:
+        alert("pause?");
+        break;
+    }
   };
 
   const handleNewSequenceCreated = (newSequence: number[]) => {
@@ -103,6 +112,7 @@ function App() {
       </div>
       {showTimeline && (
         <Timeline
+          timelinePaused={false}
           sequenceArray={sequenceArray}
           timelineRunning={handleTimelineRunning}
           timelineComplete={handleTimelineComplete}
