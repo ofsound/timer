@@ -27,16 +27,14 @@ function App() {
 
   const [historyArray, setHistoryArray] = useState<Array<historyRowObject>>([]);
 
-  const [showInputs, setShowInputs] = useState(true);
   const [inputsKey, setInputsKey] = useState(0);
 
   const soundRef = useRef<SoundComponent>(null);
 
   const lastStep = useRef(0);
 
-  const handleResetClick = () => {
+  const handleClearSequenceClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
-    setShowInputs(true);
 
     lastStep.current = 0;
     setThisRatio(0);
@@ -92,15 +90,13 @@ function App() {
 
   return (
     <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
-      {showInputs && <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />}
+      <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />
       <div className="flex">
         <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
-
-        <button onClick={handleResetClick} className="block cursor-pointer pt-6 pl-3">
+        <button onClick={handleClearSequenceClick} className="block cursor-pointer pt-6 pl-3 grayscale">
           ❌
         </button>
       </div>
-
       <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
       <div className="mt-auto flex justify-center gap-4 pb-4">
         <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} />
