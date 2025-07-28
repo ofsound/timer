@@ -9,7 +9,7 @@ function MapSegment({ isActive, durationSeconds, progressRatio, isHistoryMapSegm
   return (
     <div
       style={{ width: `${durationSeconds * 5}px` }}
-      className={`${isActive && "animate-pulse"} ${isHistoryMapSegment ? "relative h-7 overflow-hidden rounded-lg border border-black bg-gray-700 text-center text-black first:hidden even:bg-gray-100" : "relative h-10 overflow-hidden rounded-lg border border-black bg-gray-700 text-center font-bold text-black first:hidden even:bg-gray-100"} `}
+      className={`${isActive && "animate-pulse"} ${isHistoryMapSegment ? "relative h-7 overflow-hidden rounded-lg border border-black bg-gray-500 text-center text-black first:hidden even:bg-gray-100" : "relative h-10 overflow-hidden rounded-lg border border-black bg-gray-500 text-center font-bold text-black first:hidden even:bg-gray-100"} `}
     >
       <div
         style={{ width: isActive ? (100 * progressRatio).toString() + "%" : "0px" }}
