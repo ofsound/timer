@@ -2,9 +2,10 @@ type inputProps = {
   onClick: React.MouseEventHandler<HTMLElement>;
   thisStep: number;
   thisRatio: number;
+  isEnabled: boolean;
 };
 
-function Start({ onClick, thisStep, thisRatio }: inputProps) {
+function Start({ onClick, thisStep, thisRatio, isEnabled }: inputProps) {
   let thisLabel = "*";
 
   switch (thisStep) {
@@ -19,14 +20,18 @@ function Start({ onClick, thisStep, thisRatio }: inputProps) {
       break;
   }
 
+  if (!isEnabled) {
+    thisLabel = "X";
+  }
+
   return (
     <button onClick={onClick} className="relative block h-21 w-21">
       <div
-        className={`${thisStep === 0 ? "absolute top-0 h-21 w-21 animate-pulse cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
+        className={`${!isEnabled && "grayscale"} ${thisStep === 0 ? "absolute top-0 h-21 w-21 animate-pulse cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
       ></div>
       <div
-        className={`${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-18 w-18 rounded-full`}
+        className={`${!isEnabled && "grayscale"} ${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-18 w-18 rounded-full`}
       ></div>
       <div className="absolute top-7 w-21 text-white">{thisLabel}</div>
     </button>

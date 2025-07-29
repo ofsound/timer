@@ -31,6 +31,7 @@ function App() {
 
   const soundRef = useRef<SoundComponent>(null);
 
+  const startEnabled = useRef(false);
   const lastStep = useRef(0);
 
   const handleClearSequenceClick = () => {
@@ -42,9 +43,15 @@ function App() {
 
     setSequenceArray([]);
     setShowTimeline(false);
+
+    startEnabled.current = false;
   };
 
   const handleStartClick = () => {
+    if (!startEnabled.current) {
+      return;
+    }
+
     switch (thisStep) {
       case -1:
         setShowTimeline(true);
@@ -60,6 +67,7 @@ function App() {
 
   const handleNewSequenceCreated = (newSequence: number[]) => {
     setSequenceArray(newSequence);
+    startEnabled.current = true;
   };
 
   const handleTimelineRunning = (runnerStep: number, runnerRatio: number) => {
@@ -92,8 +100,6 @@ function App() {
       sequenceArray: launchedSequence,
     };
 
-    // console.log(tempArray.length);
-
     if (tempArray.length > 3) {
       tempArray.shift();
     }
@@ -118,7 +124,7 @@ function App() {
         newSequenceCreated={handleNewSequenceCreated}
       />
       <div className="mt-auto flex justify-center pb-3">
-        <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} />
+        <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} isEnabled={startEnabled.current} />
       </div>
       {showTimeline && (
         <Timeline
