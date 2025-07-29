@@ -71,7 +71,11 @@ function App() {
     }
   };
 
-  const handleNewSequenceCreated = (newSequence: number[]) => {
+  const handleNewSequenceCreated = (newSequence: number[], fromHistory: boolean) => {
+    if (fromHistory) {
+      handleClearSequenceClick();
+    }
+
     setSequenceArray(newSequence);
     startEnabled.current = true;
   };
@@ -115,7 +119,7 @@ function App() {
   };
 
   return (
-    <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
+    <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-700 px-5 duration-300">
       <Inputs
         key={"inputs" + inputsKey}
         newSequenceCreated={handleNewSequenceCreated}

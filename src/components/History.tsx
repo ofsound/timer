@@ -9,12 +9,12 @@ interface historyRowObject {
 type inputProps = {
   historyArray: historyRowObject[];
   updateHistoryArray: (a: historyRowObject[]) => void;
-  newSequenceCreated: (a: number[]) => void;
+  newSequenceCreated: (a: number[], b: boolean) => void;
 };
 
 function History({ historyArray, updateHistoryArray, newSequenceCreated }: inputProps) {
   const handleRowClick = (index: number) => {
-    newSequenceCreated(historyArray[index].sequenceArray);
+    newSequenceCreated(historyArray[index].sequenceArray, true);
   };
 
   const handlePinClick = (index: number) => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 type inputProps = {
-  newSequenceCreated: (a: number[]) => void;
+  newSequenceCreated: (a: number[], b: boolean) => void;
   isEnabled: boolean;
 };
 
@@ -20,7 +20,7 @@ function Inputs({ newSequenceCreated, isEnabled }: inputProps) {
 
     setWorkingArray(updatedArray);
 
-    newSequenceCreated([leadDuration, ...updatedArray]);
+    newSequenceCreated([leadDuration, ...updatedArray], false);
   };
 
   return (
