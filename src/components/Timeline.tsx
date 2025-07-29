@@ -25,8 +25,7 @@ function Timeline({ sequenceArray, timelineRunning, timelineComplete, timelinePa
 
   useEffect(() => {
     console.log("pause or unpause timeline", timelinePaused);
-    // Perform side effects here, e.g., fetching data, updating local state, etc.
-  }, [timelinePaused]); // Dependency array: useEffect will re-run when someProp changes
+  }, [timelinePaused]);
 
   return (
     <>

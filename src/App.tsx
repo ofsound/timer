@@ -92,6 +92,12 @@ function App() {
       sequenceArray: launchedSequence,
     };
 
+    // console.log(tempArray.length);
+
+    if (tempArray.length > 3) {
+      tempArray.shift();
+    }
+
     tempArray.push(historyRowObject);
 
     setHistoryArray(tempArray);
