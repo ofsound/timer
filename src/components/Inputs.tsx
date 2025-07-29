@@ -2,15 +2,20 @@ import { useState } from "react";
 
 type inputProps = {
   newSequenceCreated: (a: number[]) => void;
+  isEnabled: boolean;
 };
 
-function Inputs({ newSequenceCreated }: inputProps) {
+function Inputs({ newSequenceCreated, isEnabled }: inputProps) {
   const leadDuration = 5;
   const buttonValueArray = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120];
 
   const [workingArray, setWorkingArray] = useState<number[]>([]);
 
   const buttonClickHandler = (buttonValue: number) => {
+    if (!isEnabled) {
+      return;
+    }
+
     const updatedArray = [...workingArray].concat(buttonValue);
 
     setWorkingArray(updatedArray);

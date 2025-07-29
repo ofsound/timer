@@ -31,11 +31,15 @@ function App() {
 
   const soundRef = useRef<SoundComponent>(null);
 
-  const startEnabled = useRef(false);
   const lastStep = useRef(0);
+
+  const startEnabled = useRef(false);
+  const inputsEnabled = useRef(true);
 
   const handleClearSequenceClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
+
+    inputsEnabled.current = true;
 
     lastStep.current = 0;
     setThisRatio(0);
@@ -51,6 +55,8 @@ function App() {
     if (!startEnabled.current) {
       return;
     }
+
+    inputsEnabled.current = false;
 
     switch (thisStep) {
       case -1:
@@ -103,7 +109,6 @@ function App() {
     if (tempArray.length > 3) {
       tempArray.shift();
     }
-
     tempArray.push(historyRowObject);
 
     setHistoryArray(tempArray);
@@ -111,10 +116,17 @@ function App() {
 
   return (
     <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-800 px-5 duration-300">
-      <Inputs key={"inputs" + inputsKey} newSequenceCreated={handleNewSequenceCreated} />
+      <Inputs
+        key={"inputs" + inputsKey}
+        newSequenceCreated={handleNewSequenceCreated}
+        isEnabled={inputsEnabled.current}
+      />
       <div className="flex">
         <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
-        <button onClick={handleClearSequenceClick} className="block cursor-pointer pt-6 pl-3 grayscale">
+        <button
+          onClick={handleClearSequenceClick}
+          className={` ${!startEnabled.current && "grayscale"} block cursor-pointer pt-6 pl-3`}
+        >
           ❌
         </button>
       </div>

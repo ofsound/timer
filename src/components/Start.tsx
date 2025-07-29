@@ -6,7 +6,7 @@ type inputProps = {
 };
 
 function Start({ onClick, thisStep, thisRatio, isEnabled }: inputProps) {
-  let thisLabel = "*";
+  let thisLabel: string;
 
   switch (thisStep) {
     case -1:
