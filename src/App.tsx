@@ -112,7 +112,11 @@ function App() {
           ❌
         </button>
       </div>
-      <History historyArray={historyArray} newSequenceCreated={handleNewSequenceCreated} />
+      <History
+        historyArray={historyArray}
+        updateHistoryArray={setHistoryArray}
+        newSequenceCreated={handleNewSequenceCreated}
+      />
       <div className="mt-auto flex justify-center pb-3">
         <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} />
       </div>

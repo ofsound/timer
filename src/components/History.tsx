@@ -8,18 +8,19 @@ interface historyRowObject {
 
 type inputProps = {
   historyArray: historyRowObject[];
+  updateHistoryArray: (a: historyRowObject[]) => void;
   newSequenceCreated: (a: number[]) => void;
 };
 
-function History({ historyArray, newSequenceCreated }: inputProps) {
+function History({ historyArray, updateHistoryArray, newSequenceCreated }: inputProps) {
   const handleRowClick = (index: number) => {
     newSequenceCreated(historyArray[index].sequenceArray);
   };
 
   const handlePinClick = (index: number) => {
-    console.log(!historyArray[index].isPinned);
-
-    historyArray[index].isPinned = !historyArray[index].isPinned;
+    const tempHistoryArray = [...historyArray];
+    tempHistoryArray[index].isPinned = !tempHistoryArray[index].isPinned;
+    updateHistoryArray(tempHistoryArray);
   };
 
   return (
