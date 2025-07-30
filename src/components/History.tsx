@@ -10,9 +10,10 @@ type inputProps = {
   historyArray: historyRowObject[];
   updateHistoryArray: (a: historyRowObject[]) => void;
   newSequenceCreated: (a: number[], b: boolean) => void;
+  isEnabled: boolean;
 };
 
-function History({ historyArray, updateHistoryArray, newSequenceCreated }: inputProps) {
+function History({ historyArray, updateHistoryArray, newSequenceCreated, isEnabled }: inputProps) {
   const handleRowClick = (index: number) => {
     newSequenceCreated(historyArray[index].sequenceArray, true);
   };
@@ -24,7 +25,7 @@ function History({ historyArray, updateHistoryArray, newSequenceCreated }: input
   };
 
   return (
-    <div className="mx-auto mt-2 mb-auto max-w-3/4 flex-1">
+    <div className={`${!isEnabled && "opacity-20 grayscale"} mx-auto mt-2 mb-auto max-w-3/4 flex-1`}>
       {historyArray.map((historyRow, index) => (
         <div key={index} className="flex">
           <Map

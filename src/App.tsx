@@ -149,14 +149,15 @@ function App() {
         historyArray={historyArray}
         updateHistoryArray={setHistoryArray}
         newSequenceCreated={handleNewSequenceCreated}
+        isEnabled={inputsEnabled.current}
       />
-      <div className="flex">
+      <div className="relative flex">
         <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
         <button
           onClick={handleClearSequenceClick}
-          className={` ${!startEnabled.current && "grayscale"} block cursor-pointer pt-6 pl-3`}
+          className={` ${!startEnabled.current && "grayscale"} absolute -right-4 block h-8 w-8 cursor-pointer rounded-full border-1 border-white bg-gray-700`}
         >
-          ❌
+          <span className="brightness-1000">❌</span>
         </button>
       </div>
 

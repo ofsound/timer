@@ -5,11 +5,7 @@ type inputProps = {
 
 function Pin({ onClick, isPinned }: inputProps) {
   return (
-    <div
-      style={{ opacity: isPinned ? 1 : 0.3 }}
-      onClick={onClick}
-      className="cursor-pointer px-2 pt-4 duration-200 select-none"
-    >
+    <div onClick={onClick} className={`${!isPinned && "grayscale"} cursor-pointer px-2 pt-4 duration-200 select-none`}>
       📌
     </div>
   );
