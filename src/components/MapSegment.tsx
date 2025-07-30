@@ -13,7 +13,7 @@ function MapSegment({ isActive, durationSeconds, progressRatio, isHistoryMapSegm
     >
       <div
         style={{ width: isActive ? (100 * progressRatio).toString() + "%" : "0px" }}
-        className="absolute h-full bg-blue-600 bg-gradient-to-r from-blue-600 to-blue-400"
+        className="absolute h-full bg-green-600 bg-gradient-to-r from-green-600 to-green-400"
       ></div>
       <div
         className={`${isHistoryMapSegment ? "absolute h-full w-full pt-1 text-sm select-none" : "absolute h-full w-full pt-2 select-none"}`}

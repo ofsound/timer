@@ -17,6 +17,8 @@ interface historyRowObject {
 }
 
 function App() {
+  console.log("3");
+
   const appElement = document.getElementById("app") as HTMLElement;
 
   const [thisStep, setThisStep] = useState(-1);
@@ -25,11 +27,21 @@ function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [sequenceArray, setSequenceArray] = useState<number[]>([]);
 
-  const [historyArray, setHistoryArray] = useState<Array<historyRowObject>>([]);
+  const [historyArray, setHistoryArray] = useState<Array<historyRowObject>>(() => {
+    try {
+      const storedArray = localStorage.getItem("historyArray");
+      return storedArray ? JSON.parse(storedArray) : [];
+    } catch (error) {
+      console.error("Error reading from localStorage:", error);
+      return [];
+    }
+  });
 
   const [inputsKey, setInputsKey] = useState(0);
 
   const soundRef = useRef<SoundComponent>(null);
+
+  const [initSound, setInitSound] = useState(false);
 
   const lastStep = useRef(0);
 
@@ -52,6 +64,8 @@ function App() {
   };
 
   const handleStartClick = () => {
+    setInitSound(true);
+
     if (!startEnabled.current) {
       return;
     }
@@ -126,6 +140,8 @@ function App() {
 
     tempArray.push(historyRowObject);
 
+    localStorage.setItem("historyArray", JSON.stringify(tempArray));
+
     setHistoryArray(tempArray);
   };
 
@@ -162,7 +178,7 @@ function App() {
           timelineComplete={handleTimelineComplete}
         />
       )}
-      <Sound ref={soundRef} />
+      {initSound && <Sound ref={soundRef} />}
     </div>
   );
 }
