@@ -111,8 +111,19 @@ function App() {
     };
 
     if (tempArray.length > 3) {
-      tempArray.shift();
+      const attemptSplice = (pinIndex: number) => {
+        if (!tempArray[pinIndex].isPinned) {
+          tempArray.splice(pinIndex, 1);
+          return;
+        } else {
+          attemptSplice(pinAttemptIndex++);
+        }
+      };
+
+      let pinAttemptIndex = 0;
+      attemptSplice(pinAttemptIndex);
     }
+
     tempArray.push(historyRowObject);
 
     setHistoryArray(tempArray);
@@ -120,10 +131,10 @@ function App() {
 
   return (
     <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-700 px-5 duration-300">
-      <Inputs
-        key={"inputs" + inputsKey}
+      <History
+        historyArray={historyArray}
+        updateHistoryArray={setHistoryArray}
         newSequenceCreated={handleNewSequenceCreated}
-        isEnabled={inputsEnabled.current}
       />
       <div className="flex">
         <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
@@ -134,12 +145,13 @@ function App() {
           ❌
         </button>
       </div>
-      <History
-        historyArray={historyArray}
-        updateHistoryArray={setHistoryArray}
+
+      <Inputs
+        key={"inputs" + inputsKey}
         newSequenceCreated={handleNewSequenceCreated}
+        isEnabled={inputsEnabled.current}
       />
-      <div className="mt-auto flex justify-center pb-3">
+      <div className="mt-auto flex justify-center pt-3 pb-4">
         <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} isEnabled={startEnabled.current} />
       </div>
       {showTimeline && (

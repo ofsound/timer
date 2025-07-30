@@ -24,8 +24,8 @@ function History({ historyArray, updateHistoryArray, newSequenceCreated }: input
   };
 
   return (
-    <div className="mx-auto mt-2 max-w-3/4">
-      {[...historyArray].reverse().map((historyRow, index) => (
+    <div className="mx-auto mt-2 mb-auto max-w-3/4 flex-1">
+      {historyArray.map((historyRow, index) => (
         <div key={index} className="flex">
           <Map
             onClick={() => handleRowClick(index)}
