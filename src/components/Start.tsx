@@ -21,7 +21,7 @@ function Start({ onClick, thisStep, thisRatio, isEnabled }: inputProps) {
   }
 
   if (!isEnabled) {
-    thisLabel = "X";
+    thisLabel = "";
   }
 
   return (

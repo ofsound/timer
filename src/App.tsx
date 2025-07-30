@@ -17,8 +17,6 @@ interface historyRowObject {
 }
 
 function App() {
-  console.log("3");
-
   const appElement = document.getElementById("app") as HTMLElement;
 
   const [thisStep, setThisStep] = useState(-1);
