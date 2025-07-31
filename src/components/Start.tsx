@@ -27,7 +27,7 @@ function Start({ onClick, thisStep, thisRatio, isEnabled }: inputProps) {
   return (
     <button onClick={onClick} className="relative block h-21 w-21">
       <div
-        className={`${!isEnabled && "grayscale"} ${thisStep === 0 ? "absolute top-0 h-21 w-21 animate-pulse cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
+        className={`${!isEnabled && "grayscale"} ${thisStep === 0 ? "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
       ></div>
       <div
