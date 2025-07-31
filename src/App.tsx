@@ -157,7 +157,7 @@ function App() {
           onClick={handleClearSequenceClick}
           className={` ${!startEnabled.current && "grayscale"} absolute -right-4 block h-8 w-8 cursor-pointer rounded-full border-1 border-white bg-gray-700`}
         >
-          <span className="brightness-1000">❌</span>
+          <span className="relative -top-[3px] text-2xl text-white">×</span>
         </button>
       </div>
 
@@ -166,7 +166,7 @@ function App() {
         newSequenceCreated={handleNewSequenceCreated}
         isEnabled={inputsEnabled.current}
       />
-      <div className="mt-auto flex justify-center pt-3 pb-4">
+      <div className="mt-auto flex justify-center pt-3 pb-3">
         <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} isEnabled={startEnabled.current} />
       </div>
       {showTimeline && (
