@@ -25,7 +25,7 @@ function History({ historyArray, updateHistoryArray, newSequenceCreated, isEnabl
   };
 
   return (
-    <div className={`${!isEnabled && "opacity-20 blur-sm grayscale"} mx-auto mt-2 mb-auto max-w-3/4 flex-1`}>
+    <div className={`${!isEnabled && "opacity-20 blur-[3px] grayscale"} mx-auto mt-2 mb-auto max-w-3/4 flex-1`}>
       {historyArray.map((historyRow, index) => (
         <div key={index} className="flex">
           <Map
