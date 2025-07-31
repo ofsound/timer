@@ -18,6 +18,7 @@ function Map({ sequenceArray, thisStep, thisRatio, isHistoryMap, onClick }: inpu
         <MapSegment
           key={index}
           isActive={thisStep == index ? true : false}
+          isComplete={thisStep > index ? true : false}
           durationSeconds={durationSeconds}
           progressRatio={thisRatio}
           isHistoryMapSegment={isHistoryMap}
