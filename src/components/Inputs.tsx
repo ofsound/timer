@@ -30,7 +30,7 @@ function Inputs({ newSequenceCreated, isEnabled }: inputProps) {
           <button
             onClick={() => buttonClickHandler(item)}
             key={index}
-            className={`${!isEnabled ? "opacity-20 grayscale" : "hover:border-blue-300"} mt-2 block w-1/6 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 py-2 text-lg tracking-wider text-white`}
+            className={`${!isEnabled ? "opacity-20 blur-sm grayscale" : "hover:border-blue-300"} mt-2 block w-1/6 cursor-pointer rounded-lg border border-blue-500 bg-blue-600 py-2 text-lg tracking-wider text-white`}
           >
             {item}
           </button>
