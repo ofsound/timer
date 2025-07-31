@@ -12,7 +12,7 @@ function MapSegment({ isActive, isComplete, durationSeconds, progressRatio, isHi
   return (
     <div
       style={{ width: `${durationSeconds * widthScaleFactor}px` }}
-      className={`${isComplete && "border-gray-800 text-gray-800 !opacity-30"} ${isActive && ""} ${isHistoryMapSegment ? "relative h-7 overflow-hidden rounded-lg border border-black bg-gray-400 text-center text-black first:hidden even:bg-gray-100" : "relative h-12 overflow-hidden rounded-lg border border-black bg-gray-400 text-center text-black first:hidden even:bg-gray-100"} `}
+      className={`${isComplete && "border-gray-800 text-gray-800 !opacity-15"} ${isActive && ""} ${isHistoryMapSegment ? "relative h-7 overflow-hidden rounded-lg border border-black bg-gray-400 text-center text-black first:hidden even:bg-gray-100" : "relative h-12 overflow-hidden rounded-lg border border-black bg-gray-400 text-center text-black first:hidden even:bg-gray-100"} `}
     >
       <div
         style={{ width: isActive ? (100 * progressRatio).toString() + "%" : "0px" }}
