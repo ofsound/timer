@@ -26,7 +26,7 @@ function History({ historyArray, updateHistoryArray, newSequenceCreated, isEnabl
 
   return (
     <div
-      className={`${!isEnabled && "opacity-20 blur-[3px] grayscale"} mx-auto mt-2 mb-auto flex aspect-2/1 max-w-3/4 flex-col`}
+      className={`${!isEnabled && "opacity-20 blur-[3px] grayscale"} mx-auto mt-2 mb-auto flex aspect-2/1 max-h-1/4 max-w-3/4 flex-col`}
     >
       {historyArray.map((historyRow, index) => (
         <div key={index} className="relative flex grow-1">

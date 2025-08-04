@@ -147,14 +147,14 @@ function App() {
   // max-h-[1024px] max-w-[768px]
 
   return (
-    <div id="app" className={`${""} mx-auto flex h-full flex-col bg-gray-700 px-5 duration-300`}>
+    <div id="app" className={`${""} mx-auto flex h-full max-h-screen flex-col bg-gray-700 px-5 duration-300`}>
       <History
         historyArray={historyArray}
         updateHistoryArray={setHistoryArray}
         newSequenceCreated={handleNewSequenceCreated}
         isEnabled={inputsEnabled.current}
       />
-      <div className="relative mt-auto mb-auto flex aspect-5/1">
+      <div className="relative mt-auto mb-auto flex aspect-5/1 max-h-1/4 max-w-full">
         <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
         <button
           onClick={handleClearSequenceClick}
@@ -169,7 +169,7 @@ function App() {
         newSequenceCreated={handleNewSequenceCreated}
         isEnabled={inputsEnabled.current}
       />
-      <div className="mt-auto flex justify-center pt-3 pb-3">
+      <div className="mt-auto flex max-h-1/4 justify-center pt-3 pb-3">
         <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} isEnabled={startEnabled.current} />
       </div>
       {showTimeline && (
