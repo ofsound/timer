@@ -25,7 +25,7 @@ function Inputs({ newSequenceCreated, isEnabled }: inputProps) {
 
   return (
     <>
-      <div className="ml-auto flex flex-wrap justify-between gap-1 pt-2">
+      <div className="mr-auto ml-auto flex flex-wrap justify-between gap-1 pt-2">
         {buttonValueArray.map((item, index) => (
           <button
             onClick={() => buttonClickHandler(item)}

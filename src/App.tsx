@@ -143,8 +143,11 @@ function App() {
     setHistoryArray(tempArray);
   };
 
+  // max-h-[549px] max-w-[375px]
+  // max-h-[1024px] max-w-[768px]
+
   return (
-    <div id="app" className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-700 px-5 duration-300">
+    <div id="app" className={`${""} mx-auto flex h-full flex-col bg-gray-700 px-5 duration-300`}>
       <History
         historyArray={historyArray}
         updateHistoryArray={setHistoryArray}
