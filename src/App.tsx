@@ -154,7 +154,7 @@ function App() {
         newSequenceCreated={handleNewSequenceCreated}
         isEnabled={inputsEnabled.current}
       />
-      <div className="relative mt-5 flex h-full">
+      <div className="relative mt-auto mb-auto flex aspect-5/1">
         <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
         <button
           onClick={handleClearSequenceClick}
