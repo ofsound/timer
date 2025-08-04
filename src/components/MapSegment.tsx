@@ -7,7 +7,7 @@ type inputProps = {
 };
 
 function MapSegment({ isActive, isComplete, durationSeconds, progressRatio, isHistoryMapSegment }: inputProps) {
-  const widthScaleFactor = isHistoryMapSegment ? 200 : 5;
+  const widthScaleFactor = isHistoryMapSegment ? 200 : 200;
 
   return (
     <div
