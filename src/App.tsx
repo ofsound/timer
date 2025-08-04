@@ -151,11 +151,11 @@ function App() {
         newSequenceCreated={handleNewSequenceCreated}
         isEnabled={inputsEnabled.current}
       />
-      <div className="relative flex">
+      <div className="relative mt-5 flex h-full">
         <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
         <button
           onClick={handleClearSequenceClick}
-          className={` ${!startEnabled.current && "grayscale"} absolute -right-4 block h-8 w-8 cursor-pointer rounded-full border-1 border-white bg-gray-700`}
+          className={` ${!startEnabled.current && "grayscale"} absolute -top-4 -right-4 block h-8 w-8 cursor-pointer rounded-full border-1 border-white bg-gray-700`}
         >
           <span className="relative -top-[3px] text-2xl text-white">×</span>
         </button>
