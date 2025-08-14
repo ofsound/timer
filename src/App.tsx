@@ -1,12 +1,12 @@
 import { useState, useRef } from "react";
 
+import AppTools from "./components/AppTools.tsx";
 import Inputs from "./components/Inputs.tsx";
 import Map from "./components/Map.tsx";
 import History from "./components/History.tsx";
 import Start from "./components/Start.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Sound from "./components/Sound.tsx";
-import AppTools from "./components/AppTools.tsx";
 
 import { useTimerStore } from "./store.ts";
 
@@ -22,10 +22,9 @@ interface historyRowObject {
 function App() {
   const thisStep = useTimerStore((state) => state.thisStep);
   const setThisStep = useTimerStore((state) => state.setThisStep);
-
   const setThisRatio = useTimerStore((state) => state.setThisRatio);
 
-  const appElement = document.getElementById("app") as HTMLElement;
+  const appElement = document.getElementById("app") as HTMLElement; // should be ref
 
   const [sequenceArray, setSequenceArray] = useState<number[]>([]); // << to zustand
 
@@ -46,8 +45,6 @@ function App() {
 
   const soundRef = useRef<SoundComponent>(null);
 
-  const [initSound, setInitSound] = useState(false);
-
   const startEnabled = useRef(false);
   const inputsEnabled = useRef(true);
 
@@ -66,7 +63,7 @@ function App() {
   };
 
   const handleStartClick = () => {
-    setInitSound(true);
+    soundRef.current?.play();
 
     if (!startEnabled.current) {
       return;
@@ -90,7 +87,6 @@ function App() {
     if (fromHistory) {
       handleClearSequenceClick();
     }
-
     setSequenceArray(newSequence);
     startEnabled.current = true;
   };
@@ -105,10 +101,10 @@ function App() {
 
   const handleTimelineComplete = () => {
     soundRef.current?.play();
-    appElement.classList.add("bg-green-300");
+    appElement.classList.add("bg-white");
     setTimeout(() => {
-      appElement.classList.remove("bg-green-300");
-    }, 1050);
+      appElement.classList.remove("bg-white");
+    }, 550);
   };
 
   const addToHistoryArray = (launchedSequence: number[]) => {
@@ -141,7 +137,6 @@ function App() {
   };
 
   // max-h-[549px] max-w-[375px]
-  // max-h-[1024px] max-w-[768px]
 
   return (
     <div id="app" className={`${""} h-full bg-gray-700 duration-300`}>
@@ -180,7 +175,7 @@ function App() {
             timelineComplete={handleTimelineComplete}
           />
         )}
-        {initSound && <Sound ref={soundRef} />}
+        <Sound ref={soundRef} />
       </div>
     </div>
   );

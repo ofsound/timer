@@ -1,3 +1,5 @@
+// move these conditional styes up into functions!
+
 import { useTimerStore } from "../store.ts";
 
 type inputProps = {
