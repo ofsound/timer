@@ -18,7 +18,7 @@ export const useTimerStore = create<TimerStore>(
       setThisStep: (newValue: number) => {
         set({ thisStep: newValue })
       },
-      thisRatio: -1,
+      thisRatio: 0,
       setThisRatio: (newValue: number) => {
         set({ thisRatio: newValue })
       },
