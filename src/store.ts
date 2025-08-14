@@ -3,8 +3,10 @@ import { create } from 'zustand';
 type TimerStore = {
   thisStep: number;
   setThisStep: (thisStep: number) => void;
+
   thisRatio: number;
   setThisRatio: (thisRatio: number) => void;
+
   thisSequence: number[],
   setThisSequence: (thisSequence: number[]) => void;
 }
