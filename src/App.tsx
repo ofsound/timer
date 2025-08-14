@@ -119,7 +119,7 @@ function App() {
       sequenceArray: launchedSequence,
     };
 
-    if (tempArray.length > 3) {
+    if (tempArray.length > 2) {
       const attemptSplice = (pinIndex: number) => {
         if (!tempArray[pinIndex].isPinned) {
           tempArray.splice(pinIndex, 1);
@@ -153,7 +153,7 @@ function App() {
           newSequenceCreated={handleNewSequenceCreated}
           isEnabled={inputsEnabled.current}
         />
-        <div className="relative mt-auto mb-auto flex aspect-5/1 max-h-1/4 max-w-full">
+        <div className="relative mt-8 mb-auto flex h-full max-w-full">
           <Map sequenceArray={sequenceArray} thisStep={thisStep} />
           <button
             onClick={handleClearSequenceClick}
@@ -162,13 +162,14 @@ function App() {
             <span className="relative -top-[3px] text-2xl text-white">×</span>
           </button>
         </div>
-
-        <Inputs
-          key={"inputs" + inputsKey}
-          newSequenceCreated={handleNewSequenceCreated}
-          isEnabled={inputsEnabled.current}
-        />
-        <div className="mt-auto flex max-h-1/4 justify-center pt-3 pb-3">
+        <div className="mt-4">
+          <Inputs
+            key={"inputs" + inputsKey}
+            newSequenceCreated={handleNewSequenceCreated}
+            isEnabled={inputsEnabled.current}
+          />
+        </div>
+        <div className="mt flex max-h-1/4 justify-center pt-3 pb-3">
           <Start onClick={handleStartClick} thisStep={thisStep} isEnabled={startEnabled.current} />
         </div>
         {showTimeline && (
