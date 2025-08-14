@@ -2,13 +2,11 @@ import { useTimerStore } from "../store.ts";
 
 function AppTools() {
   const thisStep: number = useTimerStore((state) => state.thisStep);
-  const lastStep: number = useTimerStore((state) => state.lastStep);
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
 
   return (
     <div className="mx-auto mb-8 max-w-[375px] bg-gray-900 p-4 text-white">
       <div>thisStep: {thisStep}</div>
-      <div>lastStep: {lastStep}</div>
       <div>thisRatio: {thisRatio}</div>
     </div>
   );

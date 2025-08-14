@@ -6,14 +6,13 @@ import { useTimerStore } from "../store.ts";
 type inputProps = {
   sequenceArray: number[];
   timelineComplete: () => void;
+  segmentComplete: () => void;
   timelinePaused: boolean;
 };
 
-function Timeline({ sequenceArray, timelineComplete, timelinePaused }: inputProps) {
+function Timeline({ sequenceArray, timelineComplete, segmentComplete, timelinePaused }: inputProps) {
   const setThisRatio = useTimerStore((state) => state.setThisRatio);
   const setThisStep = useTimerStore((state) => state.setThisStep);
-  // const lastStep = useTimerStore((state) => state.lastStep);
-  // const setLastStep = useTimerStore((state) => state.setLastStep);
 
   const [runnerIndex, setRunnerIndex] = useState(0);
 
@@ -25,7 +24,7 @@ function Timeline({ sequenceArray, timelineComplete, timelinePaused }: inputProp
   const handleRunComplete = () => {
     if (runnerIndex < sequenceArray.length - 1) {
       setRunnerIndex(runnerIndex + 1);
-      timelineComplete();
+      segmentComplete();
     } else {
       timelineComplete();
     }

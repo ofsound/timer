@@ -71,7 +71,6 @@ function App() {
     if (!startEnabled.current) {
       return;
     }
-
     inputsEnabled.current = false;
 
     switch (thisStep) {
@@ -96,37 +95,20 @@ function App() {
     startEnabled.current = true;
   };
 
-  // const handleTimelineRunning = (runnerStep: number, runnerRatio: number) => {
-  //   // setThisRatio(runnerRatio);
-
-  //   // console.log(runnerStep, thisStep, lastStep);
-
-  //   if (runnerStep > thisStep) {
-  //     // setThisStep(runnerStep);
-  //     // console.log(runnerStep);
-  //     // console.log(lastStep);
-  //     console.log(" ** ");
-
-  //     // setThisStep(runnerStep);
-
-  //     // if (thisStep > lastStep) {
-  //     //   setLastStep(thisStep);
-  //     //   // handleStepComplete();
-  //     // }
-  //     // setThisStep(runnerStep);
-  //   }
-  // };
-
-  const handleTimelineComplete = () => {
-    handleStepComplete();
-  };
-
-  const handleStepComplete = () => {
+  const handleSegmentComplete = () => {
     soundRef.current?.play();
     appElement.classList.add("bg-white");
     setTimeout(() => {
       appElement.classList.remove("bg-white");
     }, 350);
+  };
+
+  const handleTimelineComplete = () => {
+    soundRef.current?.play();
+    appElement.classList.add("bg-green-300");
+    setTimeout(() => {
+      appElement.classList.remove("bg-green-300");
+    }, 1050);
   };
 
   const addToHistoryArray = (launchedSequence: number[]) => {
@@ -162,9 +144,9 @@ function App() {
   // max-h-[1024px] max-w-[768px]
 
   return (
-    <div id="app" className={`${""} duration-300`}>
+    <div id="app" className={`${""} h-full bg-gray-700 duration-300`}>
       <AppTools />
-      <div className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-700 px-5">
+      <div className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col border-1 px-5">
         <History
           historyArray={historyArray}
           updateHistoryArray={setHistoryArray}
@@ -190,7 +172,12 @@ function App() {
           <Start onClick={handleStartClick} thisStep={thisStep} isEnabled={startEnabled.current} />
         </div>
         {showTimeline && (
-          <Timeline timelinePaused={false} sequenceArray={sequenceArray} timelineComplete={handleTimelineComplete} />
+          <Timeline
+            timelinePaused={false}
+            sequenceArray={sequenceArray}
+            segmentComplete={handleSegmentComplete}
+            timelineComplete={handleTimelineComplete}
+          />
         )}
         {initSound && <Sound ref={soundRef} />}
       </div>
