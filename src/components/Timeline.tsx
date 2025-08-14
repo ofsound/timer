@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react";
 import Runner from "./Runner.tsx";
 
+import { useTimerStore } from "../store.ts";
+
 type inputProps = {
   sequenceArray: number[];
-  timelineRunning: (a: number, b: number) => void;
   timelineComplete: () => void;
   timelinePaused: boolean;
 };
 
-function Timeline({ sequenceArray, timelineRunning, timelineComplete, timelinePaused }: inputProps) {
+function Timeline({ sequenceArray, timelineComplete, timelinePaused }: inputProps) {
+  const setThisRatio = useTimerStore((state) => state.setThisRatio);
+  const setThisStep = useTimerStore((state) => state.setThisStep);
+  // const lastStep = useTimerStore((state) => state.lastStep);
+  // const setLastStep = useTimerStore((state) => state.setLastStep);
+
   const [runnerIndex, setRunnerIndex] = useState(0);
 
   const handleIsRunning = (runnerRatio: number) => {
-    timelineRunning(runnerIndex, runnerRatio);
+    setThisRatio(runnerRatio);
+    setThisStep(runnerIndex);
   };
 
   const handleRunComplete = () => {
     if (runnerIndex < sequenceArray.length - 1) {
       setRunnerIndex(runnerIndex + 1);
+      timelineComplete();
     } else {
       timelineComplete();
     }

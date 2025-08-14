@@ -1,8 +1,10 @@
 import { create } from 'zustand';
 
+
+
 type TimerStore = {
   thisStep: number;
-  setThisStep: (setThisStep: number) => void;
+  setThisStep: (thisStep: number) => void;
   thisRatio: number;
   setThisRatio: (thisRatio: number) => void;
 }
@@ -16,4 +18,5 @@ export const useTimerStore = create<TimerStore>((set) => ({
   setThisRatio: (newValue: number) => {
     set({ thisRatio: newValue })
   }
+
 }))
