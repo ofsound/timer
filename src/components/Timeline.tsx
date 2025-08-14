@@ -4,15 +4,15 @@ import Runner from "./Runner.tsx";
 import { useTimerStore } from "../store.ts";
 
 type inputProps = {
-  sequenceArray: number[];
   timelineComplete: () => void;
   segmentComplete: () => void;
   timelinePaused: boolean;
 };
 
-function Timeline({ sequenceArray, timelineComplete, segmentComplete, timelinePaused }: inputProps) {
+function Timeline({ timelineComplete, segmentComplete, timelinePaused }: inputProps) {
   const setThisRatio = useTimerStore((state) => state.setThisRatio);
   const setThisStep = useTimerStore((state) => state.setThisStep);
+  const thisSequence = useTimerStore((state) => state.thisSequence);
 
   const [runnerIndex, setRunnerIndex] = useState(0);
 
@@ -22,7 +22,7 @@ function Timeline({ sequenceArray, timelineComplete, segmentComplete, timelinePa
   };
 
   const handleRunComplete = () => {
-    if (runnerIndex < sequenceArray.length - 1) {
+    if (runnerIndex < thisSequence.length - 1) {
       setRunnerIndex(runnerIndex + 1);
       segmentComplete();
     } else {
@@ -38,7 +38,7 @@ function Timeline({ sequenceArray, timelineComplete, segmentComplete, timelinePa
     <>
       <Runner
         key={runnerIndex}
-        durationMilliseconds={1000 * sequenceArray[runnerIndex]}
+        durationMilliseconds={1000 * thisSequence[runnerIndex]}
         isRunning={handleIsRunning}
         runComplete={handleRunComplete}
       />

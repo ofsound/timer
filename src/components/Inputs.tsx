@@ -1,11 +1,15 @@
 import { useState } from "react";
+import { useTimerStore } from "../store.ts";
 
 type inputProps = {
-  newSequenceCreated: (a: number[], b: boolean) => void;
+  // newSequenceCreated: (a: number[], b: boolean) => void;
   isEnabled: boolean;
 };
 
-function Inputs({ newSequenceCreated, isEnabled }: inputProps) {
+function Inputs({ isEnabled }: inputProps) {
+  // const thisSequence = useTimerStore((state) => state.thisSequence);
+  const setThisSequence = useTimerStore((state) => state.setThisSequence);
+
   const leadDuration = 5;
   const buttonValueArray = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
@@ -19,7 +23,8 @@ function Inputs({ newSequenceCreated, isEnabled }: inputProps) {
     const updatedArray = [...workingArray].concat(buttonValue);
 
     setWorkingArray(updatedArray);
-    newSequenceCreated([leadDuration, ...updatedArray], false);
+    // newSequenceCreated([leadDuration, ...updatedArray], false);
+    setThisSequence([leadDuration, ...updatedArray]);
   };
 
   return (

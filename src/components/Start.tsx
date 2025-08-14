@@ -2,11 +2,10 @@ import { useTimerStore } from "../store.ts";
 
 type inputProps = {
   onClick: React.MouseEventHandler<HTMLElement>;
-  thisStep: number;
-  isEnabled: boolean;
 };
 
-function Start({ onClick, thisStep, isEnabled }: inputProps) {
+function Start({ onClick }: inputProps) {
+  const thisStep: number = useTimerStore((state) => state.thisStep);
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
   let thisLabel: string;
 
@@ -22,18 +21,18 @@ function Start({ onClick, thisStep, isEnabled }: inputProps) {
       break;
   }
 
-  if (!isEnabled) {
-    thisLabel = "";
-  }
+  // if (!isEnabled) {
+  //   thisLabel = "";
+  // }
 
   return (
     <button onClick={onClick} className="relative block h-21 w-21">
       <div
-        className={`${!isEnabled && "opacity-0"} ${thisStep === 0 ? "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
+        className={`${thisStep === 0 ? "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
       ></div>
       <div
-        className={`${!isEnabled && "opacity-0"} ${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-18 w-18 rounded-full`}
+        className={`${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-18 w-18 rounded-full`}
       ></div>
       <div className="absolute top-7 w-21 text-white">{thisLabel}</div>
     </button>
