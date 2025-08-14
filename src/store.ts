@@ -1,8 +1,5 @@
 import { create } from 'zustand';
 
-
-
-
 type TimerStore = {
   thisStep: number;
   setThisStep: (thisStep: number) => void;

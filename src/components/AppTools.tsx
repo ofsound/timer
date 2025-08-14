@@ -5,7 +5,7 @@ function AppTools() {
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
 
   return (
-    <div className="mx-auto mb-8 max-w-[375px] bg-gray-900 p-4 text-white">
+    <div className="mx-auto mb-8 hidden max-w-[375px] bg-gray-900 p-4 text-white">
       <div>thisStep: {thisStep}</div>
       <div>thisRatio: {thisRatio}</div>
     </div>
