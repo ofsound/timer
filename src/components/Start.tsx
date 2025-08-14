@@ -1,11 +1,13 @@
+import { useTimerStore } from "../store.ts";
+
 type inputProps = {
   onClick: React.MouseEventHandler<HTMLElement>;
   thisStep: number;
-  thisRatio: number;
   isEnabled: boolean;
 };
 
-function Start({ onClick, thisStep, thisRatio, isEnabled }: inputProps) {
+function Start({ onClick, thisStep, isEnabled }: inputProps) {
+  const thisRatio: number = useTimerStore((state) => state.thisRatio);
   let thisLabel: string;
 
   switch (thisStep) {

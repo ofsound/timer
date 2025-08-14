@@ -3,12 +3,11 @@ import MapSegment from "./MapSegment.tsx";
 type inputProps = {
   sequenceArray: number[];
   thisStep: number;
-  thisRatio: number;
   isHistoryMap?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-function Map({ sequenceArray, thisStep, thisRatio, isHistoryMap, onClick }: inputProps) {
+function Map({ sequenceArray, thisStep, isHistoryMap, onClick }: inputProps) {
   return (
     <div
       onClick={isHistoryMap ? onClick : undefined}
@@ -20,7 +19,6 @@ function Map({ sequenceArray, thisStep, thisRatio, isHistoryMap, onClick }: inpu
           isActive={thisStep == index ? true : false}
           isComplete={thisStep > index ? true : false}
           durationSeconds={durationSeconds}
-          progressRatio={thisRatio}
           isHistoryMapSegment={isHistoryMap}
         />
       ))}

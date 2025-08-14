@@ -35,7 +35,6 @@ function History({ historyArray, updateHistoryArray, newSequenceCreated, isEnabl
             sequenceArray={historyRow.sequenceArray}
             isHistoryMap={true}
             thisStep={0}
-            thisRatio={1}
           />
           <Pin isPinned={historyArray[index].isPinned} onClick={() => handlePinClick(index)} />
         </div>

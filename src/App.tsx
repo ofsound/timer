@@ -7,6 +7,8 @@ import Start from "./components/Start.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Sound from "./components/Sound.tsx";
 
+import { useTimerStore } from "./store.ts";
+
 interface SoundComponent {
   play: () => void;
 }
@@ -17,10 +19,12 @@ interface historyRowObject {
 }
 
 function App() {
-  const appElement = document.getElementById("app") as HTMLElement;
+  const thisStep = useTimerStore((state) => state.thisStep);
+  const setThisStep = useTimerStore((state) => state.setThisStep);
 
-  const [thisStep, setThisStep] = useState(-1);
-  const [thisRatio, setThisRatio] = useState(0);
+  const setThisRatio = useTimerStore((state) => state.setThisRatio);
+
+  const appElement = document.getElementById("app") as HTMLElement;
 
   const [showTimeline, setShowTimeline] = useState(false);
   const [sequenceArray, setSequenceArray] = useState<number[]>([]);
@@ -148,6 +152,7 @@ function App() {
 
   return (
     <div id="app" className={`${""} mx-auto flex h-full max-h-screen flex-col bg-gray-700 px-5 duration-300`}>
+      {thisStep}
       <History
         historyArray={historyArray}
         updateHistoryArray={setHistoryArray}
@@ -155,7 +160,7 @@ function App() {
         isEnabled={inputsEnabled.current}
       />
       <div className="relative mt-auto mb-auto flex aspect-5/1 max-h-1/4 max-w-full">
-        <Map sequenceArray={sequenceArray} thisStep={thisStep} thisRatio={thisRatio} />
+        <Map sequenceArray={sequenceArray} thisStep={thisStep} />
         <button
           onClick={handleClearSequenceClick}
           className={` ${!startEnabled.current && "grayscale"} absolute -top-4 -right-4 block h-8 w-8 cursor-pointer rounded-full border-1 border-white bg-gray-700`}
@@ -170,7 +175,7 @@ function App() {
         isEnabled={inputsEnabled.current}
       />
       <div className="mt-auto flex max-h-1/4 justify-center pt-3 pb-3">
-        <Start onClick={handleStartClick} thisStep={thisStep} thisRatio={thisRatio} isEnabled={startEnabled.current} />
+        <Start onClick={handleStartClick} thisStep={thisStep} isEnabled={startEnabled.current} />
       </div>
       {showTimeline && (
         <Timeline
