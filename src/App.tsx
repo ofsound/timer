@@ -31,8 +31,6 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
 
-  // setShowSettings(false);
-
   const [inputsKey, setInputsKey] = useState(0);
 
   const soundRef = useRef<SoundComponent>(null);
