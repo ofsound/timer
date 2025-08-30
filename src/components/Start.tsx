@@ -7,6 +7,7 @@ type inputProps = {
 function Start({ onClick }: inputProps) {
   const thisStep: number = useTimerStore((state) => state.thisStep);
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
+  const startIsEnabled: boolean = useTimerStore((state) => state.startIsEnabled);
   let thisLabel: string;
 
   switch (thisStep) {
@@ -21,9 +22,9 @@ function Start({ onClick }: inputProps) {
       break;
   }
 
-  // if (!isEnabled) {
-  //   thisLabel = "";
-  // }
+  if (!startIsEnabled) {
+    thisLabel = "";
+  }
 
   return (
     <button onClick={onClick} className="relative block h-21 w-21">

@@ -24,15 +24,12 @@ function App() {
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
   const setInputsAreEnabled = useTimerStore((state) => state.setInputsAreEnabled);
 
-  const appElement = document.getElementById("app") as HTMLElement; // should be ref
-
   const [showTimeline, setShowTimeline] = useState(false);
 
-  const [inputsKey, setInputsKey] = useState(0); // so dumb
+  const [inputsKey, setInputsKey] = useState(0);
 
   const soundRef = useRef<SoundComponent>(null);
 
-  // these are the 4 big events, or something?
   const handleClearSequenceClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
 
@@ -53,6 +50,7 @@ function App() {
       case -1:
         setThisStep(0);
         setShowTimeline(true);
+        setInputsAreEnabled(false);
         break;
       case 0:
         break;
@@ -64,17 +62,17 @@ function App() {
 
   const handleSegmentComplete = () => {
     soundRef.current?.play();
-    appElement.classList.add("bg-white");
+    document.getElementById("app")?.classList.add("bg-white");
     setTimeout(() => {
-      appElement.classList.remove("bg-white");
+      document.getElementById("app")?.classList.remove("bg-white");
     }, 350);
   };
 
   const handleTimelineComplete = () => {
     soundRef.current?.play();
-    appElement.classList.add("bg-white");
+    document.getElementById("app")?.classList.add("bg-white");
     setTimeout(() => {
-      appElement.classList.remove("bg-white");
+      document.getElementById("app")?.classList.remove("bg-white");
     }, 550);
   };
 

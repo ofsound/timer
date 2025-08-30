@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useTimerStore } from "../store.ts";
 
 function Inputs() {
-  // const thisSequence = useTimerStore((state) => state.thisSequence);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
   const inputsAreEnabled = useTimerStore((state) => state.inputsAreEnabled);
+  const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
   const leadDuration = 5;
   const buttonValueArray = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
@@ -17,10 +17,9 @@ function Inputs() {
     }
 
     const updatedArray = [...workingArray].concat(buttonValue);
-
     setWorkingArray(updatedArray);
-    // newSequenceCreated([leadDuration, ...updatedArray], false);
     setThisSequence([leadDuration, ...updatedArray]);
+    setStartIsEnabled(true);
   };
 
   return (
