@@ -50,6 +50,7 @@ function App() {
 
     switch (thisStep) {
       case -1:
+        setThisStep(0);
         setShowTimeline(true);
         break;
       case 0:

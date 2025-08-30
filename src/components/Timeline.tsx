@@ -18,11 +18,11 @@ function Timeline({ timelineComplete, segmentComplete, timelinePaused }: inputPr
 
   const handleIsRunning = (runnerRatio: number) => {
     setThisRatio(runnerRatio);
-    setThisStep(runnerIndex);
   };
 
   const handleRunComplete = () => {
     if (runnerIndex < thisSequence.length - 1) {
+      setThisStep(runnerIndex + 1);
       setRunnerIndex(runnerIndex + 1);
       segmentComplete();
     } else {

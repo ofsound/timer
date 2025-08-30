@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 type TimerStore = {
   thisStep: number;
@@ -11,9 +12,9 @@ type TimerStore = {
   setThisSequence: (thisSequence: number[]) => void;
 }
 
-export const useTimerStore = create<TimerStore>(
-  (
-    (set: (arg0: { thisStep?: number; thisRatio?: number; thisSequence?: number[] }) => void) => ({
+export const useTimerStore = create<TimerStore>()(
+  devtools(
+    (set) => ({
       thisStep: -1,
       setThisStep: (newValue: number) => {
         set({ thisStep: newValue })
