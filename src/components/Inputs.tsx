@@ -5,8 +5,8 @@ function Inputs() {
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
   const inputsAreEnabled = useTimerStore((state) => state.inputsAreEnabled);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
+  const countInTime = useTimerStore((state) => state.countInTime);
 
-  const leadDuration = 5;
   const buttonValueArray = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
   const [workingArray, setWorkingArray] = useState<number[]>([]);
@@ -18,7 +18,7 @@ function Inputs() {
 
     const updatedArray = [...workingArray].concat(buttonValue);
     setWorkingArray(updatedArray);
-    setThisSequence([leadDuration, ...updatedArray]);
+    setThisSequence([countInTime, ...updatedArray]);
     setStartIsEnabled(true);
   };
 

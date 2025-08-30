@@ -5,6 +5,7 @@ import Inputs from "./components/Inputs.tsx";
 import Map from "./components/Map.tsx";
 import History from "./components/History.tsx";
 import Start from "./components/Start.tsx";
+import Settings from "./components/Settings.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Sound from "./components/Sound.tsx";
 
@@ -27,7 +28,10 @@ function App() {
   const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
   const setRunningIsPaused = useTimerStore((state) => state.setRunningIsPaused);
 
+  const [showSettings, setShowSettings] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
+
+  // setShowSettings(false);
 
   const [inputsKey, setInputsKey] = useState(0);
 
@@ -63,6 +67,10 @@ function App() {
     }
   };
 
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
+
   const handleSegmentComplete = () => {
     soundRef.current?.play();
     document.getElementById("app")?.classList.add("bg-white");
@@ -82,7 +90,7 @@ function App() {
   return (
     <div id="app" className="h-full bg-gray-700 duration-300">
       <AppTools />
-      <div className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col border-1 px-5">
+      <div className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col border-1 bg-gray-600 px-5">
         <History />
         <div className="relative mt-8 mb-auto flex h-full max-w-full">
           <Map />
@@ -99,6 +107,10 @@ function App() {
         <div className="mt flex max-h-1/4 justify-center pt-3 pb-3">
           <Start onClick={handleStartClick} />
         </div>
+        <button className="absolute right-0 bottom-2 z-10 rounded-md px-3 text-2xl" onClick={toggleSettings}>
+          &#9881;
+        </button>
+        {showSettings && <Settings />}
         {showTimeline && <Timeline segmentComplete={handleSegmentComplete} timelineComplete={handleTimelineComplete} />}
         <Sound ref={soundRef} />
       </div>
