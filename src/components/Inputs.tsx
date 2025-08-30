@@ -7,25 +7,25 @@ function Inputs() {
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
   const countInTime = useTimerStore((state) => state.countInTime);
 
-  const buttonValueArray = [2, 3, 5, 15, 20, 25, 30, 35, 40, 45];
+  const buttonValues = [2, 3, 5, 15, 20, 25, 30, 35, 40, 45];
 
-  const [workingArray, setWorkingArray] = useState<number[]>([]);
+  const [currentSequence, setWorkingSequence] = useState<number[]>([]);
 
   const buttonClickHandler = (buttonValue: number) => {
     if (!inputsAreEnabled) {
       return;
     }
 
-    const updatedArray = [...workingArray].concat(buttonValue);
-    setWorkingArray(updatedArray);
-    setThisSequence([countInTime, ...updatedArray]);
+    const updatedSequence = [...currentSequence].concat(buttonValue);
+    setWorkingSequence(updatedSequence);
+    setThisSequence([countInTime, ...updatedSequence]);
     setStartIsEnabled(true);
   };
 
   return (
     <>
       <div className="mr-auto ml-auto flex max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2">
-        {buttonValueArray.map((item, index) => (
+        {buttonValues.map((item, index) => (
           <button
             onClick={() => buttonClickHandler(item)}
             key={index}
