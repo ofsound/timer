@@ -1,28 +1,30 @@
-// import { useState } from "react";
-// import Map from "../components/Map.tsx";
-// import Pin from "../components/Pin.tsx";
+import { useState } from "react";
+import Map from "../components/Map.tsx";
+import Pin from "../components/Pin.tsx";
 
-// interface historyRowObject {
-//   isPinned: boolean;
-//   sequenceArray: number[];
-// }
+import { useTimerStore } from "../store.ts";
+
+interface historyRowObject {
+  isPinned: boolean;
+  sequenceArray: number[];
+}
 
 function History() {
-  // const [historyArray] = useState<Array<historyRowObject>>(() => {
-  //   try {
-  //     const storedArray = localStorage.getItem("historyArray");
-  //     return storedArray ? JSON.parse(storedArray) : [];
-  //   } catch (error) {
-  //     console.error("Error reading from localStorage:", error);
-  //     return [];
-  //   }
-  // });
+  const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
-  // move to own component
+  const [historyArray] = useState<Array<historyRowObject>>(() => {
+    try {
+      const storedArray = localStorage.getItem("historyArray");
+      return storedArray ? JSON.parse(storedArray) : [];
+    } catch (error) {
+      console.error("Error reading from localStorage:", error);
+      return [];
+    }
+  });
 
-  // const handleRowClick = (index: number) => {
-  // newSequenceCreated(historyArray[index].sequenceArray, true);
-  // };
+  const handleRowClick = (index: number) => {
+    setThisSequence(historyArray[index].sequenceArray);
+  };
 
   // const addToHistoryArray = (launchedSequence: number[]) => {
   //   const tempArray = [...historyArray];
@@ -53,20 +55,20 @@ function History() {
   //   setHistoryArray(tempArray);
   // };
 
-  // const handlePinClick = (index: number) => {
-  //   const tempHistoryArray = [...historyArray];
-  //   tempHistoryArray[index].isPinned = !tempHistoryArray[index].isPinned;
-  //   // updateHistoryArray(tempHistoryArray);
-  // };
+  const handlePinClick = (index: number) => {
+    const tempHistoryArray = [...historyArray];
+    tempHistoryArray[index].isPinned = !tempHistoryArray[index].isPinned;
+    // updateHistoryArray(tempHistoryArray);
+  };
 
   return (
-    <div className={`${"opacity-20 blur-[3px] grayscale"} mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}>
-      {/* {historyArray.map((historyRow, index) => (
+    <div className={`mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}>
+      {historyArray.map((historyRow, index) => (
         <div key={index} className="relative flex grow-1">
-          <Map onClick={() => handleRowClick(index)} isHistoryMap={true} />
-          <Pin isPinned={historyArray[index].isPinned} onClick={() => handlePinClick(index)} />
+          <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequenceArray} />
+          <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
         </div>
-      ))} */}
+      ))}
     </div>
   );
 }
