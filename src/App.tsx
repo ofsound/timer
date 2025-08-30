@@ -89,7 +89,7 @@ function App() {
   return (
     <div id="app" className="h-full bg-gray-700 duration-300">
       <AppTools />
-      <div className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col border-1 bg-gray-600 px-5">
+      <div className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5">
         <History />
         <div className="relative mt-8 mb-auto flex h-full max-w-full">
           <Map />
