@@ -65,10 +65,6 @@ function App() {
     }
   };
 
-  const toggleSettings = () => {
-    setShowSettings(!showSettings);
-  };
-
   const handleSegmentComplete = () => {
     soundRef.current?.play();
     document.getElementById("app")?.classList.add("bg-white");
@@ -85,6 +81,10 @@ function App() {
     }, 550);
     setShowTimeline(false);
     setThisStep(-1);
+  };
+
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
   };
 
   return (
