@@ -73,7 +73,7 @@ function History() {
   }
 
   return (
-    <div className={`mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}>
+    <div className="mx-auto mt-2 mb-auto hidden aspect-5/3 max-w-3/4 flex-col">
       {history.map((historyRow, index) => (
         <div key={index} className="relative flex grow-1">
           <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
