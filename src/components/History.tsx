@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+
 import Map from "../components/Map.tsx";
 import Pin from "../components/Pin.tsx";
 
@@ -15,7 +16,7 @@ function History() {
 
   const thisStep = useTimerStore((state) => state.thisStep);
 
-  const historyRenderAfterStart = useRef(false);
+  const firstRenderAfterStart = useRef(true);
 
   const [history, setHistory] = useState<Array<historyRowObject>>(() => {
     try {
@@ -37,8 +38,8 @@ function History() {
     setHistory(tempHistory);
   };
 
-  if (thisStep === 0 && !historyRenderAfterStart.current) {
-    historyRenderAfterStart.current = true;
+  if (thisStep === 0 && firstRenderAfterStart.current) {
+    firstRenderAfterStart.current = false;
 
     const newHistory = [...history];
     const historyRowObject = {
@@ -65,8 +66,8 @@ function History() {
     setHistory(newHistory);
   }
 
-  if (thisStep === -1 && historyRenderAfterStart) {
-    historyRenderAfterStart.current = false;
+  if (thisStep === -1 && !firstRenderAfterStart.current) {
+    firstRenderAfterStart.current = true;
   }
 
   return (
