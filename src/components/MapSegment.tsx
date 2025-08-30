@@ -9,7 +9,7 @@ type inputProps = {
 
 function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment }: inputProps) {
   const classesOuter = [
-    "relative h-full overflow-hidden rounded-lg border border-black bg-gray-400 text-center text-black first:hidden even:bg-gray-100",
+    "relative h-full rounded-lg border border-black bg-gray-400 text-center text-black first:hidden even:bg-gray-100",
     isComplete && "border-gray-800 text-gray-800 !opacity-15",
   ]
     .filter(Boolean)
