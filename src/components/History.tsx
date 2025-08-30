@@ -10,8 +10,6 @@ interface historyRowObject {
 }
 
 function History() {
-  console.log("history rendered");
-
   const thisSequence = useTimerStore((state) => state.thisSequence);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
@@ -67,7 +65,7 @@ function History() {
     setHistoryArray(tempArray);
   }
 
-  if (thisStep === 1 && historyRenderAfterStart) {
+  if (thisStep === -1 && historyRenderAfterStart) {
     historyRenderAfterStart.current = false;
   }
 
