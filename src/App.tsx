@@ -24,6 +24,9 @@ function App() {
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
   const setInputsAreEnabled = useTimerStore((state) => state.setInputsAreEnabled);
 
+  const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
+  const setRunningIsPaused = useTimerStore((state) => state.setRunningIsPaused);
+
   const [showTimeline, setShowTimeline] = useState(false);
 
   const [inputsKey, setInputsKey] = useState(0);
@@ -33,13 +36,13 @@ function App() {
   const handleClearSequenceClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
 
-    setInputsAreEnabled(true);
-
     setThisStep(-1);
     setThisRatio(0);
     setThisSequence([]);
+
     setShowTimeline(false);
 
+    setInputsAreEnabled(true);
     setStartIsEnabled(false);
   };
 
@@ -55,7 +58,7 @@ function App() {
       case 0:
         break;
       default:
-        alert("pause?");
+        setRunningIsPaused(!runningIsPaused);
         break;
     }
   };
@@ -77,7 +80,7 @@ function App() {
   };
 
   return (
-    <div id="app" className={`${""} h-full bg-gray-700 duration-300`}>
+    <div id="app" className="h-full bg-gray-700 duration-300">
       <AppTools />
       <div className="mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col border-1 px-5">
         <History />
@@ -96,13 +99,7 @@ function App() {
         <div className="mt flex max-h-1/4 justify-center pt-3 pb-3">
           <Start onClick={handleStartClick} />
         </div>
-        {showTimeline && (
-          <Timeline
-            timelinePaused={false}
-            segmentComplete={handleSegmentComplete}
-            timelineComplete={handleTimelineComplete}
-          />
-        )}
+        {showTimeline && <Timeline segmentComplete={handleSegmentComplete} timelineComplete={handleTimelineComplete} />}
         <Sound ref={soundRef} />
       </div>
     </div>

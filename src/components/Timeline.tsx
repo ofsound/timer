@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Runner from "./Runner.tsx";
 
 import { useTimerStore } from "../store.ts";
@@ -6,10 +6,9 @@ import { useTimerStore } from "../store.ts";
 type inputProps = {
   timelineComplete: () => void;
   segmentComplete: () => void;
-  timelinePaused: boolean;
 };
 
-function Timeline({ timelineComplete, segmentComplete, timelinePaused }: inputProps) {
+function Timeline({ timelineComplete, segmentComplete }: inputProps) {
   const setThisRatio = useTimerStore((state) => state.setThisRatio);
   const setThisStep = useTimerStore((state) => state.setThisStep);
   const thisSequence = useTimerStore((state) => state.thisSequence);
@@ -30,19 +29,13 @@ function Timeline({ timelineComplete, segmentComplete, timelinePaused }: inputPr
     }
   };
 
-  useEffect(() => {
-    console.log("pause or unpause timeline", timelinePaused);
-  }, [timelinePaused]);
-
   return (
-    <>
-      <Runner
-        key={runnerIndex}
-        durationMilliseconds={1000 * thisSequence[runnerIndex]}
-        isRunning={handleIsRunning}
-        runComplete={handleRunComplete}
-      />
-    </>
+    <Runner
+      key={runnerIndex}
+      durationMilliseconds={1000 * thisSequence[runnerIndex]}
+      isRunning={handleIsRunning}
+      runComplete={handleRunComplete}
+    />
   );
 }
 

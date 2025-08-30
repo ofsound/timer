@@ -1,5 +1,7 @@
 import { useRef, useEffect } from "react";
 
+import { useTimerStore } from "../store.ts";
+
 type inputProps = {
   durationMilliseconds: number;
   isRunning: (a: number) => void;
@@ -7,8 +9,14 @@ type inputProps = {
 };
 
 function Runner({ durationMilliseconds, runComplete, isRunning }: inputProps) {
+  const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
+
+  const runStarted = useRef(false);
   const animationRequestID = useRef(0);
   const lastTime = useRef(performance.now());
+
+  const elapsedAtPause = useRef(0);
+
   const tempElapsed = useRef(0);
 
   const animationLoop = useRef(() => {
@@ -28,8 +36,27 @@ function Runner({ durationMilliseconds, runComplete, isRunning }: inputProps) {
 
     return () => {
       cancelAnimationFrame(animationRequestID.current);
+      runStarted.current = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!runStarted.current) {
+      runStarted.current = true;
+    } else {
+      if (runningIsPaused) {
+        cancelAnimationFrame(animationRequestID.current);
+        elapsedAtPause.current = tempElapsed.current;
+      } else {
+        lastTime.current = performance.now() - elapsedAtPause.current;
+        animationLoop.current();
+      }
+    }
+
+    return () => {
+      cancelAnimationFrame(animationRequestID.current);
+    };
+  }, [runningIsPaused]);
 
   return <></>;
 }

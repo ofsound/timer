@@ -16,6 +16,10 @@ type TimerStore = {
 
   inputsAreEnabled: boolean,
   setInputsAreEnabled: (inputsAreEnabled: boolean) => void
+
+  runningIsPaused: boolean,
+  setRunningIsPaused: (runningIsPaused: boolean) => void
+
 }
 
 export const useTimerStore = create<TimerStore>()(
@@ -40,5 +44,9 @@ export const useTimerStore = create<TimerStore>()(
       inputsAreEnabled: true,
       setInputsAreEnabled: (newValue: boolean) => {
         set({ inputsAreEnabled: newValue })
+      },
+      runningIsPaused: false,
+      setRunningIsPaused: (newValue: boolean) => {
+        set({ runningIsPaused: newValue })
       },
     })));

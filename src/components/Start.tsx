@@ -8,6 +8,7 @@ function Start({ onClick }: inputProps) {
   const thisStep: number = useTimerStore((state) => state.thisStep);
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
   const startIsEnabled: boolean = useTimerStore((state) => state.startIsEnabled);
+  const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
 
   let thisLabel: string;
 
@@ -25,6 +26,10 @@ function Start({ onClick }: inputProps) {
 
   if (!startIsEnabled) {
     thisLabel = "";
+  }
+
+  if (runningIsPaused) {
+    thisLabel = "RESUME";
   }
 
   return (
