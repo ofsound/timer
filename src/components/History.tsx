@@ -15,6 +15,7 @@ function History() {
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
   const thisStep = useTimerStore((state) => state.thisStep);
+  const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
   const firstRenderAfterStart = useRef(true);
 
@@ -30,6 +31,7 @@ function History() {
 
   const handleRowClick = (index: number) => {
     setThisSequence(history[index].sequence);
+    setStartIsEnabled(true);
   };
 
   const handlePinClick = (index: number) => {

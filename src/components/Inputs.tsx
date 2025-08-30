@@ -7,7 +7,7 @@ function Inputs() {
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
   const countInTime = useTimerStore((state) => state.countInTime);
 
-  const buttonValues = [2, 3, 5, 15, 20, 25, 30, 35, 40, 45];
+  const buttonValues = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
   const [currentSequence, setWorkingSequence] = useState<number[]>([]);
 

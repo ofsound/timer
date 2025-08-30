@@ -49,10 +49,9 @@ function App() {
   };
 
   const handleStartClick = () => {
-    soundRef.current?.play();
-
     switch (thisStep) {
       case -1:
+        soundRef.current?.play();
         setThisStep(0);
         setShowTimeline(true);
         setInputsAreEnabled(false);
