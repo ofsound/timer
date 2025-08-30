@@ -10,6 +10,12 @@ type TimerStore = {
 
   thisSequence: number[],
   setThisSequence: (thisSequence: number[]) => void;
+
+  startIsEnabled: boolean,
+  setStartIsEnabled: (startIsEnabled: boolean) => void
+
+  inputsAreEnabled: boolean,
+  setInputsAreEnabled: (inputsAreEnabled: boolean) => void
 }
 
 export const useTimerStore = create<TimerStore>()(
@@ -26,6 +32,13 @@ export const useTimerStore = create<TimerStore>()(
       thisSequence: [],
       setThisSequence: (newValue: number[]) => {
         set({ thisSequence: newValue })
-      }
+      },
+      startIsEnabled: false,
+      setStartIsEnabled: (newValue: boolean) => {
+        set({ startIsEnabled: newValue })
+      },
+      inputsAreEnabled: true,
+      setInputsAreEnabled: (newValue: boolean) => {
+        set({ inputsAreEnabled: newValue })
+      },
     })));
-

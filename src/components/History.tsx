@@ -7,14 +7,7 @@
 //   sequenceArray: number[];
 // }
 
-type inputProps = {
-  // historyArray: historyRowObject[];
-  // updateHistoryArray: (a: historyRowObject[]) => void;
-  // newSequenceCreated: (a: number[], b: boolean) => void;
-  isEnabled: boolean;
-};
-
-function History({ isEnabled }: inputProps) {
+function History() {
   // const [historyArray] = useState<Array<historyRowObject>>(() => {
   //   try {
   //     const storedArray = localStorage.getItem("historyArray");
@@ -67,9 +60,7 @@ function History({ isEnabled }: inputProps) {
   // };
 
   return (
-    <div
-      className={`${!isEnabled && "opacity-20 blur-[3px] grayscale"} mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}
-    >
+    <div className={`${"opacity-20 blur-[3px] grayscale"} mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}>
       {/* {historyArray.map((historyRow, index) => (
         <div key={index} className="relative flex grow-1">
           <Map onClick={() => handleRowClick(index)} isHistoryMap={true} />
