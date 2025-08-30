@@ -3,8 +3,8 @@
 import { useTimerStore } from "../store.ts";
 
 type inputProps = {
-  isActive: boolean;
-  isComplete: boolean;
+  isActive?: boolean;
+  isComplete?: boolean;
   durationSeconds: number;
   isHistoryMapSegment?: boolean;
 };

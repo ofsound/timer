@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Map from "../components/Map.tsx";
 import Pin from "../components/Pin.tsx";
 
@@ -10,9 +10,12 @@ interface historyRowObject {
 }
 
 function History() {
+  const thisSequence = useTimerStore((state) => state.thisSequence);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
-  const [historyArray] = useState<Array<historyRowObject>>(() => {
+  const thisStep = useTimerStore((state) => state.thisStep);
+
+  const [historyArray, setHistoryArray] = useState<Array<historyRowObject>>(() => {
     try {
       const storedArray = localStorage.getItem("historyArray");
       return storedArray ? JSON.parse(storedArray) : [];
@@ -26,39 +29,40 @@ function History() {
     setThisSequence(historyArray[index].sequenceArray);
   };
 
-  // const addToHistoryArray = (launchedSequence: number[]) => {
-  //   const tempArray = [...historyArray];
+  useEffect(() => {
+    if (thisStep === 0) {
+      const tempArray = [...historyArray];
+      const historyRowObject = {
+        isPinned: false,
+        sequenceArray: thisSequence,
+      };
+      if (tempArray.length > 2) {
+        const attemptSplice = (pinIndex: number) => {
+          if (!tempArray[pinIndex].isPinned) {
+            tempArray.splice(pinIndex, 1);
+            return;
+          } else {
+            attemptSplice(pinAttemptIndex++);
+          }
+        };
 
-  //   const historyRowObject = {
-  //     isPinned: false,
-  //     sequenceArray: launchedSequence,
-  //   };
+        let pinAttemptIndex = 0;
+        attemptSplice(pinAttemptIndex);
+      }
 
-  //   if (tempArray.length > 2) {
-  //     const attemptSplice = (pinIndex: number) => {
-  //       if (!tempArray[pinIndex].isPinned) {
-  //         tempArray.splice(pinIndex, 1);
-  //         return;
-  //       } else {
-  //         attemptSplice(pinAttemptIndex++);
-  //       }
-  //     };
+      tempArray.push(historyRowObject);
 
-  //     let pinAttemptIndex = 0;
-  //     attemptSplice(pinAttemptIndex);
-  //   }
+      localStorage.setItem("historyArray", JSON.stringify(tempArray));
+      setHistoryArray(tempArray);
+    }
 
-  //   tempArray.push(historyRowObject);
-
-  //   localStorage.setItem("historyArray", JSON.stringify(tempArray));
-
-  //   setHistoryArray(tempArray);
-  // };
+    return () => {};
+  }, [thisStep]);
 
   const handlePinClick = (index: number) => {
     const tempHistoryArray = [...historyArray];
     tempHistoryArray[index].isPinned = !tempHistoryArray[index].isPinned;
-    // updateHistoryArray(tempHistoryArray);
+    setHistoryArray(tempHistoryArray);
   };
 
   return (

@@ -30,13 +30,7 @@ function Map({ isHistoryMap, onClick, historySequence }: inputProps) {
 
       {isHistoryMap &&
         historySequence?.map((durationSeconds, index) => (
-          <MapSegment
-            key={index}
-            isActive={thisStep == index ? true : false}
-            isComplete={thisStep > index ? true : false}
-            durationSeconds={durationSeconds}
-            isHistoryMapSegment={isHistoryMap}
-          />
+          <MapSegment key={index} durationSeconds={durationSeconds} isHistoryMapSegment={isHistoryMap} />
         ))}
     </div>
   );
