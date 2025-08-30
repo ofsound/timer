@@ -8,6 +8,7 @@ function Start({ onClick }: inputProps) {
   const thisStep: number = useTimerStore((state) => state.thisStep);
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
   const startIsEnabled: boolean = useTimerStore((state) => state.startIsEnabled);
+
   let thisLabel: string;
 
   switch (thisStep) {
@@ -27,7 +28,7 @@ function Start({ onClick }: inputProps) {
   }
 
   return (
-    <button onClick={onClick} className="relative block h-21 w-21">
+    <button onClick={onClick} className={`relative block h-21 w-21 ${!startIsEnabled && "pointer-events-none"}`}>
       <div
         className={`${thisStep === 0 ? "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
