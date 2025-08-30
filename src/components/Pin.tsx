@@ -1,5 +1,3 @@
-// don't use emoji, probably inconsistent
-
 type inputProps = {
   isPinned: boolean;
   onClick: React.MouseEventHandler<HTMLElement>;

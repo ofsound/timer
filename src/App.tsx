@@ -83,6 +83,8 @@ function App() {
     setTimeout(() => {
       document.getElementById("app")?.classList.remove("bg-white");
     }, 550);
+    setShowTimeline(false);
+    setThisStep(-1);
   };
 
   return (

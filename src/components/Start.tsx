@@ -25,16 +25,15 @@ function Start({ onClick }: inputProps) {
       break;
   }
 
-  if (!startIsEnabled) {
-    thisLabel = "";
-  }
-
   if (runningIsPaused) {
     thisLabel = "RESUME";
   }
 
   return (
-    <button onClick={onClick} className={`relative block h-21 w-21 ${!startIsEnabled && "pointer-events-none"}`}>
+    <button
+      onClick={onClick}
+      className={`relative block h-21 w-21 ${!startIsEnabled && "pointer-events-none opacity-0"}`}
+    >
       <div
         className={`${thisStep === 0 ? "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
