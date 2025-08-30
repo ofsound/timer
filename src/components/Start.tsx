@@ -9,6 +9,7 @@ function Start({ onClick }: inputProps) {
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
   const startIsEnabled: boolean = useTimerStore((state) => state.startIsEnabled);
   const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
+  const countInTime = useTimerStore((state) => state.countInTime);
 
   let thisLabel: string;
 
@@ -17,7 +18,7 @@ function Start({ onClick }: inputProps) {
       thisLabel = "START";
       break;
     case 0:
-      thisLabel = Math.ceil(5 - thisRatio * 5).toString();
+      thisLabel = Math.ceil(countInTime - thisRatio * countInTime).toString();
       break;
     default:
       thisLabel = "PAUSE";
