@@ -6,7 +6,7 @@ import { useTimerStore } from "../store.ts";
 
 interface historyRowObject {
   isPinned: boolean;
-  sequenceArray: number[];
+  sequence: number[];
 }
 
 function History() {
@@ -17,10 +17,10 @@ function History() {
 
   const historyRenderAfterStart = useRef(false);
 
-  const [historyArray, setHistoryArray] = useState<Array<historyRowObject>>(() => {
+  const [history, setHistory] = useState<Array<historyRowObject>>(() => {
     try {
-      const storedArray = localStorage.getItem("historyArray");
-      return storedArray ? JSON.parse(storedArray) : [];
+      const storedHistories = localStorage.getItem("history");
+      return storedHistories ? JSON.parse(storedHistories) : [];
     } catch (error) {
       console.error("Error reading from localStorage:", error);
       return [];
@@ -28,27 +28,27 @@ function History() {
   });
 
   const handleRowClick = (index: number) => {
-    setThisSequence(historyArray[index].sequenceArray);
+    setThisSequence(history[index].sequence);
   };
 
   const handlePinClick = (index: number) => {
-    const tempHistoryArray = [...historyArray];
-    tempHistoryArray[index].isPinned = !tempHistoryArray[index].isPinned;
-    setHistoryArray(tempHistoryArray);
+    const tempHistory = [...history];
+    tempHistory[index].isPinned = !tempHistory[index].isPinned;
+    setHistory(tempHistory);
   };
 
   if (thisStep === 0 && !historyRenderAfterStart.current) {
     historyRenderAfterStart.current = true;
 
-    const tempArray = [...historyArray];
+    const newHistory = [...history];
     const historyRowObject = {
       isPinned: false,
-      sequenceArray: thisSequence,
+      sequence: thisSequence,
     };
-    if (tempArray.length > 2) {
+    if (newHistory.length > 2) {
       const attemptSplice = (pinIndex: number) => {
-        if (!tempArray[pinIndex].isPinned) {
-          tempArray.splice(pinIndex, 1);
+        if (!newHistory[pinIndex].isPinned) {
+          newHistory.splice(pinIndex, 1);
           return;
         } else {
           attemptSplice(pinAttemptIndex++);
@@ -59,10 +59,10 @@ function History() {
       attemptSplice(pinAttemptIndex);
     }
 
-    tempArray.push(historyRowObject);
+    newHistory.push(historyRowObject);
 
-    localStorage.setItem("historyArray", JSON.stringify(tempArray));
-    setHistoryArray(tempArray);
+    localStorage.setItem("history", JSON.stringify(newHistory));
+    setHistory(newHistory);
   }
 
   if (thisStep === -1 && historyRenderAfterStart) {
@@ -71,9 +71,9 @@ function History() {
 
   return (
     <div className={`mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}>
-      {historyArray.map((historyRow, index) => (
+      {history.map((historyRow, index) => (
         <div key={index} className="relative flex grow-1">
-          <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequenceArray} />
+          <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
           <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
         </div>
       ))}
