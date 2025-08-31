@@ -46,6 +46,8 @@ function App() {
 
     setInputsAreEnabled(true);
     setStartIsEnabled(false);
+
+    setRunningIsPaused(false);
   };
 
   const handleStartClick = () => {

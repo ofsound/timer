@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --animate-pulse-fast: pulse 0.5s infinite;
+  --animate-pulse-fast: pulse 5s;
   @keyframes pulse {
-    0%,
+    0% {
+      opacity: 0;
+    }
     100% {
       opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
     }
   }
 
