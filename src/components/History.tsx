@@ -17,6 +17,8 @@ function History() {
   const thisStep = useTimerStore((state) => state.thisStep);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
+  const inputsAreEnabled = useTimerStore((state) => state.inputsAreEnabled);
+
   const firstRenderAfterStart = useRef(true);
 
   const [history, setHistory] = useState<Array<historyRowObject>>(() => {
@@ -37,6 +39,7 @@ function History() {
   const handlePinClick = (index: number) => {
     const tempHistory = [...history];
     tempHistory[index].isPinned = !tempHistory[index].isPinned;
+    localStorage.setItem("history", JSON.stringify(tempHistory));
     setHistory(tempHistory);
   };
 
@@ -73,7 +76,9 @@ function History() {
   }
 
   return (
-    <div className="mx-auto mt-2 mb-auto hidden aspect-5/3 max-w-3/4 flex-col">
+    <div
+      className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : ""} mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}
+    >
       {history.map((historyRow, index) => (
         <div key={index} className="relative flex grow-1">
           <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
