@@ -31,46 +31,91 @@ function Settings() {
 
   return (
     <div className="absolute top-0 left-0 h-full w-full bg-gray-900 px-14 py-12 text-white">
-      <div className="mb-18 text-center text-xl">Settings</div>
+      <div className="mb-18 text-center text-2xl">Settings</div>
       <div className="flex flex-col gap-12">
         <div className="flex justify-center">
-          <div className="text-md pr-8 text-right italic">Count In Time</div>
+          <div className="text-md mt-7 pr-4 text-right">Count In Time:</div>
           <input
             id="countInTime"
             type="number"
-            className="block rounded-md border-gray-300 text-3xl focus:border-indigo-500 focus:ring-indigo-500"
+            className="pointer-events-none text-right text-3xl"
             value={countInTime}
             min="1"
-            max="9"
+            max="99"
             step="1"
             onChange={handleChange}
           />
+          <div className="relative top-[18px] -left-3 w-4 text-3xl">s</div>
+          <div className="flex flex-col gap-3">
+            <button
+              className="block h-8 w-8 rounded-sm border-1 border-gray-300 text-2xl"
+              onClick={() => setCountInTime(countInTime + 1)}
+            >
+              <div className="relative -top-1">+</div>
+            </button>
+            <button
+              className="block h-8 w-8 rounded-sm border-1 border-gray-300 text-2xl"
+              onClick={() => setCountInTime(countInTime - 1)}
+            >
+              <div className="relative -top-1">-</div>
+            </button>
+          </div>
         </div>
         <div className="flex justify-center">
-          <div className="text-md pr-8 text-right italic">Sound Effect</div>
+          <div className="text-md mt-7 pr-4 text-right">Sound Effect:</div>
           <input
             id="soundEffectIndex"
             type="number"
-            className="block rounded-md border-gray-300 text-3xl focus:border-indigo-500 focus:ring-indigo-500"
+            className="pointer-events-none text-right text-3xl"
             value={soundEffectIndex}
             min="1"
-            max="5"
+            max="10"
             step="1"
             onChange={handleChange}
           />
+          <div className="relative top-[18px] -left-3 w-4 text-3xl"></div>
+          <div className="flex flex-col gap-3">
+            <button
+              className="block h-8 w-8 rounded-sm border-1 border-gray-300 text-2xl"
+              onClick={() => setSoundEffectIndex(soundEffectIndex + 1)}
+            >
+              <div className="relative -top-1">+</div>
+            </button>
+            <button
+              className="block h-8 w-8 rounded-sm border-1 border-gray-300 text-2xl"
+              onClick={() => setSoundEffectIndex(soundEffectIndex - 1)}
+            >
+              <div className="relative -top-1">-</div>
+            </button>
+          </div>
         </div>
         <div className="flex justify-center">
-          <div className="text-md pr-8 text-right italic">Color Theme</div>
+          <div className="text-md mt-7 pr-4 text-right">Color Theme:</div>
           <input
             id="colorThemeIndex"
             type="number"
-            className="block rounded-md border-gray-300 text-3xl focus:border-indigo-500 focus:ring-indigo-500"
+            className="pointer-events-none text-right text-3xl"
             value={colorThemeIndex}
             min="1"
-            max="2"
+            max="10"
             step="1"
             onChange={handleChange}
           />
+          <div className="relative top-[18px] -left-3 w-4 text-3xl"></div>
+          <div className="flex flex-col gap-3">
+            <button
+              className="block h-8 w-8 rounded-sm border-1 border-gray-300 text-2xl"
+              onClick={() => setColorThemeIndex(colorThemeIndex + 1)}
+            >
+              <div className="relative -top-1">+</div>
+            </button>
+            <button
+              className="block h-8 w-8 rounded-sm border-1 border-gray-300 text-2xl"
+              onClick={() => setColorThemeIndex(colorThemeIndex - 1)}
+            >
+              <div className="relative -top-1">-</div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
