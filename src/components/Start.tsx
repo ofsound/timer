@@ -32,16 +32,18 @@ function Start({ onClick }: inputProps) {
   return (
     <button
       onClick={onClick}
-      className={`relative block h-21 w-21 ${!startIsEnabled && "pointer-events-none opacity-0"}`}
+      className={`relative block h-22 w-22 ${!startIsEnabled && "pointer-events-none opacity-0"}`}
     >
       <div
-        className={`${thisStep === 0 ? "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-conic from-black to-green-500" : "absolute top-0 h-21 w-21 cursor-pointer rounded-full bg-green-500"} `}
+        className={`absolute top-0 h-22 w-22 cursor-pointer rounded-full ${thisStep === 0 ? "bg-conic from-black to-green-500" : "bg-green-500"} `}
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
       ></div>
       <div
-        className={`${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-18 w-18 rounded-full`}
+        className={`${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-19 w-19 rounded-full`}
       ></div>
-      <div className="absolute top-7 w-21 text-white">{thisLabel}</div>
+      <div className="absolute top-[34px] w-22 text-sm font-bold tracking-wider text-white text-shadow-sm">
+        {thisLabel}
+      </div>
     </button>
   );
 }

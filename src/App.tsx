@@ -97,15 +97,15 @@ function App() {
           <Map />
           <button
             onClick={handleClearSequenceClick}
-            className={` ${!startIsEnabled && "grayscale"} absolute -top-4 -right-4 block h-8 w-8 cursor-pointer rounded-full border-1 border-white bg-gray-700`}
+            className={` ${!startIsEnabled && ""} absolute -top-4 -right-4 block h-12 w-12 cursor-pointer rounded-full border-1 border-white bg-gray-600`}
           >
-            <span className="relative -top-[3px] text-2xl text-white">×</span>
+            <span className="relative -top-[3px] text-3xl text-white">×</span>
           </button>
         </div>
-        <div className="mt-4">
+        <div className="mt-3">
           <Inputs key={"inputs" + inputsKey} />
         </div>
-        <div className="mt flex max-h-1/4 justify-center pt-3 pb-3">
+        <div className="mt flex max-h-1/4 justify-center pt-4 pb-3">
           <Start onClick={handleStartClick} />
         </div>
         <button className="absolute right-0 bottom-2 z-10 rounded-md px-3 text-2xl" onClick={toggleSettings}>

@@ -9,9 +9,9 @@ type inputProps = {
 
 function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment }: inputProps) {
   const classesOuter = [
-    "relative h-full rounded-lg border border-black bg-gray-400 text-center text-black first:hidden even:bg-gray-100",
+    "relative h-full rounded-lg border border-black overflow-hidden bg-gray-400 text-center text-black first:hidden even:bg-gray-100",
     isComplete &&
-      "border-gray-800 text-gray-800 !opacity-50 bg-[repeating-linear-gradient(45deg,_#e1e1e1_0,_#e1e1e1_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed",
+      "border-gray-800 text-gray-800 !opacity-60 bg-[repeating-linear-gradient(45deg,_#c1c1c1_0,_#e1e1e1_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed",
   ]
     .filter(Boolean)
     .join(" ");
