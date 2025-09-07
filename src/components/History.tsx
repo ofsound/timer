@@ -139,7 +139,7 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
   }
 
   return (
-    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 py-6 text-white">
+    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 pt-6 pb-4 text-white">
       <div className="mx-auto mb-auto flex w-full flex-1 flex-col">
         {history.map((historyRow, index) => (
           <div key={uuidv4()}>
