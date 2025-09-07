@@ -97,18 +97,18 @@ function App() {
 
   const toggleSettings = contextSafe(() => {
     if (!showSettings) {
-      gsap.to("#content", { y: -549 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: -549 });
     } else {
-      gsap.to("#content", { y: 0 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0 });
     }
     setShowSettings(!showSettings);
   });
 
   const toggleHistory = contextSafe(() => {
     if (!showHistory) {
-      gsap.to("#content", { y: 549 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: 549 });
     } else {
-      gsap.to("#content", { y: 0 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0 });
     }
     setShowHistory(!showHistory);
   });
@@ -184,7 +184,7 @@ function App() {
         >
           Settings
         </button>
-        <History onToggleClick={() => toggleHistory()} />
+        <History onToggleClick={() => toggleHistory()} onToggleRowClick={() => toggleHistory()} />
         <Settings onToggleClick={() => toggleSettings()} />
         {showTimeline && <Timeline segmentComplete={handleSegmentComplete} timelineComplete={handleTimelineComplete} />}
         <Sound ref={soundRef} />

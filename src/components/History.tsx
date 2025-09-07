@@ -14,9 +14,10 @@ interface historyRowObject {
 
 type inputProps = {
   onToggleClick?: React.MouseEventHandler<HTMLElement>;
+  onToggleRowClick: () => void;
 };
 
-function History({ onToggleClick }: inputProps) {
+function History({ onToggleClick, onToggleRowClick }: inputProps) {
   const thisSequence = useTimerStore((state) => state.thisSequence);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
@@ -41,10 +42,38 @@ function History({ onToggleClick }: inputProps) {
   };
 
   function moveArrayRow(arr: historyRowObject[], fromIndex: number, toIndex: number) {
-    const elementToMove = arr.splice(fromIndex, 1)[0]; // splice returns an array, [0] gets the
+    const elementToMove = arr.splice(fromIndex, 1)[0];
     arr.splice(toIndex, 0, elementToMove);
     return arr;
   }
+
+  const [dividerIndex, setDividerIndex] = useState(() => {
+    let prevPinExists = false;
+
+    for (let i = 0; i < history.length; i++) {
+      if (history[i].isPinned) {
+        prevPinExists = true;
+      }
+      if (prevPinExists && !history[i].isPinned) {
+        return i;
+      }
+    }
+  });
+
+  const updateDividerIndex = () => {
+    let prevPinExists = false;
+
+    for (let i = 0; i < history.length; i++) {
+      if (history[i].isPinned) {
+        prevPinExists = true;
+      }
+      if (prevPinExists && !history[i].isPinned) {
+        // history = moveArrayRow(history, index, i);
+        setDividerIndex(i + 1);
+        break;
+      }
+    }
+  };
 
   const handlePinClick = (index: number) => {
     let newHistory = [...history];
@@ -60,6 +89,7 @@ function History({ onToggleClick }: inputProps) {
         }
         if (prevPinExists && !newHistory[i].isPinned) {
           newHistory = moveArrayRow(newHistory, index, i);
+          setDividerIndex(i + 1);
           break;
         }
       }
@@ -72,6 +102,7 @@ function History({ onToggleClick }: inputProps) {
 
     localStorage.setItem("history", JSON.stringify(newHistory));
     setHistory(newHistory);
+    updateDividerIndex();
   };
 
   if (thisStep === 0 && firstRenderAfterStart.current) {
@@ -100,6 +131,7 @@ function History({ onToggleClick }: inputProps) {
 
     localStorage.setItem("history", JSON.stringify(newHistory));
     setHistory(newHistory);
+    updateDividerIndex();
   }
 
   if (thisStep === -1 && !firstRenderAfterStart.current) {
@@ -107,18 +139,32 @@ function History({ onToggleClick }: inputProps) {
   }
 
   return (
-    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-900 px-14 py-6 text-white">
+    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 py-6 text-white">
       <div className="mx-auto mb-auto flex w-full flex-1 flex-col">
         {history.map((historyRow, index) => (
-          <div key={uuidv4()} className={`relative flex grow-1 ${!historyRow.isPinned && "opacity-70"}`}>
-            <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
-            <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
+          <div key={uuidv4()}>
+            <div
+              className={`${index !== dividerIndex && "hidden"} mx-auto mt-4 h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
+            ></div>
+            <div className={`relative flex flex-col px-14 ${index === dividerIndex && "animate-pulse"}`}>
+              <div className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-3 opacity-70"}`}>
+                <Map
+                  onClick={() => {
+                    handleRowClick(index);
+                    onToggleRowClick();
+                  }}
+                  isHistoryMap={true}
+                  historySequence={historyRow.sequence}
+                />
+                <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
+              </div>
+            </div>
           </div>
         ))}
       </div>
       <button
         onClick={onToggleClick}
-        className="mx-auto mt-4 block w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black text-black opacity-20"
+        className="mx-auto mt-4 block w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black text-black opacity-30"
       >
         Timer
       </button>

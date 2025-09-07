@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+/* @theme {
   --animate-pulse-fast: pulse 5s;
   @keyframes pulse {
     0% {
@@ -12,4 +12,4 @@
   }
 
   --text-shadow-centered: -1px 0px 6px #ffffffcc;
-}
+} */

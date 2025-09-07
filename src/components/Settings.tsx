@@ -59,7 +59,7 @@ function Settings({ onToggleClick }: inputProps) {
       >
         Timer
       </button>
-      <div className="mt-5 mb-8 text-center text-xl font-bold tracking-wide">Settings</div>
+      <div className="mt-5 mb-8 text-center text-2xl font-bold tracking-wide">Settings</div>
       <div className="flex flex-col">
         <div className="flex border-t-1 border-gray-400 bg-purple-100 px-11 py-3 shadow-md grayscale-70 even:bg-purple-200">
           <div className="text-md mt-[34px] w-34 pr-4 text-right">Count-In Time</div>
@@ -73,16 +73,16 @@ function Settings({ onToggleClick }: inputProps) {
 
           <div className="flex flex-col gap-3">
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl shadow-md"
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
               onClick={() => trySetCountInTime(countInTime + 1)}
             >
-              <div className="relative -top-1">+</div>
+              <div className="relative -top-[2px]">+</div>
             </button>
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl shadow-md"
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
               onClick={() => trySetCountInTime(countInTime - 1)}
             >
-              <div className="relative -top-1">-</div>
+              <div className="relative -top-[1px]">–</div>
             </button>
           </div>
         </div>
@@ -98,16 +98,16 @@ function Settings({ onToggleClick }: inputProps) {
           <div className="relative top-[18px] -left-3 text-3xl"></div>
           <div className="flex flex-col gap-3">
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl shadow-md"
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
               onClick={() => trySetSoundEffectIndex(soundEffectIndex + 1)}
             >
-              <div className="relative -top-1">+</div>
+              <div className="relative -top-[2px]">+</div>
             </button>
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl shadow-md"
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
               onClick={() => trySetSoundEffectIndex(soundEffectIndex - 1)}
             >
-              <div className="relative -top-1">-</div>
+              <div className="relative -top-[1px]">–</div>
             </button>
           </div>
         </div>
@@ -123,16 +123,16 @@ function Settings({ onToggleClick }: inputProps) {
           <div className="relative top-[18px] -left-3 text-3xl"></div>
           <div className="flex flex-col gap-3">
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl shadow-md"
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
               onClick={() => trySetColorThemeIndex(colorThemeIndex + 1)}
             >
-              <div className="relative -top-1">+</div>
+              <div className="relative -top-[2px]">+</div>
             </button>
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl shadow-md"
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
               onClick={() => trySetColorThemeIndex(colorThemeIndex - 1)}
             >
-              <div className="relative -top-1">-</div>
+              <div className="relative -top-[1px]">–</div>
             </button>
           </div>
         </div>
