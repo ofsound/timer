@@ -17,8 +17,6 @@ function History() {
   const thisStep = useTimerStore((state) => state.thisStep);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
-  const inputsAreEnabled = useTimerStore((state) => state.inputsAreEnabled);
-
   const firstRenderAfterStart = useRef(true);
 
   const [history, setHistory] = useState<Array<historyRowObject>>(() => {
@@ -51,7 +49,7 @@ function History() {
       isPinned: false,
       sequence: thisSequence,
     };
-    if (newHistory.length > 2) {
+    if (newHistory.length > 9) {
       const attemptSplice = (pinIndex: number) => {
         if (!newHistory[pinIndex].isPinned) {
           newHistory.splice(pinIndex, 1);
@@ -76,15 +74,15 @@ function History() {
   }
 
   return (
-    <div
-      className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : ""} mx-auto mt-2 mb-auto flex aspect-5/3 max-w-3/4 flex-col`}
-    >
-      {history.map((historyRow, index) => (
-        <div key={index} className="relative flex grow-1">
-          <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
-          <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
-        </div>
-      ))}
+    <div className="absolute -top-full left-0 h-full w-full bg-gray-900 px-14 py-12 text-white">
+      <div className="mx-auto mt-2 mb-auto flex h-full w-full flex-col">
+        {history.map((historyRow, index) => (
+          <div key={index} className="relative flex grow-1">
+            <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
+            <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

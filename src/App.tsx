@@ -1,5 +1,10 @@
 import { useState, useRef } from "react";
 
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
+
 import AppTools from "./components/AppTools.tsx";
 import Inputs from "./components/Inputs.tsx";
 import Map from "./components/Map.tsx";
@@ -29,11 +34,15 @@ function App() {
   const setRunningIsPaused = useTimerStore((state) => state.setRunningIsPaused);
 
   const [showSettings, setShowSettings] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
 
   const [inputsKey, setInputsKey] = useState(0);
 
   const soundRef = useRef<SoundComponent>(null);
+
+  const container = useRef(null);
+  const { contextSafe } = useGSAP();
 
   const handleClearSequenceClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
@@ -84,22 +93,44 @@ function App() {
     setThisStep(-1);
   };
 
-  const toggleSettings = () => {
+  const toggleSettings = contextSafe(() => {
+    if (showSettings) {
+      gsap.to("#content", { y: -490 });
+    } else {
+      gsap.to("#content", { y: 0 });
+    }
     setShowSettings(!showSettings);
-  };
+  });
+
+  const toggleHistory = contextSafe(() => {
+    if (showHistory) {
+      gsap.to("#content", { y: 490 });
+    } else {
+      gsap.to("#content", { y: 0 });
+    }
+    setShowHistory(!showHistory);
+  });
 
   return (
-    <div id="app" className="h-full bg-gray-700 duration-300">
+    <div id="app" ref={container} className="h-full bg-gray-700 duration-300">
       <AppTools />
-      <div className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5">
-        <History />
+      <div id="content" className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5">
+        <button
+          className="mt-4 h-16 w-full rounded-md bg-gray-200 px-3 py-2 text-sm font-black opacity-50"
+          onClick={toggleHistory}
+        >
+          Saved
+        </button>
+
         <div className="relative mt-8 mb-auto flex h-full max-w-full">
           <Map />
           <button
             onClick={handleClearSequenceClick}
-            className={` ${!startIsEnabled && ""} absolute -top-4 -right-4 block h-12 w-12 cursor-pointer rounded-full border-1 border-white bg-gray-600`}
+            className={` ${!startIsEnabled && ""} absolute -top-6 -right-6 block h-12 w-12 cursor-pointer`}
           >
-            <span className="relative -top-[3px] text-3xl text-white">×</span>
+            <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
+              <span className="relative -top-[4.5px] text-3xl text-white">×</span>
+            </div>
           </button>
         </div>
         <div className="mt-3">
@@ -108,10 +139,14 @@ function App() {
         <div className="mt flex max-h-1/4 justify-center pt-4 pb-3">
           <Start onClick={handleStartClick} />
         </div>
-        <button className="absolute right-0 bottom-2 z-10 rounded-md px-3 text-2xl" onClick={toggleSettings}>
-          &#9881;
+        <button
+          className="mt-4 mb-4 h-16 w-full rounded-md bg-blue-200 px-3 py-2 text-sm font-black"
+          onClick={toggleSettings}
+        >
+          Settings
         </button>
-        {showSettings && <Settings />}
+        <History />
+        <Settings />
         {showTimeline && <Timeline segmentComplete={handleSegmentComplete} timelineComplete={handleTimelineComplete} />}
         <Sound ref={soundRef} />
       </div>

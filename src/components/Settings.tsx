@@ -48,7 +48,7 @@ function Settings() {
   };
 
   return (
-    <div className="absolute top-0 left-0 h-full w-full bg-gray-900 px-14 py-12 text-white">
+    <div className="absolute top-full left-0 h-full w-full bg-gray-900 px-14 py-12 text-white">
       <div className="mb-13 text-center text-2xl">Settings</div>
       <div className="flex flex-col gap-12">
         <div className="flex">
