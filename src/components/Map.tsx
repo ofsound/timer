@@ -21,7 +21,7 @@ function Map({ isHistoryMap, onClick, historySequence }: inputProps) {
     <div
       onClick={isHistoryMap ? onClick : undefined}
       style={styles}
-      className={`${thisStep === 0 && !isHistoryMap && ""} ${isHistoryMap ? "mt-2 flex min-w-0 gap-1 border-none" : "flex h-full w-full max-w-full min-w-0 justify-start gap-2 rounded-lg border border-dashed border-gray-300 p-2"}`}
+      className={`${thisStep === 0 && !isHistoryMap && ""} ${isHistoryMap ? "mt-4 flex min-w-0 gap-1 border-none" : "flex h-full w-full max-w-full min-w-0 justify-start gap-2 rounded-lg border border-dashed border-gray-300 p-2"}`}
     >
       {!isHistoryMap &&
         thisSequence.map((durationSeconds, index) => (

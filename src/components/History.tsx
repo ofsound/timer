@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 import Map from "../components/Map.tsx";
 import Pin from "../components/Pin.tsx";
 
@@ -34,11 +36,38 @@ function History() {
     setStartIsEnabled(true);
   };
 
+  function moveArrayRow(arr: historyRowObject[], fromIndex: number, toIndex: number) {
+    const elementToMove = arr.splice(fromIndex, 1)[0]; // splice returns an array, [0] gets the
+    arr.splice(toIndex, 0, elementToMove);
+    return arr;
+  }
+
   const handlePinClick = (index: number) => {
-    const tempHistory = [...history];
-    tempHistory[index].isPinned = !tempHistory[index].isPinned;
-    localStorage.setItem("history", JSON.stringify(tempHistory));
-    setHistory(tempHistory);
+    let newHistory = [...history];
+
+    newHistory[index].isPinned = !newHistory[index].isPinned;
+
+    if (newHistory[index].isPinned) {
+      let prevPinExists = false;
+
+      for (let i = 0; i < newHistory.length; i++) {
+        if (newHistory[i].isPinned && i !== index) {
+          prevPinExists = true;
+        }
+        if (prevPinExists && !newHistory[i].isPinned) {
+          newHistory = moveArrayRow(newHistory, index, i);
+          break;
+        }
+      }
+      if (!prevPinExists) {
+        newHistory = moveArrayRow(newHistory, index, 0);
+      }
+    } else {
+      newHistory.splice(index, 1);
+    }
+
+    localStorage.setItem("history", JSON.stringify(newHistory));
+    setHistory(newHistory);
   };
 
   if (thisStep === 0 && firstRenderAfterStart.current) {
@@ -49,7 +78,7 @@ function History() {
       isPinned: false,
       sequence: thisSequence,
     };
-    if (newHistory.length > 9) {
+    if (newHistory.length > 7) {
       const attemptSplice = (pinIndex: number) => {
         if (!newHistory[pinIndex].isPinned) {
           newHistory.splice(pinIndex, 1);
@@ -74,10 +103,10 @@ function History() {
   }
 
   return (
-    <div className="absolute -top-full left-0 h-full w-full bg-gray-900 px-14 py-12 text-white">
-      <div className="mx-auto mt-2 mb-auto flex h-full w-full flex-col">
+    <div className="absolute -top-full left-0 h-full w-full bg-gray-900 px-14 py-6 text-white">
+      <div className="mx-auto mb-auto flex h-full w-full flex-col">
         {history.map((historyRow, index) => (
-          <div key={index} className="relative flex grow-1">
+          <div key={uuidv4()} className={`relative flex grow-1 ${!historyRow.isPinned && "opacity-70"}`}>
             <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
             <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
           </div>
