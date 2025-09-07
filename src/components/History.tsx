@@ -12,7 +12,11 @@ interface historyRowObject {
   sequence: number[];
 }
 
-function History() {
+type inputProps = {
+  onToggleClick?: React.MouseEventHandler<HTMLElement>;
+};
+
+function History({ onToggleClick }: inputProps) {
   const thisSequence = useTimerStore((state) => state.thisSequence);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
@@ -103,8 +107,8 @@ function History() {
   }
 
   return (
-    <div className="absolute -top-full left-0 h-full w-full bg-gray-900 px-14 py-6 text-white">
-      <div className="mx-auto mb-auto flex h-full w-full flex-col">
+    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-900 px-14 py-6 text-white">
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col">
         {history.map((historyRow, index) => (
           <div key={uuidv4()} className={`relative flex grow-1 ${!historyRow.isPinned && "opacity-70"}`}>
             <Map onClick={() => handleRowClick(index)} isHistoryMap={true} historySequence={historyRow.sequence} />
@@ -112,6 +116,12 @@ function History() {
           </div>
         ))}
       </div>
+      <button
+        onClick={onToggleClick}
+        className="mx-auto mt-4 block w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black text-black opacity-20"
+      >
+        Timer
+      </button>
     </div>
   );
 }

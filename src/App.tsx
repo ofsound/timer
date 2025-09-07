@@ -155,10 +155,10 @@ function App() {
         className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5"
       >
         <button
-          className="mx-auto mt-4 h-16 w-max rounded-md bg-gray-200 px-3 py-2 text-sm font-black opacity-20"
+          className="mx-auto mt-4 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
           onClick={toggleHistory}
         >
-          Saved
+          History
         </button>
 
         <div className="relative mt-8 mb-auto flex h-full max-w-full">
@@ -179,13 +179,13 @@ function App() {
           <Start onClick={handleStartClick} />
         </div>
         <button
-          className="mx-auto mt-4 mb-4 h-16 w-max rounded-md bg-gray-200 px-3 py-2 text-sm font-black opacity-20"
+          className="h mx-auto mt-4 mb-4 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
           onClick={toggleSettings}
         >
           Settings
         </button>
-        <History />
-        <Settings />
+        <History onToggleClick={() => toggleHistory()} />
+        <Settings onToggleClick={() => toggleSettings()} />
         {showTimeline && <Timeline segmentComplete={handleSegmentComplete} timelineComplete={handleTimelineComplete} />}
         <Sound ref={soundRef} />
       </div>
