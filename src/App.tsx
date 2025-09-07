@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 
+import { useSwipeable } from "react-swipeable";
+
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -94,8 +96,8 @@ function App() {
   };
 
   const toggleSettings = contextSafe(() => {
-    if (showSettings) {
-      gsap.to("#content", { y: -490 });
+    if (!showSettings) {
+      gsap.to("#content", { y: -549 });
     } else {
       gsap.to("#content", { y: 0 });
     }
@@ -103,20 +105,57 @@ function App() {
   });
 
   const toggleHistory = contextSafe(() => {
-    if (showHistory) {
-      gsap.to("#content", { y: 490 });
+    if (!showHistory) {
+      gsap.to("#content", { y: 549 });
     } else {
       gsap.to("#content", { y: 0 });
     }
     setShowHistory(!showHistory);
   });
 
+  const handlers = useSwipeable({
+    onSwiped: (eventData) => handleSwipe(eventData.dir),
+    ...{
+      delta: 10, // min distance(px) before a swipe starts.
+      preventScrollOnSwipe: true, // prevents scroll during swipe
+      trackTouch: true, // track touch input
+      trackMouse: true, // track mouse input
+      rotationAngle: 0, // set a rotation angle
+      swipeDuration: Infinity, // allowable duration of a swipe (ms)
+      touchEventOptions: { passive: true }, // options for touch listeners
+    },
+  });
+
+  const handleSwipe = (direction: string) => {
+    if (direction === "Up") {
+      if (showHistory) {
+        toggleHistory();
+      } else if (!showSettings) {
+        toggleSettings();
+      }
+    } else if (direction === "Down") {
+      if (showSettings) {
+        toggleSettings();
+      } else if (!showHistory) {
+        toggleHistory();
+      }
+    }
+  };
+
   return (
-    <div id="app" ref={container} className="h-full bg-gray-700 duration-300">
+    <div
+      id="app"
+      ref={container}
+      className="h-full max-h-[549px] max-w-[375px] overflow-hidden bg-gray-700 duration-300"
+    >
       <AppTools />
-      <div id="content" className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5">
+      <div
+        {...handlers}
+        id="content"
+        className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5"
+      >
         <button
-          className="mt-4 h-16 w-full rounded-md bg-gray-200 px-3 py-2 text-sm font-black opacity-50"
+          className="mx-auto mt-4 h-16 w-max rounded-md bg-gray-200 px-3 py-2 text-sm font-black opacity-20"
           onClick={toggleHistory}
         >
           Saved
@@ -140,7 +179,7 @@ function App() {
           <Start onClick={handleStartClick} />
         </div>
         <button
-          className="mt-4 mb-4 h-16 w-full rounded-md bg-blue-200 px-3 py-2 text-sm font-black"
+          className="mx-auto mt-4 mb-4 h-16 w-max rounded-md bg-gray-200 px-3 py-2 text-sm font-black opacity-20"
           onClick={toggleSettings}
         >
           Settings
