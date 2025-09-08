@@ -59,27 +59,34 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         break;
       }
     }
-    if (prevPinExists) {
-      setDividerIndex(0);
-    }
+
+    console.log("no init!");
   });
 
   const updateDividerIndex = () => {
     let prevPinExists = false;
 
     for (let i = 0; i < history.length; i++) {
-      if (history[i].isPinned) {
-        prevPinExists = true;
-      }
-      if (prevPinExists && !history[i].isPinned) {
-        setDividerIndex(i);
-        break;
+      if (history[i]) {
+        if (history[i].isPinned) {
+          prevPinExists = true;
+        }
+        if (prevPinExists && !history[i].isPinned) {
+          setDividerIndex(i);
+          break;
+        }
       }
     }
 
-    if (prevPinExists) {
-      setDividerIndex(0);
+    if (history[0]) {
+      if (history[0].isPinned) {
+        setDividerIndex(history.length);
+      } else {
+        setDividerIndex(0);
+      }
     }
+
+    console.log("no update!");
   };
 
   const handlePinClick = (index: number) => {
@@ -133,12 +140,12 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
       let pinAttemptIndex = 0;
       attemptSplice(pinAttemptIndex);
     }
-
+    setHistory(newHistory);
+    updateDividerIndex();
     newHistory.splice(dividerIndex as number, 0, historyRowObject);
 
     localStorage.setItem("history", JSON.stringify(newHistory));
     setHistory(newHistory);
-    updateDividerIndex();
   }
 
   if (thisStep === -1 && !firstRenderAfterStart.current) {
