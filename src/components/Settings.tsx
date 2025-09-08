@@ -55,7 +55,7 @@ function Settings({ onToggleClick }: inputProps) {
     <div className="absolute top-full left-0 h-full w-full bg-gray-200">
       <button
         onClick={onToggleClick}
-        className="mx-auto mt-4 block w-max rounded-md bg-gray-400 px-2 py-1 text-sm font-bold text-white opacity-40"
+        className="mx-auto mt-4 block w-max rounded-md bg-gray-400 px-2 py-1 text-sm font-bold text-black opacity-50"
       >
         Timer
       </button>
