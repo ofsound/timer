@@ -4,9 +4,10 @@ import { useTimerStore } from "../store.ts";
 
 type inputProps = {
   onToggleClick?: React.MouseEventHandler<HTMLElement>;
+  onSoundChange: (newValue: number) => void;
 };
 
-function Settings({ onToggleClick }: inputProps) {
+function Settings({ onToggleClick, onSoundChange }: inputProps) {
   const countInTime = useTimerStore((state) => state.countInTime);
   const setCountInTime = useTimerStore((state) => state.setCountInTime);
 
@@ -40,8 +41,9 @@ function Settings({ onToggleClick }: inputProps) {
   };
 
   const trySetSoundEffectIndex = (newValue: number) => {
-    if (newValue >= 1 && newValue <= 2) {
+    if (newValue >= 1 && newValue <= 3) {
       setSoundEffectIndex(newValue);
+      onSoundChange(newValue);
     }
   };
 

@@ -1,34 +1,28 @@
-import { forwardRef, useImperativeHandle, useEffect, useRef } from "react";
+import { forwardRef, useImperativeHandle } from "react";
 
 import { useTimerStore } from "../store.ts";
 
-import beepFile from "../assets/beep_01.wav";
-import tremFile from "../assets/trem_01.mp3";
+import sound1 from "../assets/beep_01.wav";
+import sound3 from "../assets/tone2.mp3";
+import sound2 from "../assets/tone3.mp3";
 
 const Sound = forwardRef((_props, ref) => {
   const soundEffectIndex = useTimerStore((state) => state.soundEffectIndex);
 
-  const beepAudio = useRef<HTMLAudioElement | null>(null);
-  const tremAudio = useRef<HTMLAudioElement | null>(null);
+  const audioArray: HTMLAudioElement[] = [];
+
+  audioArray.push(new Audio(sound1));
+  audioArray.push(new Audio(sound2));
+  audioArray.push(new Audio(sound3));
 
   useImperativeHandle(ref, () => ({
     play: () => {
-      if (soundEffectIndex == 1) {
-        if (beepAudio.current) {
-          beepAudio.current.play();
-        }
-      } else {
-        if (tremAudio.current) {
-          tremAudio.current.play();
-        }
-      }
+      audioArray[soundEffectIndex - 1].play();
+    },
+    playThis: (newValue: number) => {
+      audioArray[newValue - 1].play();
     },
   }));
-
-  useEffect(() => {
-    beepAudio.current = new Audio(beepFile);
-    tremAudio.current = new Audio(tremFile);
-  }, []);
 
   return <></>;
 });

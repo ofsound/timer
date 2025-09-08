@@ -20,6 +20,7 @@ import { useTimerStore } from "./store.ts";
 
 interface SoundComponent {
   play: () => void;
+  playThis: (value: number) => void;
 }
 
 function App() {
@@ -185,7 +186,10 @@ function App() {
           Settings
         </button>
         <History onToggleClick={() => toggleHistory()} onToggleRowClick={() => toggleHistory()} />
-        <Settings onToggleClick={() => toggleSettings()} />
+        <Settings
+          onToggleClick={() => toggleSettings()}
+          onSoundChange={(newValue) => soundRef.current?.playThis(newValue)}
+        />
         {showTimeline && <Timeline segmentComplete={handleSegmentComplete} timelineComplete={handleTimelineComplete} />}
         <Sound ref={soundRef} />
       </div>
