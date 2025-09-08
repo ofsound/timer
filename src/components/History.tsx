@@ -13,7 +13,7 @@ interface historyRowObject {
 }
 
 type inputProps = {
-  onToggleClick?: React.MouseEventHandler<HTMLElement>;
+  onToggleClick: React.MouseEventHandler<HTMLElement>;
   onToggleRowClick: () => void;
 };
 
@@ -47,7 +47,7 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
     return arr;
   }
 
-  const [dividerIndex, setDividerIndex] = useState(() => {
+  const [splitIndex, setSplitIndex] = useState(() => {
     let prevPinExists = false;
 
     for (let i = 0; i < history.length; i++) {
@@ -59,6 +59,7 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         break;
       }
     }
+
     if (history[0]) {
       if (history[0].isPinned) {
         return history.length;
@@ -67,39 +68,17 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
       }
     }
 
-    console.log("no init!");
+    return 0;
   });
 
-  const updateDividerIndex = () => {
-    let prevPinExists = false;
-
-    for (let i = 0; i < history.length; i++) {
-      if (history[i]) {
-        if (history[i].isPinned) {
-          prevPinExists = true;
-        }
-        if (prevPinExists && !history[i].isPinned) {
-          setDividerIndex(i);
-          break;
-        }
-      }
-    }
-
-    if (history[0]) {
-      if (history[0].isPinned) {
-        setDividerIndex(history.length);
-      } else {
-        setDividerIndex(0);
-      }
-    }
-
-    console.log("no update!");
-  };
-
   const handlePinClick = (index: number) => {
+    console.log("1. index clicked", index);
+
     let newHistory = [...history];
 
     newHistory[index].isPinned = !newHistory[index].isPinned;
+
+    let newSplitIndex: number = -1;
 
     if (newHistory[index].isPinned) {
       let prevPinExists = false;
@@ -108,23 +87,37 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         if (newHistory[i].isPinned && i !== index) {
           prevPinExists = true;
         }
-        if (prevPinExists && !newHistory[i].isPinned) {
-          newHistory = moveArrayRow(newHistory, index + 1, i);
+
+        if ((prevPinExists && !newHistory[i].isPinned) || (prevPinExists && i === index)) {
+          newHistory = moveArrayRow(newHistory, index, i);
+          newSplitIndex = i + 1;
           break;
         }
       }
       if (!prevPinExists) {
         newHistory = moveArrayRow(newHistory, index, 0);
+        newSplitIndex = 0;
       }
     } else {
       newHistory.splice(index, 1);
+      newSplitIndex = splitIndex - 1;
+    }
+
+    setSplitIndex(newSplitIndex);
+
+    if (newHistory[0] && newSplitIndex === -1) {
+      if (newHistory[0].isPinned) {
+        setSplitIndex(newHistory.length);
+      } else {
+        setSplitIndex(0);
+      }
     }
 
     localStorage.setItem("history", JSON.stringify(newHistory));
     setHistory(newHistory);
-    updateDividerIndex();
   };
 
+  // Runs once when start is clicked, adds that sequence to History
   if (thisStep === 0 && firstRenderAfterStart.current) {
     firstRenderAfterStart.current = false;
 
@@ -148,8 +141,7 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
       attemptSplice(pinAttemptIndex);
     }
 
-    updateDividerIndex();
-    newHistory.splice(dividerIndex as number, 0, historyRowObject);
+    newHistory.splice(splitIndex, 0, historyRowObject);
     localStorage.setItem("history", JSON.stringify(newHistory));
     setHistory(newHistory);
   }
@@ -164,12 +156,12 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         {history.map((historyRow, index) => (
           <div key={uuidv4()}>
             <div
-              className={`${index !== dividerIndex && "hidden"} mx-auto mt-8 mb-3 h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
+              className={`${index !== splitIndex && "hidden"} mx-auto mt-8 mb-3 h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
             ></div>
             <div
-              className={`relative flex flex-col px-14 ${index === dividerIndex && "animate-pulse [&>*]:opacity-100!"}`}
+              className={`relative flex flex-col px-14 ${index === splitIndex && "animate-pulse [&>*]:opacity-100!"}`}
             >
-              <div className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-3 opacity-50"}`}>
+              <div className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-4 opacity-50"}`}>
                 <Map
                   onClick={() => {
                     handleRowClick(index);
