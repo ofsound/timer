@@ -59,6 +59,13 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         break;
       }
     }
+    if (history[0]) {
+      if (history[0].isPinned) {
+        return history.length;
+      } else {
+        return 0;
+      }
+    }
 
     console.log("no init!");
   });
@@ -140,10 +147,9 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
       let pinAttemptIndex = 0;
       attemptSplice(pinAttemptIndex);
     }
-    setHistory(newHistory);
+
     updateDividerIndex();
     newHistory.splice(dividerIndex as number, 0, historyRowObject);
-
     localStorage.setItem("history", JSON.stringify(newHistory));
     setHistory(newHistory);
   }
@@ -160,8 +166,10 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
             <div
               className={`${index !== dividerIndex && "hidden"} mx-auto mt-8 mb-3 h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
             ></div>
-            <div className={`relative flex flex-col px-14 ${index === dividerIndex && "animate-pulse"}`}>
-              <div className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-3 opacity-60"}`}>
+            <div
+              className={`relative flex flex-col px-14 ${index === dividerIndex && "animate-pulse [&>*]:opacity-100!"}`}
+            >
+              <div className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-3 opacity-50"}`}>
                 <Map
                   onClick={() => {
                     handleRowClick(index);
