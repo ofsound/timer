@@ -1,5 +1,10 @@
 import type { ChangeEvent } from "react";
 
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
+
 import { useTimerStore } from "../store.ts";
 
 type inputProps = {
@@ -56,8 +61,9 @@ function Settings({ onToggleClick, onSoundChange }: inputProps) {
   return (
     <div className="absolute top-full left-0 h-full w-full bg-gray-200">
       <button
+        id="settings-timer-toggle"
         onClick={onToggleClick}
-        className="mx-auto mt-4 block w-max rounded-md bg-gray-400 px-2 py-1 text-sm font-bold text-black opacity-50"
+        className="mx-auto mt-4 block w-max rounded-md bg-gray-400 px-2 py-1 text-sm font-bold text-black"
       >
         Timer
       </button>

@@ -20,9 +20,10 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
     .join(" ");
 
   const classesInner = [
-    "absolute flex h-full w-full items-center justify-center select-none transition-all duration-200 opacity-0 scale-90",
+    "absolute flex h-full w-full items-center justify-center select-none ",
     isHistoryMapSegment && "text-sm font-bold",
-    !isHistoryMapSegment && "text-shadow-centered text-[20px] font-black",
+    !isHistoryMapSegment &&
+      "text-shadow-centered text-[20px] font-black transition-all duration-200 opacity-0 scale-90",
     isVisible && "opacity-100 scale-100",
   ]
     .filter(Boolean)

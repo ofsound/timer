@@ -40,6 +40,8 @@ function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
 
+  // const [toggleHistoryVisible, setToggleHistoryVisible] = use
+
   const [inputsKey, setInputsKey] = useState(0);
 
   const soundRef = useRef<SoundComponent>(null);
@@ -98,18 +100,26 @@ function App() {
 
   const toggleSettings = contextSafe(() => {
     if (!showSettings) {
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: -549 });
+      gsap.to("#settings-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: -549, delay: 0.2 });
+      gsap.to("#settings-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0.5, delay: 0.7 });
     } else {
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0 });
+      gsap.to("#settings-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0, delay: 0.2 });
+      gsap.to("#settings-toggle", { ease: "circ", duration: 0.2, opacity: 0.2, delay: 0.7 });
     }
     setShowSettings(!showSettings);
   });
 
   const toggleHistory = contextSafe(() => {
     if (!showHistory) {
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: 549 });
+      gsap.to("#history-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: 549, delay: 0.2 });
+      gsap.to("#history-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0.5, delay: 0.7 });
     } else {
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0 });
+      gsap.to("#history-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
+      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0, delay: 0.2 });
+      gsap.to("#history-toggle", { ease: "circ", duration: 0.2, opacity: 0.2, delay: 0.7 });
     }
     setShowHistory(!showHistory);
   });
@@ -156,6 +166,7 @@ function App() {
         className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5"
       >
         <button
+          id="history-toggle"
           className="mx-auto mt-4 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
           onClick={toggleHistory}
         >
@@ -180,6 +191,7 @@ function App() {
           <Start onClick={handleStartClick} />
         </div>
         <button
+          id="settings-toggle"
           className="h mx-auto mt-4 mb-4 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
           onClick={toggleSettings}
         >
