@@ -25,6 +25,8 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
   const firstRenderAfterStart = useRef(true);
 
   const [fadeOutIndex, setFadeOutIndex] = useState(-1);
+  const [fadeInIndexStart, setFadeInIndexStart] = useState(-1);
+  const [fadeInIndexArm, setFadeInIndexArm] = useState(-1);
 
   const [history, setHistory] = useState<Array<historyRowObject>>(() => {
     try {
@@ -78,6 +80,7 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
 
     let newSplitIndex: number = -1;
     let newFadeoutIndex: number = -1;
+    let newFadeinIndex: number = -1;
 
     let finalSplitIndex: number = -1;
 
@@ -92,6 +95,7 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         if ((prevPinExists && !newHistory[i].isPinned) || (prevPinExists && i === index)) {
           newHistory = moveArrayRow(newHistory, index, i);
           newSplitIndex = i + 1;
+          newFadeinIndex = i;
           break;
         }
       }
@@ -100,12 +104,12 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         newSplitIndex = 0;
       }
     } else {
-      console.log("fade out index", index);
       newFadeoutIndex = index;
-      // setFadeOutIndex(index);
       newHistory.splice(index, 1);
       newSplitIndex = splitIndex - 1;
     }
+
+    newFadeoutIndex = index;
 
     newHistory[index].isPinned = !newHistory[index].isPinned;
 
@@ -133,7 +137,12 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
       setHistory(newHistory);
       setSplitIndex(finalSplitIndex);
       setFadeOutIndex(-1);
-    }, 1000);
+      setFadeInIndexArm(newFadeinIndex);
+
+      setTimeout(() => {
+        setFadeInIndexStart(newFadeinIndex);
+      }, 100);
+    }, 600);
   };
 
   // Runs once when start is clicked, adds that sequence to History
@@ -175,14 +184,19 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
     <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 pt-6 pb-4 text-white">
       <div className="mx-auto mb-auto flex w-full flex-1 flex-col">
         {history.map((historyRow, index) => (
-          <div key={index} className={` ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-800"}`}>
+          <div
+            key={index}
+            className={` ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-600"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-300"}`}
+          >
             <div
               className={`${index !== splitIndex && "hidden"} mx-auto mt-8 mb-3 h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
             ></div>
             <div
               className={`relative flex flex-col px-14 ${index === splitIndex && "animate-pulse [&>*]:opacity-100!"}`}
             >
-              <div className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-4 opacity-50"}`}>
+              <div
+                className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-5 text-white opacity-40 brightness-80"} ${index === splitIndex && "brightness-100"} `}
+              >
                 <Map
                   onClick={() => {
                     handleRowClick(index);
