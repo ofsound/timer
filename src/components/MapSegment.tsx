@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useTimerStore } from "../store.ts";
 
 type inputProps = {
@@ -8,6 +9,8 @@ type inputProps = {
 };
 
 function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment }: inputProps) {
+  const [isVisible, setIsVisible] = useState(false);
+
   const classesOuter = [
     "relative h-full rounded-lg border border-black overflow-hidden bg-gray-400 text-center text-black first:hidden even:bg-gray-100",
     isComplete &&
@@ -17,15 +20,20 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
     .join(" ");
 
   const classesInner = [
-    "absolute flex h-full w-full items-center justify-center select-none",
+    "absolute flex h-full w-full items-center justify-center select-none transition-all duration-200 opacity-0 scale-90",
     isHistoryMapSegment && "text-sm font-bold",
     !isHistoryMapSegment && "text-shadow-centered text-[20px] font-black",
+    isVisible && "opacity-100 scale-100",
   ]
     .filter(Boolean)
     .join(" ");
 
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
-  const widthScaleFactor = isHistoryMapSegment ? 200 : 200;
+  const widthScaleFactor = 200;
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
     <div style={{ width: `${durationSeconds * widthScaleFactor}px` }} className={classesOuter}>
