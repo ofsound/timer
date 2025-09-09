@@ -1,7 +1,5 @@
 import { useState, useRef } from "react";
 
-import { v4 as uuidv4 } from "uuid";
-
 import Map from "../components/Map.tsx";
 import Pin from "../components/Pin.tsx";
 
@@ -79,6 +77,9 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
     newHistory[index].isPinned = !newHistory[index].isPinned;
 
     let newSplitIndex: number = -1;
+    let newFadeoutIndex: number = -1;
+
+    let finalSplitIndex: number = -1;
 
     if (newHistory[index].isPinned) {
       let prevPinExists = false;
@@ -99,34 +100,46 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
         newSplitIndex = 0;
       }
     } else {
-      // console.log(index);
-      setFadeOutIndex(index);
+      console.log("fade out index", index);
+      newFadeoutIndex = index;
+      // setFadeOutIndex(index);
       newHistory.splice(index, 1);
       newSplitIndex = splitIndex - 1;
     }
 
     newHistory[index].isPinned = !newHistory[index].isPinned;
 
-    setTimeout(() => {
-      newHistory[index].isPinned = !newHistory[index].isPinned;
+    newHistory[index].isPinned = !newHistory[index].isPinned;
 
-      setSplitIndex(newSplitIndex);
+    finalSplitIndex = newSplitIndex;
+    // setSplitIndex(newSplitIndex);
 
-      if (newHistory[0] && newSplitIndex === -1) {
-        if (newHistory[0].isPinned) {
-          setSplitIndex(newHistory.length);
-        } else {
-          setSplitIndex(0);
-        }
+    if (newHistory[0] && newSplitIndex === -1) {
+      if (newHistory[0].isPinned) {
+        finalSplitIndex = newHistory.length;
+        // setSplitIndex(newHistory.length);
+      } else {
+        finalSplitIndex = 0;
+        // setSplitIndex(0);
       }
+    }
+    localStorage.setItem("history", JSON.stringify(newHistory));
 
-      localStorage.setItem("history", JSON.stringify(newHistory));
+    if (newFadeoutIndex !== -1) {
+      setFadeOutIndex(newFadeoutIndex);
+    }
+
+    setTimeout(() => {
       setHistory(newHistory);
-    }, 6000);
+      setSplitIndex(finalSplitIndex);
+      setFadeOutIndex(-1);
+    }, 1000);
   };
 
   // Runs once when start is clicked, adds that sequence to History
   if (thisStep === 0 && firstRenderAfterStart.current) {
+    console.log("Runs once");
+
     firstRenderAfterStart.current = false;
 
     const newHistory = [...history];
@@ -162,7 +175,7 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
     <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 pt-6 pb-4 text-white">
       <div className="mx-auto mb-auto flex w-full flex-1 flex-col">
         {history.map((historyRow, index) => (
-          <div key={uuidv4()} className={` ${fadeOutIndex === index && "animate-pulse"}`}>
+          <div key={index} className={` ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-800"}`}>
             <div
               className={`${index !== splitIndex && "hidden"} mx-auto mt-8 mb-3 h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
             ></div>
