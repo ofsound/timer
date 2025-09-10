@@ -11,11 +11,10 @@ interface historyRowObject {
 }
 
 type inputProps = {
-  onToggleClick: React.MouseEventHandler<HTMLElement>;
   onToggleRowClick: () => void;
 };
 
-function History({ onToggleClick, onToggleRowClick }: inputProps) {
+function History({ onToggleRowClick }: inputProps) {
   const thisSequence = useTimerStore((state) => state.thisSequence);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
@@ -211,13 +210,6 @@ function History({ onToggleClick, onToggleRowClick }: inputProps) {
           </div>
         ))}
       </div>
-      <button
-        id="history-timer-toggle"
-        onClick={onToggleClick}
-        className="mx-auto mt-4 block w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black text-black opacity-30"
-      >
-        Timer
-      </button>
     </div>
   );
 }

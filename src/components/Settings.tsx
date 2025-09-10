@@ -8,11 +8,10 @@ gsap.registerPlugin(useGSAP);
 import { useTimerStore } from "../store.ts";
 
 type inputProps = {
-  onToggleClick?: React.MouseEventHandler<HTMLElement>;
   onSoundChange: (newValue: number) => void;
 };
 
-function Settings({ onToggleClick, onSoundChange }: inputProps) {
+function Settings({ onSoundChange }: inputProps) {
   const countInTime = useTimerStore((state) => state.countInTime);
   const setCountInTime = useTimerStore((state) => state.setCountInTime);
 
@@ -60,13 +59,6 @@ function Settings({ onToggleClick, onSoundChange }: inputProps) {
 
   return (
     <div className="absolute top-full left-0 h-full w-full bg-gray-200">
-      <button
-        id="settings-timer-toggle"
-        onClick={onToggleClick}
-        className="mx-auto mt-4 block w-max rounded-md bg-gray-400 px-2 py-1 text-sm font-bold text-black"
-      >
-        Timer
-      </button>
       <div className="mt-5 mb-8 text-center text-2xl font-bold tracking-wide">Settings</div>
       <div className="flex flex-col">
         <div className="flex border-t-1 border-gray-400 bg-purple-100 px-11 py-3 shadow-md grayscale-70 even:bg-purple-200">

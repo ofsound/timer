@@ -40,13 +40,20 @@ function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
 
-  // const [toggleHistoryVisible, setToggleHistoryVisible] = use
+  const appContainer = useRef(null);
+
+  const slidingContent = useRef(null);
+
+  const settingsToggle = useRef(null);
+  const historyToggle = useRef(null);
+
+  const settingsTimerToggle = useRef(null);
+  const historyTimerToggle = useRef(null);
 
   const [inputsKey, setInputsKey] = useState(0);
 
   const soundRef = useRef<SoundComponent>(null);
 
-  const container = useRef(null);
   const { contextSafe } = useGSAP();
 
   const handleClearSequenceClick = () => {
@@ -80,48 +87,66 @@ function App() {
     }
   };
 
-  const handleSegmentComplete = () => {
+  const handleSegmentComplete = contextSafe(() => {
     soundRef.current?.play();
-    document.getElementById("app")?.classList.add("bg-white");
-    setTimeout(() => {
-      document.getElementById("app")?.classList.remove("bg-white");
-    }, 350);
-  };
+    blinkAppContainer();
+  });
 
   const handleTimelineComplete = () => {
     soundRef.current?.play();
-    document.getElementById("app")?.classList.add("bg-white");
-    setTimeout(() => {
-      document.getElementById("app")?.classList.remove("bg-white");
-    }, 550);
+    blinkAppContainer();
     setShowTimeline(false);
     setThisStep(-1);
   };
 
-  const toggleSettings = contextSafe(() => {
-    if (!showSettings) {
-      gsap.to("#settings-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: -549, delay: 0.2 });
-      gsap.to("#settings-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0.5, delay: 0.7 });
-    } else {
-      gsap.to("#settings-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0, delay: 0.2 });
-      gsap.to("#settings-toggle", { ease: "circ", duration: 0.2, opacity: 0.2, delay: 0.7 });
-    }
-    setShowSettings(!showSettings);
+  const blinkAppContainer = contextSafe(() => {
+    gsap.to(slidingContent.current, {
+      duration: 0.1,
+      ease: "power2.out",
+      filter: "brightness(2)",
+    });
+    gsap.to(slidingContent.current, {
+      duration: 0.1,
+      ease: "power2.out",
+      filter: "brightness(1)",
+      delay: 0.2,
+    });
   });
 
   const toggleHistory = contextSafe(() => {
     if (!showHistory) {
-      gsap.to("#history-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: 549, delay: 0.2 });
-      gsap.to("#history-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0.5, delay: 0.7 });
+      gsap.to([settingsToggle.current, historyToggle.current], { ease: "circ", duration: 0.15, autoAlpha: 0 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 549, delay: 0.15 });
+      gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.7 });
     } else {
-      gsap.to("#history-timer-toggle", { ease: "circ", duration: 0.2, opacity: 0 });
-      gsap.to("#content", { ease: "circ", duration: 0.5, y: 0, delay: 0.2 });
-      gsap.to("#history-toggle", { ease: "circ", duration: 0.2, opacity: 0.2, delay: 0.7 });
+      gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 0, delay: 0.15 });
+      gsap.to([settingsToggle.current, historyToggle.current], {
+        ease: "circ",
+        duration: 0.15,
+        autoAlpha: 0.2,
+        delay: 0.7,
+      });
     }
     setShowHistory(!showHistory);
+  });
+
+  const toggleSettings = contextSafe(() => {
+    if (!showSettings) {
+      gsap.to([settingsToggle.current, historyToggle.current], { ease: "circ", duration: 0.15, autoAlpha: 0 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: -549, delay: 0.15 });
+      gsap.to(settingsTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.7 });
+    } else {
+      gsap.to(settingsTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 0, delay: 0.15 });
+      gsap.to([settingsToggle.current, historyToggle.current], {
+        ease: "circ",
+        duration: 0.15,
+        autoAlpha: 0.15,
+        delay: 0.7,
+      });
+    }
+    setShowSettings(!showSettings);
   });
 
   const handlers = useSwipeable({
@@ -155,24 +180,15 @@ function App() {
 
   return (
     <div
-      id="app"
-      ref={container}
-      className="h-full max-h-[549px] max-w-[375px] overflow-hidden bg-gray-700 duration-300"
+      ref={appContainer}
+      className="relative h-full max-h-[549px] max-w-[375px] overflow-hidden bg-gray-700 duration-300"
     >
       <AppTools />
       <div
         {...handlers}
-        id="content"
-        className="relative mx-auto flex h-full max-h-[549px] max-w-[375px] flex-col bg-gray-600 px-5"
+        ref={slidingContent}
+        className="relative mx-auto flex h-full flex-col bg-gray-600 px-5 [&>*]:pt-6"
       >
-        <button
-          id="history-toggle"
-          className="mx-auto mt-4 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
-          onClick={toggleHistory}
-        >
-          History
-        </button>
-
         <div className="relative mt-8 mb-auto flex h-full max-w-full">
           <Map />
           <button
@@ -190,21 +206,41 @@ function App() {
         <div className="mt flex max-h-1/4 justify-center pt-4 pb-3">
           <Start onClick={handleStartClick} />
         </div>
-        <button
-          id="settings-toggle"
-          className="h mx-auto mt-4 mb-4 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
-          onClick={toggleSettings}
-        >
-          Settings
-        </button>
-        <History onToggleClick={() => toggleHistory()} onToggleRowClick={() => toggleHistory()} />
-        <Settings
-          onToggleClick={() => toggleSettings()}
-          onSoundChange={(newValue) => soundRef.current?.playThis(newValue)}
-        />
+        <History onToggleRowClick={() => toggleHistory()} />
+        <Settings onSoundChange={(newValue) => soundRef.current?.playThis(newValue)} />
         {showTimeline && <Timeline segmentComplete={handleSegmentComplete} timelineComplete={handleTimelineComplete} />}
         <Sound ref={soundRef} />
       </div>
+      <button
+        ref={settingsTimerToggle}
+        onClick={toggleSettings}
+        className="absolute top-0 right-0 left-0 mx-auto mt-4 block w-max rounded-md bg-gray-400 px-2 py-1 text-sm font-bold text-black opacity-0"
+      >
+        Timer
+      </button>
+      <button
+        ref={historyToggle}
+        className="absolute top-0 right-0 left-0 mx-auto mt-4 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-100"
+        onClick={toggleHistory}
+      >
+        History
+      </button>
+
+      <button
+        ref={historyTimerToggle}
+        onClick={toggleHistory}
+        className="absolute right-0 bottom-4 left-0 mx-auto mt-4 block w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black text-black opacity-0"
+      >
+        Timer
+      </button>
+
+      <button
+        ref={settingsToggle}
+        className="absolute right-0 bottom-4 left-0 mx-auto w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-100"
+        onClick={toggleSettings}
+      >
+        Settings
+      </button>
     </div>
   );
 }
