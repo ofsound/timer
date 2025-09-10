@@ -114,9 +114,20 @@ function App() {
   });
 
   const toggleHistory = contextSafe(() => {
+    let appHeight = 0;
+
+    if (slidingContent.current) {
+      appHeight = (slidingContent.current as HTMLElement).offsetHeight;
+    }
+
     if (!showHistory) {
       gsap.to([settingsToggle.current, historyToggle.current], { ease: "circ", duration: 0.15, autoAlpha: 0 });
-      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 549, delay: 0.15 });
+      gsap.to(slidingContent.current, {
+        ease: "circ",
+        duration: 0.5,
+        y: appHeight,
+        delay: 0.15,
+      });
       gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.7 });
     } else {
       gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
@@ -132,9 +143,15 @@ function App() {
   });
 
   const toggleSettings = contextSafe(() => {
+    let appHeight = 0;
+
+    if (slidingContent.current) {
+      appHeight = (slidingContent.current as HTMLElement).offsetHeight;
+    }
+
     if (!showSettings) {
       gsap.to([settingsToggle.current, historyToggle.current], { ease: "circ", duration: 0.15, autoAlpha: 0 });
-      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: -549, delay: 0.15 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: -appHeight, delay: 0.15 });
       gsap.to(settingsTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.7 });
     } else {
       gsap.to(settingsTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
@@ -179,15 +196,12 @@ function App() {
   };
 
   return (
-    <div
-      ref={appContainer}
-      className="relative h-full max-h-[549px] max-w-[375px] overflow-hidden bg-gray-700 duration-300"
-    >
+    <div ref={appContainer} className="relative h-full overflow-hidden bg-gray-700 duration-300">
       <AppTools />
       <div
         {...handlers}
         ref={slidingContent}
-        className="relative mx-auto flex h-full flex-col bg-gray-600 px-5 [&>*]:pt-6"
+        className="relative mx-auto flex h-full flex-col bg-gray-600 px-5 pb-18 [&>*]:pt-6"
       >
         <div className="relative mt-8 mb-auto flex h-full max-w-full">
           <Map />
@@ -203,7 +217,7 @@ function App() {
         <div className="mt-3">
           <Inputs key={"inputs" + inputsKey} />
         </div>
-        <div className="mt flex max-h-1/4 justify-center pt-4 pb-3">
+        <div className="mt flex max-h-1/4 justify-center pt-4">
           <Start onClick={handleStartClick} />
         </div>
         <History onToggleRowClick={() => toggleHistory()} />
