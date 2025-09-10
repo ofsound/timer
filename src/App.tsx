@@ -40,8 +40,6 @@ function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
 
-  const appContainer = useRef(null);
-
   const slidingContent = useRef(null);
 
   const settingsToggle = useRef(null);
@@ -89,17 +87,17 @@ function App() {
 
   const handleSegmentComplete = contextSafe(() => {
     soundRef.current?.play();
-    blinkAppContainer();
+    blinkBackground();
   });
 
   const handleTimelineComplete = () => {
     soundRef.current?.play();
-    blinkAppContainer();
+    blinkBackground();
     setShowTimeline(false);
     setThisStep(-1);
   };
 
-  const blinkAppContainer = contextSafe(() => {
+  const blinkBackground = contextSafe(() => {
     gsap.to(slidingContent.current, {
       duration: 0.1,
       ease: "power2.out",
@@ -196,14 +194,10 @@ function App() {
   };
 
   return (
-    <div ref={appContainer} className="relative h-full overflow-hidden bg-gray-700 duration-300">
+    <div {...handlers} className="relative z-50 h-full overflow-hidden bg-gray-700 duration-300">
       <AppTools />
-      <div
-        {...handlers}
-        ref={slidingContent}
-        className="relative mx-auto flex h-full flex-col bg-gray-600 px-5 pb-18 [&>*]:pt-6"
-      >
-        <div className="relative mt-8 mb-auto flex h-full max-w-full">
+      <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-600 px-5 pb-18 [&>*]:pt-6">
+        <div className="relative mt-8 mb-auto flex h-full">
           <Map />
           <button
             onClick={handleClearSequenceClick}
