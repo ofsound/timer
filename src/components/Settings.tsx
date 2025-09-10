@@ -61,9 +61,9 @@ function Settings({ onSoundChange }: inputProps) {
     <div className="absolute top-full left-0 flex h-full w-full flex-col bg-gray-100">
       <div className="mt-5 mb-8 pt-8 text-center text-2xl font-bold tracking-wide">Settings</div>
       <div className="flex flex-1 flex-col [&>*]:flex-1">
-        <div className="flex border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200">
+        <div className="flex w-full justify-center border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200">
           <div className="flex max-h-max self-center-safe">
-            <div className="text-md mt-[34px] w-34 pr-4 text-right">Count-In Time</div>
+            <div className="text-md mt-[34px] w-30 pr-4 text-right">Count-In Time</div>
             <input
               id="countInTime"
               type="text"
@@ -88,9 +88,9 @@ function Settings({ onSoundChange }: inputProps) {
             </div>
           </div>
         </div>
-        <div className="flex border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200">
+        <div className="flex justify-center border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200">
           <div className="flex max-h-max self-center-safe">
-            <div className="text-md mt-[34px] w-34 pr-4 text-right">Sound Effect</div>
+            <div className="text-md mt-[34px] w-30 pr-4 text-right">Sound Effect</div>
             <input
               id="soundEffectIndex"
               type="text"
@@ -115,9 +115,9 @@ function Settings({ onSoundChange }: inputProps) {
             </div>
           </div>
         </div>
-        <div className="flex border-t-1 border-b-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200">
+        <div className="flex justify-center border-t-1 border-b-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200">
           <div className="flex max-h-max self-center-safe">
-            <div className="text-md mt-[34px] w-34 pr-4 text-right">Color Theme</div>
+            <div className="text-md mt-[34px] w-30 pr-4 text-right">Color Theme</div>
             <input
               id="colorThemeIndex"
               type="text"
