@@ -138,7 +138,7 @@ function History({ onToggleRowClick }: inputProps) {
       setTimeout(() => {
         setFadeInIndexStart(newFadeinIndex);
       }, 100);
-    }, 600);
+    }, 250);
   };
 
   // Runs once when start is clicked, adds that sequence to History
@@ -177,21 +177,18 @@ function History({ onToggleRowClick }: inputProps) {
   }
 
   return (
-    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 pt-6 pb-4 text-white">
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col">
+    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 pt-6 pb-18 text-white">
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col [&>*]:flex-1">
         {history.map((historyRow, index) => (
           <div
             key={index}
-            className={` ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-600"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-300"}`}
+            className={`relative ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-200"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-150"}`}
           >
             <div
-              className={`${index !== splitIndex && "hidden"} mx-auto mt-8 mb-3 h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
-            ></div>
-            <div
-              className={`relative flex flex-col px-14 ${index === splitIndex && "animate-pulse [&>*]:opacity-100!"}`}
+              className={`relative flex h-full flex-col px-14 ${index === splitIndex && "animate-pulse [&>*]:opacity-100!"}`}
             >
               <div
-                className={`relative flex min-h-12 ${!historyRow.isPinned && "min-h-11! px-5 text-white opacity-40 brightness-80"} ${index === splitIndex && "brightness-100"} `}
+                className={`relative flex h-full min-h-12 ${!historyRow.isPinned && "min-h-11! px-5 text-white opacity-40 brightness-80"} ${index === splitIndex && "brightness-100"} `}
               >
                 <Map
                   onClick={() => {
@@ -204,6 +201,9 @@ function History({ onToggleRowClick }: inputProps) {
                 <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
               </div>
             </div>
+            <div
+              className={`${index !== splitIndex - 1 && "hidden"} absolute right-0 left-0 mx-auto mt-[6.5px] h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
+            ></div>
           </div>
         ))}
       </div>
