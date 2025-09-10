@@ -115,15 +115,12 @@ function History({ onToggleRowClick }: inputProps) {
     newHistory[index].isPinned = !newHistory[index].isPinned;
 
     finalSplitIndex = newSplitIndex;
-    // setSplitIndex(newSplitIndex);
 
     if (newHistory[0] && newSplitIndex === -1) {
       if (newHistory[0].isPinned) {
         finalSplitIndex = newHistory.length;
-        // setSplitIndex(newHistory.length);
       } else {
         finalSplitIndex = 0;
-        // setSplitIndex(0);
       }
     }
     localStorage.setItem("history", JSON.stringify(newHistory));
