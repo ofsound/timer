@@ -1,6 +1,7 @@
 import { useState } from "react";
-
 import { useTimerStore } from "../store.ts";
+
+import { useSwipeable } from "react-swipeable";
 
 function Inputs() {
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
@@ -13,6 +14,8 @@ function Inputs() {
   const padValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"];
 
   const [currentSequence, setWorkingSequence] = useState<number[]>([]);
+
+  const [toggleVariant, setToggleVariant] = useState(false);
 
   const [padTotal, setPadTotal] = useState("");
 
@@ -36,9 +39,30 @@ function Inputs() {
     setPadTotal("");
   };
 
+  const handlers = useSwipeable({
+    onSwiped: (eventData) => handleSwipe(eventData.dir),
+    ...{
+      delta: 10, // min distance(px) before a swipe starts.
+      preventScrollOnSwipe: true, // prevents scroll during swipe
+      trackTouch: true, // track touch input
+      trackMouse: true, // track mouse input
+      rotationAngle: 0, // set a rotation angle
+      swipeDuration: Infinity, // allowable duration of a swipe (ms)
+      touchEventOptions: { passive: true }, // options for touch listeners
+    },
+  });
+
+  const handleSwipe = (direction: string) => {
+    if (direction === "Left" || direction === "Right") {
+      setToggleVariant(!toggleVariant);
+    }
+  };
+
   return (
-    <>
-      <div className="mr-auto ml-auto flex hidden max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2">
+    <div {...handlers}>
+      <div
+        className={` ${toggleVariant ? "flex" : "hidden"} mr-auto ml-auto max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2`}
+      >
         {buttonValues.map((item, index) => (
           <button
             onClick={() => buttonClickHandler(item)}
@@ -49,7 +73,7 @@ function Inputs() {
           </button>
         ))}
       </div>
-      <div className="flex">
+      <div className={`${toggleVariant ? "hidden" : "flex"} gap-4`}>
         <div className="mx-auto flex max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2">
           {padValues.map((item, index) => (
             <button
@@ -61,22 +85,27 @@ function Inputs() {
             </button>
           ))}
         </div>
-        <div>
-          <button onClick={padAddHandler} className="border-1 bg-gray-200 p-3 text-4xl">
+        <div className="relative">
+          <button onClick={padAddHandler} className="mb-12 w-full border-1 bg-gray-200 p-3 text-4xl">
             ⇧
           </button>
-          <button onClick={() => setPadTotal("")} className="border-1 bg-gray-200 p-3 text-4xl">
-            x
-          </button>
-          <input
-            readOnly
-            type="text"
-            className="pointer-events-none mt-4 mr-10 ml-auto h-14 w-28 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold tabular-nums"
-            value={padTotal}
-          />
+          <div className="relative">
+            <button onClick={() => setPadTotal("")} className="absolute -top-6 -right-6 block h-12 w-12 cursor-pointer">
+              <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
+                <span className="relative -top-[4.5px] text-3xl text-white">×</span>
+              </div>
+            </button>
+
+            <input
+              readOnly
+              type="text"
+              className="pointer-events-none mt-4 ml-auto h-14 w-22 rounded-md border-1 border-dotted bg-gray-800 pr-5 text-right text-2xl font-bold text-white tabular-nums"
+              value={padTotal}
+            />
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
