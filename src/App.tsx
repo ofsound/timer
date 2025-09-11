@@ -124,12 +124,12 @@ function App() {
         ease: "circ",
         duration: 0.5,
         y: appHeight,
-        delay: 0.15,
+        delay: 0,
       });
       gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.7 });
     } else {
       gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
-      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 0, delay: 0.15 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 0, delay: 0 });
       gsap.to([settingsToggle.current, historyToggle.current], {
         ease: "circ",
         duration: 0.15,
