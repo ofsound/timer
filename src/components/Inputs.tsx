@@ -35,7 +35,10 @@ function Inputs() {
   };
 
   const padAddHandler = () => {
-    buttonClickHandler(parseInt(padTotal));
+    const valueToAdd = parseInt(padTotal);
+    if (valueToAdd > 0) {
+      buttonClickHandler(valueToAdd);
+    }
     setPadTotal("");
   };
 
@@ -61,7 +64,7 @@ function Inputs() {
   return (
     <div {...handlers}>
       <div
-        className={` ${toggleVariant ? "flex" : "hidden"} mr-auto ml-auto max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2`}
+        className={` ${toggleVariant ? "hidden" : "flex"} mr-auto ml-auto max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2`}
       >
         {buttonValues.map((item, index) => (
           <button
@@ -73,36 +76,36 @@ function Inputs() {
           </button>
         ))}
       </div>
-      <div className={`${toggleVariant ? "hidden" : "flex"} gap-4`}>
-        <div className="mx-auto flex max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2">
+      <div className={`${toggleVariant ? "flex" : "hidden"} gap-4`}>
+        <div className="mx-auto flex max-h-1/4 w-2/3 flex-wrap justify-between gap-[10px] pt-2">
           {padValues.map((item, index) => (
             <button
               onClick={() => padButtonClickHandler(item)}
               key={index}
-              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-blue-500 bg-blue-600 text-lg tracking-wider text-white`}
+              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-blue-500 bg-blue-600 text-2xl tracking-wider text-white`}
             >
               <div>{item}</div>
             </button>
           ))}
         </div>
-        <div className="relative">
-          <button onClick={padAddHandler} className="mb-12 w-full border-1 bg-gray-200 p-3 text-4xl">
-            ⇧
-          </button>
-          <div className="relative">
-            <button onClick={() => setPadTotal("")} className="absolute -top-6 -right-6 block h-12 w-12 cursor-pointer">
-              <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
-                <span className="relative -top-[4.5px] text-3xl text-white">×</span>
-              </div>
+        <div className="flex w-1/3 flex-col justify-between gap-10 pt-2">
+          <div className="relative flex-1">
+            <button onClick={() => setPadTotal("")} className="absolute top-0 right-0 block h-8 w-8 cursor-pointer">
+              <span className="relative text-xl text-white">×</span>
             </button>
-
             <input
               readOnly
               type="text"
-              className="pointer-events-none mt-4 ml-auto h-14 w-22 rounded-md border-1 border-dotted bg-gray-800 pr-5 text-right text-2xl font-bold text-white tabular-nums"
+              className="pointer-events-none mt-0 ml-auto h-full w-full rounded-md border-1 border-dotted border-black bg-gray-700 pr-8 text-right text-2xl font-bold text-white tabular-nums"
               value={padTotal}
             />
           </div>
+          <button
+            onClick={padAddHandler}
+            className="w-full flex-1 rounded-lg border-1 border-black bg-gray-700 p-3 text-4xl text-white"
+          >
+            ⇧
+          </button>
         </div>
       </div>
     </div>

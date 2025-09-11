@@ -24,10 +24,8 @@ function Timeline({ timelineComplete, segmentComplete }: inputProps) {
       setThisStep(runnerIndex + 1);
       setRunnerIndex(runnerIndex + 1);
       segmentComplete();
-      console.log("segmentComplete");
     } else {
       timelineComplete();
-      console.log("timelineComplete");
     }
   };
 

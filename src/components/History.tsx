@@ -143,8 +143,6 @@ function History({ onToggleRowClick }: inputProps) {
 
   // Runs once when start is clicked, adds that sequence to History
   if (thisStep === 0 && firstRenderAfterStart.current) {
-    console.log("Runs once");
-
     firstRenderAfterStart.current = false;
 
     const newHistory = [...history];
