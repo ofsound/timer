@@ -65,6 +65,25 @@ function Inputs() {
     setToggleVariant(!toggleVariant);
   };
 
+  const handleCancel = () => {
+    setToggleVariant(!toggleVariant);
+  };
+
+  function convertSecondsToMinutesSeconds(totalSeconds: number) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    // const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedMinutes = String(minutes);
+    const formattedSeconds = String(seconds).padStart(2, "0");
+
+    if (minutes > 0) {
+      return `${formattedMinutes}:${formattedSeconds}`;
+    } else {
+      return seconds;
+    }
+  }
+
   return (
     <div>
       <div
@@ -77,7 +96,7 @@ function Inputs() {
             key={index}
             className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/6 grow-1 cursor-pointer items-center justify-center rounded-lg border border-blue-500 bg-blue-600 text-lg tracking-wider text-white`}
           >
-            <div className="pointer-events-none">{item}</div>
+            <div className="pointer-events-none">{convertSecondsToMinutesSeconds(item)}</div>
           </button>
         ))}
       </div>
@@ -87,31 +106,13 @@ function Inputs() {
             <button
               onClick={() => padButtonClickHandler(item)}
               key={index}
-              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-blue-500 bg-blue-600 text-2xl tracking-wider text-white`}
+              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-black text-2xl tracking-wider text-white`}
             >
               <div>{item}</div>
             </button>
           ))}
         </div>
-        <div className="flex w-1/3 flex-col justify-between gap-10 pt-2">
-          <div className="flex max-h-max self-center-safe">
-            <div className="relative flex">
-              <div className="flex flex-col gap-3">
-                <button
-                  className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
-                  onClick={() => trySetCustomInputValue(customInputValue + 1)}
-                >
-                  <div className="relative -top-[2px]">+</div>
-                </button>
-                <button
-                  className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
-                  onClick={() => trySetCustomInputValue(customInputValue - 1)}
-                >
-                  <div className="relative -top-[1px]">–</div>
-                </button>
-              </div>
-            </div>
-          </div>
+        <div className="flex w-1/3 flex-col pt-2">
           <div className="relative flex-1">
             <button
               onClick={() => {
@@ -120,21 +121,43 @@ function Inputs() {
               }}
               className="absolute top-0 right-0 block h-8 w-8 cursor-pointer"
             >
-              <span className="relative text-xl text-black">×</span>
+              <span className="relative text-xl text-white">×</span>
             </button>
             <input
               readOnly
               type="text"
-              className="pointer-events-none mt-0 ml-auto h-full w-full rounded-md border-1 border-dotted border-black bg-gray-100 pr-8 text-right text-2xl font-bold text-black tabular-nums"
-              value={customInputValue}
+              className="pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 pr-8 text-right text-2xl font-bold text-white tabular-nums"
+              value={convertSecondsToMinutesSeconds(customInputValue)}
             />
           </div>
-          <button
-            onClick={handleNewCustomValue}
-            className="w-full flex-1 rounded-lg border-1 border-black bg-gray-700 p-3 text-4xl text-white"
-          >
-            ⇧
-          </button>
+          <div className="flex max-h-max self-center-safe">
+            <button
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
+              onClick={() => trySetCustomInputValue(customInputValue - 1)}
+            >
+              <div className="relative -top-[1px]">–</div>
+            </button>
+            <button
+              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
+              onClick={() => trySetCustomInputValue(customInputValue + 1)}
+            >
+              <div className="relative -top-[2px]">+</div>
+            </button>
+          </div>
+          <div className="flex">
+            <button
+              onClick={handleCancel}
+              className="block rotate-180 rounded-lg border-1 border-black bg-red-700 p-3 text-4xl text-white"
+            >
+              ⇧
+            </button>
+            <button
+              onClick={handleNewCustomValue}
+              className="block rounded-lg border-1 border-black bg-green-700 p-3 text-4xl text-white"
+            >
+              ⇧
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -33,6 +33,21 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
   const widthScaleFactor = 200;
 
+  function convertSecondsToMinutesSeconds(totalSeconds: number) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    // const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedMinutes = String(minutes);
+    const formattedSeconds = String(seconds).padStart(2, "0");
+
+    if (minutes > 0) {
+      return `${formattedMinutes}:${formattedSeconds}`;
+    } else {
+      return seconds;
+    }
+  }
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -44,7 +59,7 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
         className={`absolute h-full bg-green-600 bg-gradient-to-r from-green-600 to-green-400`}
       ></div>
       <div className={classesInner}>
-        <div>{durationSeconds}</div>
+        <div>{convertSecondsToMinutesSeconds(durationSeconds)}</div>
       </div>
     </div>
   );
