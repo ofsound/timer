@@ -55,7 +55,7 @@ function App() {
 
   const { contextSafe } = useGSAP();
 
-  const handleClearSequenceClick = () => {
+  const handleResetSequenceClick = () => {
     setInputsKey((prevKey) => prevKey + 1);
 
     setThisStep(-1);
@@ -127,7 +127,7 @@ function App() {
         y: appHeight,
         delay: 0,
       });
-      gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.7 });
+      gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.5 });
     } else {
       gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
       gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 0, delay: 0 });
@@ -135,7 +135,7 @@ function App() {
         ease: "circ",
         duration: 0.15,
         autoAlpha: 0.2,
-        delay: 0.7,
+        delay: 0.5,
       });
     }
     setShowHistory(!showHistory);
@@ -159,7 +159,7 @@ function App() {
         ease: "circ",
         duration: 0.15,
         autoAlpha: 0.15,
-        delay: 0.7,
+        delay: 0.5,
       });
     }
     setShowSettings(!showSettings);
@@ -202,7 +202,7 @@ function App() {
         <div className="relative mt-8 mb-auto flex h-full">
           <Map />
           <button
-            onClick={handleClearSequenceClick}
+            onClick={handleResetSequenceClick}
             className={` ${!startIsEnabled && ""} absolute top-0 -right-6 block h-12 w-12 cursor-pointer`}
           >
             <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
@@ -224,7 +224,7 @@ function App() {
       <button
         ref={settingsTimerToggle}
         onClick={toggleSettings}
-        className="absolute top-0 right-0 left-0 mx-auto mt-2 block w-max rounded-md bg-gray-400 px-2 py-1 text-sm font-bold text-black opacity-0"
+        className="absolute top-0 right-0 left-0 mx-auto mt-2 block w-max rounded-md bg-gray-300 px-2 py-1 text-sm font-bold text-gray-700 opacity-0"
       >
         Timer
       </button>
@@ -239,7 +239,7 @@ function App() {
       <button
         ref={historyTimerToggle}
         onClick={toggleHistory}
-        className="absolute right-0 bottom-2 left-0 mx-auto block w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black text-black opacity-0"
+        className="absolute right-0 bottom-2 left-0 mx-auto block w-max rounded-md bg-gray-600 px-2 py-1 text-sm font-black text-gray-300 opacity-0"
       >
         Timer
       </button>
