@@ -105,7 +105,7 @@ function Inputs() {
             <button
               onClick={() => padButtonClickHandler(item)}
               key={index}
-              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-black text-2xl tracking-wider text-white shadow-md`}
+              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-gray-900 text-2xl tracking-wider text-white shadow-md`}
             >
               <div className="pointer-events-none">{item}</div>
             </button>
