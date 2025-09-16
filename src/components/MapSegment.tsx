@@ -36,7 +36,6 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
-    // const formattedMinutes = String(minutes).padStart(2, "0");
     const formattedMinutes = String(minutes);
     const formattedSeconds = String(seconds).padStart(2, "0");
 

@@ -86,7 +86,7 @@ function Inputs() {
   return (
     <div>
       <div
-        className={` ${toggleVariant ? "hidden" : "flex"} mr-auto ml-auto max-h-1/4 w-full flex-wrap justify-between gap-[10px] pt-2`}
+        className={` ${toggleVariant ? "hidden" : "flex"} mr-auto ml-auto w-full flex-wrap justify-between gap-[10px]`}
       >
         {buttonValues.map((item, index) => (
           <button
@@ -99,8 +99,8 @@ function Inputs() {
           </button>
         ))}
       </div>
-      <div className={`${toggleVariant ? "flex" : "hidden"} gap-[6%]`}>
-        <div className="mx-auto flex max-h-1/4 w-2/3 flex-wrap justify-between gap-[10px] pt-2">
+      <div className={`${toggleVariant ? "flex" : "hidden"} gap-10 px-4`}>
+        <div className="mx-auto flex max-h-1/4 w-2/3 flex-wrap justify-between gap-2">
           {padValues.map((item, index) => (
             <button
               onClick={() => padButtonClickHandler(item)}
@@ -111,7 +111,7 @@ function Inputs() {
             </button>
           ))}
         </div>
-        <div className="flex w-1/3 flex-col pt-2">
+        <div className="flex w-1/3 flex-col">
           <div className="relative">
             <button
               onClick={() => {
