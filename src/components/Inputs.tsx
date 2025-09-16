@@ -143,7 +143,7 @@ function Inputs() {
               <div className="relative -top-[2px] text-4xl text-white">+</div>
             </button>
           </div>
-          <div className="mt-[10%] mt-auto flex w-full">
+          <div className="mt-auto flex w-full">
             <button
               onClick={handleCancel}
               className="block aspect-square w-full rotate-180 rounded-lg border-1 border-black bg-red-700 p-3 text-4xl text-white"
