@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { useSwipeable } from "react-swipeable";
 
@@ -193,6 +193,19 @@ function App() {
       }
     }
   };
+
+  useEffect(() => {
+    const handleContextMenu = (e: Event) => {
+      e.preventDefault(); // Prevents the default context menu from appearing
+    };
+
+    document.addEventListener("contextmenu", handleContextMenu);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []); // Empty dependency array ensures this runs once on mount and unmount
 
   return (
     <div {...handlers} className="relative z-50 h-full overflow-hidden bg-gray-700 duration-300">
