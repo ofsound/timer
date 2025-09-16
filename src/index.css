@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  font-size: 3.5vw;
+}
+
 /* @theme {
   --animate-pulse-fast: pulse 5s;
   @keyframes pulse {

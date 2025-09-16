@@ -73,7 +73,6 @@ function Inputs() {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
-    // const formattedMinutes = String(minutes).padStart(2, "0");
     const formattedMinutes = String(minutes);
     const formattedSeconds = String(seconds).padStart(2, "0");
 
@@ -100,20 +99,20 @@ function Inputs() {
           </button>
         ))}
       </div>
-      <div className={`${toggleVariant ? "flex" : "hidden"} gap-4`}>
+      <div className={`${toggleVariant ? "flex" : "hidden"} gap-[6%]`}>
         <div className="mx-auto flex max-h-1/4 w-2/3 flex-wrap justify-between gap-[10px] pt-2">
           {padValues.map((item, index) => (
             <button
               onClick={() => padButtonClickHandler(item)}
               key={index}
-              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-black text-2xl tracking-wider text-white`}
+              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-black text-2xl tracking-wider text-white shadow-md`}
             >
-              <div>{item}</div>
+              <div className="pointer-events-none">{item}</div>
             </button>
           ))}
         </div>
         <div className="flex w-1/3 flex-col pt-2">
-          <div className="relative flex-1">
+          <div className="relative">
             <button
               onClick={() => {
                 setCustomInputValue(0);
@@ -126,34 +125,34 @@ function Inputs() {
             <input
               readOnly
               type="text"
-              className="pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 pr-8 text-right text-2xl font-bold text-white tabular-nums"
+              className="pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 pr-8 text-right text-3xl font-bold text-white tabular-nums"
               value={convertSecondsToMinutesSeconds(customInputValue)}
             />
           </div>
-          <div className="flex max-h-max self-center-safe">
+          <div className="mt-2 flex w-full gap-[4%] self-center-safe">
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
+              className="b-1 border-bg-black block aspect-square w-1/2 rounded-sm border-1 border-gray-900 bg-gray-500 text-2xl font-bold shadow-md"
               onClick={() => trySetCustomInputValue(customInputValue - 1)}
             >
-              <div className="relative -top-[1px]">–</div>
+              <div className="relative -top-[1px] text-4xl text-white">–</div>
             </button>
             <button
-              className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold shadow-md"
+              className="aspect-square w-1/2 rounded-sm border-1 border-black bg-gray-500 text-2xl font-bold shadow-md"
               onClick={() => trySetCustomInputValue(customInputValue + 1)}
             >
-              <div className="relative -top-[2px]">+</div>
+              <div className="relative -top-[2px] text-4xl text-white">+</div>
             </button>
           </div>
-          <div className="flex">
+          <div className="mt-[10%] mt-auto flex w-full">
             <button
               onClick={handleCancel}
-              className="block rotate-180 rounded-lg border-1 border-black bg-red-700 p-3 text-4xl text-white"
+              className="block aspect-square w-full rotate-180 rounded-lg border-1 border-black bg-red-700 p-3 text-4xl text-white"
             >
-              ⇧
+              ✕
             </button>
             <button
               onClick={handleNewCustomValue}
-              className="block rounded-lg border-1 border-black bg-green-700 p-3 text-4xl text-white"
+              className="block aspect-square w-full rounded-lg border-1 border-black bg-green-700 p-3 text-4xl text-white"
             >
               ⇧
             </button>
