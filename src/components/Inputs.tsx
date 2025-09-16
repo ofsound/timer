@@ -146,13 +146,13 @@ function Inputs() {
           <div className="mt-auto flex w-full">
             <button
               onClick={handleCancel}
-              className="block aspect-square w-full rotate-180 rounded-lg border-1 border-black bg-red-700 p-3 text-4xl text-white"
+              className="block aspect-square w-full rotate-180 rounded-lg border-1 border-black bg-red-700 text-4xl text-white"
             >
               ✕
             </button>
             <button
               onClick={handleNewCustomValue}
-              className="block aspect-square w-full rounded-lg border-1 border-black bg-green-700 p-3 text-4xl text-white"
+              className="block aspect-square w-full rounded-lg border-1 border-black bg-green-700 text-4xl text-white"
             >
               ⇧
             </button>
