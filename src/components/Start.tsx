@@ -34,7 +34,7 @@ function Start({ onClick }: inputProps) {
       className={`z-block relative h-32 w-32 ${!startIsEnabled && "pointer-events-none relative z-0 opacity-60 blur-xs"}`}
     >
       <div
-        className={`absolute top-0 h-32 w-32 cursor-pointer rounded-full shadow-md ${thisStep === 0 ? "bg-conic from-black to-green-500" : "bg-green-500"} `}
+        className={`absolute top-0 h-32 w-32 cursor-pointer rounded-full border-1 border-gray-600 shadow-md ${thisStep === 0 ? "bg-conic from-black to-green-500" : "bg-green-500"} `}
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
       ></div>
       <div
