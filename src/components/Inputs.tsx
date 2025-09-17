@@ -211,7 +211,7 @@ function Inputs() {
               }}
               className="absolute -top-1 -right-1 block h-8 w-8 cursor-pointer opacity-50"
             >
-              <div className="h-full w-full text-xl text-white">×</div>
+              <div className="h-full w-full text-xl text-white select-none">×</div>
             </button>
             <input
               readOnly

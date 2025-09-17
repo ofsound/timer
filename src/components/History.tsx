@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import Map from "../components/Map.tsx";
 import Pin from "../components/Pin.tsx";
@@ -105,7 +105,6 @@ function History({ onToggleRowClick }: inputProps) {
     newFadeoutIndex = index;
 
     newHistory[index].isPinned = !newHistory[index].isPinned;
-
     newHistory[index].isPinned = !newHistory[index].isPinned;
 
     finalSplitIndex = newSplitIndex;
@@ -135,35 +134,63 @@ function History({ onToggleRowClick }: inputProps) {
 
   // Runs once when start is clicked, adds that sequence to History
   if (thisStep === 0 && firstRenderAfterStart.current) {
-    firstRenderAfterStart.current = false;
+    // console.log("first function");
+    // firstRenderAfterStart.current = false;
+    // const newHistory = [...history];
+    // const historyRowObject = {
+    //   isPinned: false,
+    //   sequence: thisSequence,
+    // };
+    // if (newHistory.length > 7) {
+    //   const attemptSplice = (pinIndex: number) => {
+    //     if (!newHistory[pinIndex].isPinned) {
+    //       newHistory.splice(pinIndex, 1);
+    //       return;
+    //     } else {
+    //       attemptSplice(pinAttemptIndex++);
+    //     }
+    //   };
+    //   let pinAttemptIndex = 0;
+    //   attemptSplice(pinAttemptIndex);
+    // }
+    // newHistory.splice(splitIndex, 0, historyRowObject);
+    // setHistory(newHistory);
+  }
 
-    const newHistory = [...history];
-    const historyRowObject = {
-      isPinned: false,
-      sequence: thisSequence,
-    };
+  useEffect(() => {
+    console.log("i ran");
 
-    if (newHistory.length > 7) {
-      const attemptSplice = (pinIndex: number) => {
-        if (!newHistory[pinIndex].isPinned) {
-          newHistory.splice(pinIndex, 1);
-          return;
-        } else {
-          attemptSplice(pinAttemptIndex++);
-        }
+    if (thisStep === 0 && firstRenderAfterStart.current) {
+      console.log("first function");
+      firstRenderAfterStart.current = false;
+      const newHistory = [...history];
+      const historyRowObject = {
+        isPinned: false,
+        sequence: thisSequence,
       };
-
-      let pinAttemptIndex = 0;
-      attemptSplice(pinAttemptIndex);
+      if (newHistory.length > 7) {
+        const attemptSplice = (pinIndex: number) => {
+          if (!newHistory[pinIndex].isPinned) {
+            newHistory.splice(pinIndex, 1);
+            return;
+          } else {
+            attemptSplice(pinAttemptIndex++);
+          }
+        };
+        let pinAttemptIndex = 0;
+        attemptSplice(pinAttemptIndex);
+      }
+      newHistory.splice(splitIndex, 0, historyRowObject);
+      setHistory(newHistory);
     }
 
-    newHistory.splice(splitIndex, 0, historyRowObject);
-    setHistory(newHistory);
-  }
+    if (thisStep === -1 && !firstRenderAfterStart.current) {
+      firstRenderAfterStart.current = true;
+    }
 
-  if (thisStep === -1 && !firstRenderAfterStart.current) {
-    firstRenderAfterStart.current = true;
-  }
+    return () => {};
+  }, [history, setHistory, splitIndex, thisSequence, thisStep]);
+  // i got bullied into this!!
 
   return (
     <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 pt-6 pb-18 text-white">

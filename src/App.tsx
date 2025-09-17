@@ -123,19 +123,19 @@ function App() {
       gsap.to([settingsToggle.current, historyToggle.current], { ease: "circ", duration: 0.15, autoAlpha: 0 });
       gsap.to(slidingContent.current, {
         ease: "circ",
-        duration: 0.5,
+        duration: 0.3,
         y: appHeight,
         delay: 0,
       });
-      gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.5 });
+      gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.3 });
     } else {
       gsap.to(historyTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
-      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 0, delay: 0 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.3, y: 0, delay: 0 });
       gsap.to([settingsToggle.current, historyToggle.current], {
         ease: "circ",
         duration: 0.15,
         autoAlpha: 0.2,
-        delay: 0.5,
+        delay: 0.3,
       });
     }
     setShowHistory(!showHistory);
@@ -150,16 +150,16 @@ function App() {
 
     if (!showSettings) {
       gsap.to([settingsToggle.current, historyToggle.current], { ease: "circ", duration: 0.15, autoAlpha: 0 });
-      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: -appHeight, delay: 0.15 });
-      gsap.to(settingsTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.5, delay: 0.7 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.3, y: -appHeight, delay: 0.15 });
+      gsap.to(settingsTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0.3, delay: 0.7 });
     } else {
       gsap.to(settingsTimerToggle.current, { ease: "circ", duration: 0.15, autoAlpha: 0 });
-      gsap.to(slidingContent.current, { ease: "circ", duration: 0.5, y: 0, delay: 0.15 });
+      gsap.to(slidingContent.current, { ease: "circ", duration: 0.3, y: 0, delay: 0.15 });
       gsap.to([settingsToggle.current, historyToggle.current], {
         ease: "circ",
         duration: 0.15,
         autoAlpha: 0.15,
-        delay: 0.5,
+        delay: 0.3,
       });
     }
     setShowSettings(!showSettings);
@@ -211,25 +211,25 @@ function App() {
       <AppTools />
       <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-600 px-5 py-6">
         <div
-          className={`/*bg-blue-400/40*/ ${thisStep < 0 ? "h-10/32 py-4" : "h-3/32 py-0 grayscale-0"} relative mb-auto flex`}
+          className={`/*bg-blue-400/40*/ ${thisStep < 0 ? "h-10/32 py-4" : "h-5/32 py-4 grayscale-0"} relative mb-auto flex`}
         >
           <Map />
           <button
             onClick={handleResetSequenceClick}
-            className={`${thisStep < 0 ? "-top-2" : "-top-6"} absolute -right-6 block h-12 w-12 cursor-pointer`}
+            className={`absolute -top-2 -left-6 block h-12 w-12 cursor-pointer`}
           >
             <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
-              <span className="relative -top-1 text-3xl text-white">×</span>
+              <span className="relative -top-[.3rem] text-3xl text-white">×</span>
             </div>
           </button>
         </div>
-        <div className={`${thisStep > -1 ? "flex" : "hidden"} relative h-23/32 py-6`}>
+        <div className={`${thisStep > -1 ? "flex" : "hidden"} relative h-19/32 py-6`}>
           <Cinema />
         </div>
-        <div className={`${thisStep < 0 ? "flex" : "hidden"} h-16/32`}>
+        <div className={`${thisStep < 0 ? "flex" : "hidden"} h-14/32`}>
           <Inputs key={"inputs" + inputsKey} />
         </div>
-        <div className="/*bg-green-400/40*/ flex h-6/32 items-center justify-center">
+        <div className="/*bg-green-400/40*/ flex h-8/32 items-center justify-center">
           <Start onClick={handleStartClick} />
         </div>
         <History onToggleRowClick={() => toggleHistory()} />
