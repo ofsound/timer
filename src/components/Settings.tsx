@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { ChangeEvent } from "react";
 
 import gsap from "gsap";
@@ -22,37 +21,26 @@ function Settings({ onSoundChange }: inputProps) {
   const colorThemeIndex = useUserStore((state) => state.colorThemeIndex);
   const setColorThemeIndex = useUserStore((state) => state.setColorThemeIndex);
 
-  const [settings, setSettings] = useState<Array<number>>([5, 1, 1]);
-
+  // maybe not used
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const theInput = event.target as HTMLInputElement;
     const newValue = parseInt(theInput.value, 10);
 
-    const tempSettings = [...settings];
-
     switch (theInput.id) {
       case "countInTime":
         setCountInTime(newValue);
-        tempSettings[0] = newValue;
         break;
       case "soundEffectIndex":
         setSoundEffectIndex(newValue);
-        tempSettings[1] = newValue;
         break;
       case "colorThemeIndex":
         setColorThemeIndex(newValue);
-        tempSettings[2] = newValue;
         break;
     }
-
-    setSettings(tempSettings);
   };
 
   const trySetCountInTime = (newValue: number) => {
     if (newValue >= 0 && newValue <= 9) {
-      const tempSettings = [...settings];
-      tempSettings[0] = newValue;
-      setSettings(tempSettings);
       setCountInTime(newValue);
     }
   };
@@ -61,23 +49,29 @@ function Settings({ onSoundChange }: inputProps) {
     if (newValue >= 1 && newValue <= 3) {
       setSoundEffectIndex(newValue);
       onSoundChange(newValue);
-      const tempSettings = [...settings];
-      tempSettings[1] = newValue;
-      setSettings(tempSettings);
     }
   };
 
   const trySetColorThemeIndex = (newValue: number) => {
-    if (newValue >= 1 && newValue <= 1) {
+    if (newValue >= 1 && newValue <= 2) {
       setColorThemeIndex(newValue);
-      const tempSettings = [...settings];
-      tempSettings[2] = newValue;
-      setSettings(tempSettings);
+
+      const html = document.documentElement;
+      if (newValue === 1) {
+        html.classList.add("dark");
+      } else {
+        html.classList.remove("dark");
+      }
     }
   };
 
+  if (colorThemeIndex === 1) {
+    const html = document.documentElement;
+    html.classList.add("dark");
+  }
+
   return (
-    <div className="absolute top-full left-0 flex h-full w-full flex-col bg-gray-100">
+    <div className="absolute top-full left-0 flex h-full w-full flex-col bg-gray-100 dark:bg-gray-300">
       <div className="mt-5 mb-8 pt-8 text-center text-2xl font-bold tracking-wide">Settings</div>
       <div className="flex flex-1 flex-col [&>*]:flex-1">
         <div className="flex w-full justify-center border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200">

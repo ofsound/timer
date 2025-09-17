@@ -158,8 +158,6 @@ function History({ onToggleRowClick }: inputProps) {
   }
 
   useEffect(() => {
-    console.log("i ran");
-
     if (thisStep === 0 && firstRenderAfterStart.current) {
       console.log("first function");
       firstRenderAfterStart.current = false;
@@ -193,7 +191,7 @@ function History({ onToggleRowClick }: inputProps) {
   // i got bullied into this!!
 
   return (
-    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-800 pt-6 pb-18 text-white">
+    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-200 pt-6 pb-18 text-white dark:bg-gray-800">
       <div className="mx-auto mb-auto flex w-full flex-1 flex-col [&>*]:flex-1">
         {history.map((historyRow, index) => (
           <div
