@@ -238,7 +238,7 @@ function App() {
       <button
         ref={settingsTimerToggle}
         onClick={toggleSettings}
-        className="absolute top-0 right-0 left-0 mx-auto mt-2 block hidden w-max rounded-md bg-gray-300 px-2 py-1 text-sm font-bold text-gray-700 opacity-0"
+        className="absolute top-0 right-0 left-0 mx-auto mt-2 hidden w-max rounded-md bg-gray-300 px-2 py-1 text-sm font-bold text-gray-700 opacity-0"
       >
         Timer
       </button>
@@ -253,7 +253,7 @@ function App() {
       <button
         ref={historyTimerToggle}
         onClick={toggleHistory}
-        className="absolute right-0 bottom-2 left-0 mx-auto block hidden w-max rounded-md bg-gray-600 px-2 py-1 text-sm font-black text-gray-300 opacity-0"
+        className="absolute right-0 bottom-2 left-0 mx-auto hidden w-max rounded-md bg-gray-600 px-2 py-1 text-sm font-black text-gray-300 opacity-0"
       >
         Timer
       </button>
