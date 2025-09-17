@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import type { ChangeEvent } from "react";
 
 import gsap from "gsap";
@@ -21,25 +22,40 @@ function Settings({ onSoundChange }: inputProps) {
   const colorThemeIndex = useTimerStore((state) => state.colorThemeIndex);
   const setColorThemeIndex = useTimerStore((state) => state.setColorThemeIndex);
 
+  const [settings, setSettings] = useState<Array<number>>([5, 1, 1]);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const theInput = event.target as HTMLInputElement;
     const newValue = parseInt(theInput.value, 10);
 
+    const tempSettings = [...settings];
+
     switch (theInput.id) {
       case "countInTime":
         setCountInTime(newValue);
+        tempSettings[0] = newValue;
         break;
       case "soundEffectIndex":
         setSoundEffectIndex(newValue);
+        tempSettings[1] = newValue;
         break;
       case "colorThemeIndex":
         setColorThemeIndex(newValue);
+        tempSettings[2] = newValue;
         break;
     }
+
+    setSettings(tempSettings);
+
+    localStorage.setItem("settings", JSON.stringify(tempSettings));
   };
 
   const trySetCountInTime = (newValue: number) => {
     if (newValue >= 0 && newValue <= 9) {
+      const tempSettings = [...settings];
+      tempSettings[0] = newValue;
+      setSettings(tempSettings);
+      localStorage.setItem("settings", JSON.stringify(tempSettings));
       setCountInTime(newValue);
     }
   };
@@ -48,14 +64,33 @@ function Settings({ onSoundChange }: inputProps) {
     if (newValue >= 1 && newValue <= 3) {
       setSoundEffectIndex(newValue);
       onSoundChange(newValue);
+      const tempSettings = [...settings];
+      tempSettings[1] = newValue;
+      setSettings(tempSettings);
+      localStorage.setItem("settings", JSON.stringify(tempSettings));
     }
   };
 
   const trySetColorThemeIndex = (newValue: number) => {
     if (newValue >= 1 && newValue <= 1) {
       setColorThemeIndex(newValue);
+      const tempSettings = [...settings];
+      tempSettings[2] = newValue;
+      setSettings(tempSettings);
+      localStorage.setItem("settings", JSON.stringify(tempSettings));
     }
   };
+
+  useEffect(() => {
+    const storedHistories = localStorage.getItem("settings");
+    const newArray = storedHistories ? JSON.parse(storedHistories) : [];
+
+    setSettings(newArray);
+
+    setCountInTime(newArray[0]);
+    setSoundEffectIndex(newArray[1]);
+    setColorThemeIndex(newArray[2]);
+  }, [setColorThemeIndex, setCountInTime, setSoundEffectIndex]);
 
   return (
     <div className="absolute top-full left-0 flex h-full w-full flex-col bg-gray-100">

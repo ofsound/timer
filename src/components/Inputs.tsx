@@ -39,6 +39,8 @@ function Inputs() {
       mouseDownOnPositiveNotNegative.current = false;
     }
 
+    mouseDownStartTime.current = Date.now();
+
     setIsMouseDown(true);
   };
 
@@ -46,14 +48,37 @@ function Inputs() {
     setIsMouseDown(false);
   };
 
+  const mouseDownStartTime = useRef(0);
+
   useEffect(() => {
     if (isMouseDown) {
       const handleDuringMouseDown = () => {
+        const timeSinceMouseDown = Date.now() - mouseDownStartTime.current;
+        let deltaInputValue = 1;
+
+        if (timeSinceMouseDown > 1000) {
+          deltaInputValue = 2;
+        }
+        if (timeSinceMouseDown > 2000) {
+          deltaInputValue = 5;
+        }
+        if (timeSinceMouseDown > 3000) {
+          deltaInputValue = 10;
+        }
+        if (timeSinceMouseDown > 4000) {
+          deltaInputValue = 20;
+        }
+        if (timeSinceMouseDown > 5000) {
+          deltaInputValue = 30;
+        }
+
         if (isMouseDown) {
-          if (mouseDownOnPositiveNotNegative.current) {
-            trySetCustomInputValue(customInputValue + 1);
-          } else {
-            trySetCustomInputValue(customInputValue - 1);
+          if (timeSinceMouseDown > 500) {
+            if (mouseDownOnPositiveNotNegative.current) {
+              trySetCustomInputValue(customInputValue + deltaInputValue);
+            } else {
+              trySetCustomInputValue(customInputValue - deltaInputValue);
+            }
           }
         }
       };
@@ -86,9 +111,17 @@ function Inputs() {
   };
 
   const padButtonClickHandler = (padButtonValue: string) => {
-    setPadTotal(padTotal + padButtonValue);
+    if (padTotal.length < 2) {
+      setPadTotal(padTotal + padButtonValue);
+      setCustomInputValue(parseInt(padTotal + padButtonValue));
+    } else {
+      const newTotal = padTotal + padButtonValue;
+      const secondsTotal = parseInt(newTotal.slice(1));
+      const firstChar = parseInt(newTotal[0]);
+      const computedTotal = secondsTotal + firstChar * 60;
 
-    setCustomInputValue(parseInt(padTotal + padButtonValue));
+      setCustomInputValue(computedTotal);
+    }
   };
 
   const handlersPress = useLongPress((e) => {
@@ -96,7 +129,7 @@ function Inputs() {
     if (childElement) {
       setCustomInputValue(parseInt((childElement as HTMLElement).innerHTML));
       const parentElement = (e.target as HTMLElement).parentElement;
-      const children = parentElement?.children; // This is an HTMLCollection
+      const children = parentElement?.children;
       const index = Array.prototype.indexOf.call(children, e.target as HTMLElement);
       editedInputIndex.current = index;
       setToggleVariant(!toggleVariant);
@@ -114,6 +147,7 @@ function Inputs() {
     tempButtonValues.sort((a, b) => a - b);
 
     setButtonValues(tempButtonValues);
+    localStorage.setItem("inputs", JSON.stringify(tempButtonValues));
 
     setToggleVariant(!toggleVariant);
   };
@@ -139,6 +173,15 @@ function Inputs() {
       }
     }
   }
+
+  useEffect(() => {
+    const storedHistories = localStorage.getItem("inputs");
+    const newArray = storedHistories ? JSON.parse(storedHistories) : [];
+
+    // if (newArray.length) setButtonValues(newArray);
+
+    setButtonValues(newArray);
+  }, []);
 
   return (
     <div>
