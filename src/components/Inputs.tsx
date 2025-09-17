@@ -209,9 +209,9 @@ function Inputs() {
                 setCustomInputValue(0);
                 setPadTotal("");
               }}
-              className="absolute -top-1 -right-1 block h-8 w-8 cursor-pointer opacity-50"
+              className="absolute block h-full w-full cursor-pointer opacity-50"
             >
-              <div className="h-full w-full text-xl text-white select-none">×</div>
+              <div className="relative -top-1 right-1 h-full w-full text-right text-xl text-white select-none">×</div>
             </button>
             <input
               readOnly
