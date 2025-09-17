@@ -15,10 +15,6 @@ function Inputs() {
   const buttonValues = useUserStore((state) => state.buttonValues);
   const setButtonValues = useUserStore((state) => state.setButtonValues);
 
-  console.log(buttonValues);
-
-  // const [buttonValues, setButtonValues] = useState([]);
-
   const padValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"];
 
   const [currentSequence, setWorkingSequence] = useState<number[]>([]);
@@ -46,7 +42,6 @@ function Inputs() {
     }
 
     mouseDownStartTime.current = Date.now();
-
     setIsMouseDown(true);
   };
 
