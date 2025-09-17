@@ -30,7 +30,7 @@ function App() {
   const setThisRatio = useTimerStore((state) => state.setThisRatio);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
-  const startIsEnabled = useTimerStore((state) => state.startIsEnabled);
+  // const startIsEnabled = useTimerStore((state) => state.startIsEnabled);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
   const setInputsAreEnabled = useTimerStore((state) => state.setInputsAreEnabled);
 
@@ -216,7 +216,7 @@ function App() {
           <Map />
           <button
             onClick={handleResetSequenceClick}
-            className={` ${!startIsEnabled && ""} absolute -top-6 -right-6 block h-12 w-12 cursor-pointer`}
+            className={`${thisStep < 0 ? "-top-2" : "-top-6"} absolute -right-6 block h-12 w-12 cursor-pointer`}
           >
             <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
               <span className="relative -top-1 text-3xl text-white">×</span>
