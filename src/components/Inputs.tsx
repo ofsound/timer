@@ -1,5 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTimerStore } from "../store.ts";
+
+import type { MouseEvent } from "react";
 
 import { useLongPress } from "use-long-press";
 
@@ -22,6 +24,55 @@ function Inputs() {
   const [customInputValue, setCustomInputValue] = useState(0);
 
   const editedInputIndex = useRef(0);
+
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const mouseDownOnPositiveNotNegative = useRef(false);
+
+  const plusElementRef = useRef(null);
+  const minusElementRef = useRef(null);
+
+  const handleMouseDown = (event: MouseEvent) => {
+    if ((event.target as HTMLElement).innerHTML === "+") {
+      mouseDownOnPositiveNotNegative.current = true;
+    } else {
+      mouseDownOnPositiveNotNegative.current = false;
+    }
+
+    setIsMouseDown(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+  };
+
+  useEffect(() => {
+    if (isMouseDown) {
+      const handleDuringMouseDown = () => {
+        if (isMouseDown) {
+          if (mouseDownOnPositiveNotNegative.current) {
+            trySetCustomInputValue(customInputValue + 1);
+          } else {
+            trySetCustomInputValue(customInputValue - 1);
+          }
+        }
+      };
+
+      const interval = setInterval(handleDuringMouseDown, 80);
+      return () => clearInterval(interval);
+    }
+  }, [isMouseDown, customInputValue]);
+
+  useEffect(() => {
+    if (isMouseDown) {
+      window.addEventListener("mouseup", handleMouseUp);
+    } else {
+      window.removeEventListener("mouseup", handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isMouseDown]);
 
   const buttonClickHandler = (buttonValue: number) => {
     if (!inputsAreEnabled) {
@@ -105,7 +156,7 @@ function Inputs() {
           </button>
         ))}
       </div>
-      <div className={`${toggleVariant ? "flex" : "hidden"} -mt-6 gap-6`}>
+      <div className={`${toggleVariant ? "flex" : "hidden"} -mt-12 gap-6`}>
         <div className="pointer-events-none absolute top-0 left-0 z-1 h-screen w-full bg-black opacity-90"></div>
         <div className="mx-auto flex w-5/8 flex-wrap justify-between gap-2">
           {padValues.map((item, index) => (
@@ -114,7 +165,7 @@ function Inputs() {
               key={index}
               className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} relative z-100 flex aspect-square w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-gray-900 text-2xl tracking-wider text-white shadow-md`}
             >
-              <div className="pointer-events-none">{item}</div>
+              <div className="pointer-events-none select-none">{item}</div>
             </button>
           ))}
         </div>
@@ -132,20 +183,24 @@ function Inputs() {
             <input
               readOnly
               type="text"
-              className="pr pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 text-center text-3xl font-bold text-white tabular-nums"
+              className="pr pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 text-center text-3xl font-bold text-white tabular-nums select-none"
               value={convertSecondsToMinutesSeconds(customInputValue)}
             />
           </div>
           <div className="mt-6 flex w-full gap-3 self-center-safe">
             <button
-              className="block aspect-square w-1/2 rounded-sm border-4 border-white bg-gray-200 text-2xl font-bold text-black shadow-md"
+              className="block aspect-square w-1/2 rounded-lg border-4 border-gray-700 bg-gray-200 text-2xl font-bold text-black shadow-md"
               onClick={() => trySetCustomInputValue(customInputValue - 1)}
+              ref={minusElementRef}
+              onMouseDown={handleMouseDown}
             >
               <div className="relative -top-[.2rem] text-4xl text-black">–</div>
             </button>
             <button
-              className="aspect-square w-1/2 rounded-sm border-4 border-white bg-gray-200 text-2xl font-bold shadow-md"
+              className="aspect-square w-1/2 rounded-lg border-4 border-gray-700 bg-gray-200 text-2xl font-bold shadow-md"
               onClick={() => trySetCustomInputValue(customInputValue + 1)}
+              ref={plusElementRef}
+              onMouseDown={handleMouseDown}
             >
               <div className="relative -top-[.2rem] text-4xl text-black">+</div>
             </button>
@@ -153,19 +208,19 @@ function Inputs() {
         </div>
       </div>
       <div
-        className={`${toggleVariant ? "flex" : "hidden"} relative z-10 mt-7 flex w-full gap-3 px-3 font-bold grayscale-50`}
+        className={`${toggleVariant ? "flex" : "hidden"} relative z-10 mt-7 flex w-full gap-3 px-3 font-bold grayscale-60`}
       >
         <button
           onClick={handleCancel}
-          className="text-md block w-full rounded-lg border-1 border-black bg-red-700 py-2 text-white"
+          className="text-md block w-full rounded-lg border-1 border-black bg-red-700 py-3 text-white"
         >
-          ✕ &nbsp; Cancel
+          <span className="relative top-[.1rem] text-xl">✕</span> &nbsp; Cancel
         </button>
         <button
           onClick={handleNewCustomValue}
-          className="text-md block w-full rounded-lg border-1 border-black bg-green-700 py-2 text-white"
+          className="text-md block w-full rounded-lg border-1 border-black bg-green-700 py-3 text-white"
         >
-          ⇧ &nbsp; Replace
+          <span className="text-xl">⇧</span> &nbsp; Replace
         </button>
       </div>
     </div>
