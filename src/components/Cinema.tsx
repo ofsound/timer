@@ -12,12 +12,19 @@ function Cinema() {
     width: (thisRatio * 100).toString() + "%",
   };
 
+  const stylesIntro = {
+    opacity: thisStep === 0 ? thisRatio * 1 : 1,
+  };
+
   return (
-    <div className="pointer-events-none relative flex h-full w-full items-center overflow-hidden rounded-lg border-2 border-white bg-black tabular-nums">
-      <div className="relative z-2 mx-auto text-center text-4xl font-black text-white">
+    <div
+      style={stylesIntro}
+      className="pointer-events-none relative flex h-full w-full items-center overflow-hidden rounded-lg border-1 border-gray-200 bg-black py-14 tabular-nums"
+    >
+      <div className="relative z-2 mx-auto text-center text-6xl font-black text-white">
         {!isNaN(secondsRemaining) && secondsRemaining}
       </div>
-      <div style={styles} className="absolute top-0 h-full bg-green-600"></div>
+      <div style={styles} className={`${thisStep === 0 ? "hidden" : "block"} absolute top-0 h-full bg-green-600`}></div>
     </div>
   );
 }

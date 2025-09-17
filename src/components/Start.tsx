@@ -1,5 +1,4 @@
 import { useTimerStore } from "../timerStore.ts";
-import { useUserStore } from "../userStore.ts";
 
 type inputProps = {
   onClick: React.MouseEventHandler<HTMLElement>;
@@ -10,7 +9,6 @@ function Start({ onClick }: inputProps) {
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
   const startIsEnabled: boolean = useTimerStore((state) => state.startIsEnabled);
   const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
-  const countInTime = useUserStore((state) => state.countInTime);
 
   let thisLabel: string;
 
@@ -19,7 +17,7 @@ function Start({ onClick }: inputProps) {
       thisLabel = "START";
       break;
     case 0:
-      thisLabel = Math.ceil(countInTime - thisRatio * countInTime).toString();
+      thisLabel = "";
       break;
     default:
       thisLabel = "PAUSE";
@@ -42,9 +40,7 @@ function Start({ onClick }: inputProps) {
       <div
         className={`${thisStep === 0 ? "bg-black" : "bg-green-500"} absolute top-0 mt-1.5 ml-1.5 h-19 w-19 rounded-full`}
       ></div>
-      <div
-        className={`${thisStep === 0 ? "top-[1.6rem] text-2xl" : "top-[2.05rem] text-sm"} absolute w-22 font-bold tracking-wider text-white text-shadow-sm`}
-      >
+      <div className={`absolute top-[2.05rem] w-22 text-sm font-bold tracking-wider text-white text-shadow-sm`}>
         {thisLabel}
       </div>
     </button>

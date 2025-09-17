@@ -209,22 +209,24 @@ function App() {
   return (
     <div {...handlers} className="relative z-50 h-full bg-gray-700 duration-300">
       <AppTools />
-      <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-600 px-5 py-12">
-        <div className="/*bg-blue-400/40*/ relative mb-auto flex h-5/32 py-4">
+      <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-600 px-5 py-6">
+        <div
+          className={`/*bg-blue-400/40*/ ${thisStep < 0 ? "h-10/32 py-4" : "h-3/32 py-0 grayscale-0"} relative mb-auto flex`}
+        >
           <Map />
           <button
             onClick={handleResetSequenceClick}
-            className={` ${!startIsEnabled && ""} absolute -top-2 -right-6 block h-12 w-12 cursor-pointer`}
+            className={` ${!startIsEnabled && ""} absolute -top-6 -right-6 block h-12 w-12 cursor-pointer`}
           >
             <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
               <span className="relative -top-1 text-3xl text-white">×</span>
             </div>
           </button>
         </div>
-        <div className="relative flex h-5/32">
+        <div className={`${thisStep > -1 ? "flex" : "hidden"} relative h-23/32 py-6`}>
           <Cinema />
         </div>
-        <div className="/*bg-red-400/40*/ h-16/32">
+        <div className={`${thisStep < 0 ? "flex" : "hidden"} h-16/32`}>
           <Inputs key={"inputs" + inputsKey} />
         </div>
         <div className="/*bg-green-400/40*/ flex h-6/32 items-center justify-center">

@@ -10,11 +10,11 @@ type inputProps = {
 
 function Map({ isHistoryMap, onClick, historySequence }: inputProps) {
   const thisStep = useTimerStore((state) => state.thisStep);
-  const thisRatio = useTimerStore((state) => state.thisRatio);
+  // const thisRatio = useTimerStore((state) => state.thisRatio);
   const thisSequence = useTimerStore((state) => state.thisSequence);
 
   const styles = {
-    opacity: thisStep === 0 ? thisRatio * 1 : 1,
+    // opacity: thisStep === 0 ? thisRatio * 1 : 1,
   };
 
   return (
