@@ -13,9 +13,11 @@ function Cinema() {
   };
 
   return (
-    <div className="pointer-events-none absolute -ml-5 hidden h-full w-full border-1 border-green-600 pt-40!">
-      <div className="absolute right-0 left-0 mx-auto pt-30 text-center text-4xl text-white">{secondsRemaining}</div>
-      <div style={styles} className="h-full bg-green-600"></div>
+    <div className="pointer-events-none relative flex h-full w-full items-center overflow-hidden rounded-lg border-2 border-white bg-black tabular-nums">
+      <div className="relative z-2 mx-auto text-center text-4xl font-black text-white">
+        {!isNaN(secondsRemaining) && secondsRemaining}
+      </div>
+      <div style={styles} className="absolute top-0 h-full bg-green-600"></div>
     </div>
   );
 }

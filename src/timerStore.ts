@@ -19,7 +19,6 @@ type TimerStore = {
 
   runningIsPaused: boolean,
   setRunningIsPaused: (runningIsPaused: boolean) => void
-
 }
 
 export const useTimerStore = create<TimerStore>()(
@@ -49,5 +48,6 @@ export const useTimerStore = create<TimerStore>()(
       setRunningIsPaused: (newValue: boolean) => {
         set({ runningIsPaused: newValue })
       },
-
-    })));
+    })
+  )
+);

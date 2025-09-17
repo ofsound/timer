@@ -210,8 +210,7 @@ function App() {
     <div {...handlers} className="relative z-50 h-full bg-gray-700 duration-300">
       <AppTools />
       <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-600 px-5 py-12">
-        <Cinema />
-        <div className="/*bg-blue-400/40*/ relative mb-auto flex h-10/32 py-4">
+        <div className="/*bg-blue-400/40*/ relative mb-auto flex h-5/32 py-4">
           <Map />
           <button
             onClick={handleResetSequenceClick}
@@ -221,6 +220,9 @@ function App() {
               <span className="relative -top-1 text-3xl text-white">×</span>
             </div>
           </button>
+        </div>
+        <div className="relative flex h-5/32">
+          <Cinema />
         </div>
         <div className="/*bg-red-400/40*/ h-16/32">
           <Inputs key={"inputs" + inputsKey} />
@@ -236,13 +238,13 @@ function App() {
       <button
         ref={settingsTimerToggle}
         onClick={toggleSettings}
-        className="absolute top-0 right-0 left-0 mx-auto mt-2 block w-max rounded-md bg-gray-300 px-2 py-1 text-sm font-bold text-gray-700 opacity-0"
+        className="absolute top-0 right-0 left-0 mx-auto mt-2 block hidden w-max rounded-md bg-gray-300 px-2 py-1 text-sm font-bold text-gray-700 opacity-0"
       >
         Timer
       </button>
       <button
         ref={historyToggle}
-        className="absolute top-0 right-0 left-0 mx-auto mt-2 w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
+        className="absolute top-0 right-0 left-0 mx-auto mt-2 hidden w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
         onClick={toggleHistory}
       >
         History
@@ -251,14 +253,14 @@ function App() {
       <button
         ref={historyTimerToggle}
         onClick={toggleHistory}
-        className="absolute right-0 bottom-2 left-0 mx-auto block w-max rounded-md bg-gray-600 px-2 py-1 text-sm font-black text-gray-300 opacity-0"
+        className="absolute right-0 bottom-2 left-0 mx-auto block hidden w-max rounded-md bg-gray-600 px-2 py-1 text-sm font-black text-gray-300 opacity-0"
       >
         Timer
       </button>
 
       <button
         ref={settingsToggle}
-        className="absolute right-0 bottom-2 left-0 mx-auto w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
+        className="absolute right-0 bottom-2 left-0 mx-auto hidden w-max rounded-md bg-gray-200 px-2 py-1 text-sm font-black opacity-20"
         onClick={toggleSettings}
       >
         Settings
