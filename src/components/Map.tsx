@@ -1,6 +1,6 @@
 import MapSegment from "./MapSegment.tsx";
 
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
 
 type inputProps = {
   isHistoryMap?: boolean;

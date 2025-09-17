@@ -2,15 +2,6 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 type TimerStore = {
-  countInTime: number;
-  setCountInTime: (countInTime: number) => void;
-
-  soundEffectIndex: number;
-  setSoundEffectIndex: (soundEffectIndex: number) => void;
-
-  colorThemeIndex: number;
-  setColorThemeIndex: (colorThemeIndex: number) => void;
-
   thisStep: number;
   setThisStep: (thisStep: number) => void;
 
@@ -34,18 +25,6 @@ type TimerStore = {
 export const useTimerStore = create<TimerStore>()(
   devtools(
     (set) => ({
-      countInTime: 5,
-      setCountInTime: (newValue: number) => {
-        set({ countInTime: newValue })
-      },
-      soundEffectIndex: 1,
-      setSoundEffectIndex: (newValue: number) => {
-        set({ soundEffectIndex: newValue })
-      },
-      colorThemeIndex: 1,
-      setColorThemeIndex: (newValue: number) => {
-        set({ colorThemeIndex: newValue })
-      },
       thisStep: -1,
       setThisStep: (newValue: number) => {
         set({ thisStep: newValue })

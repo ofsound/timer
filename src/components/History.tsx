@@ -3,7 +3,8 @@ import { useState, useRef } from "react";
 import Map from "../components/Map.tsx";
 import Pin from "../components/Pin.tsx";
 
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
+import { useUserStore } from "../userStore.ts";
 
 interface historyRowObject {
   isPinned: boolean;
@@ -21,21 +22,14 @@ function History({ onToggleRowClick }: inputProps) {
   const thisStep = useTimerStore((state) => state.thisStep);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
+  const history = useUserStore((state) => state.history);
+  const setHistory = useUserStore((state) => state.setHistory);
+
   const firstRenderAfterStart = useRef(true);
 
   const [fadeOutIndex, setFadeOutIndex] = useState(-1);
   const [fadeInIndexStart, setFadeInIndexStart] = useState(-1);
   const [fadeInIndexArm, setFadeInIndexArm] = useState(-1);
-
-  const [history, setHistory] = useState<Array<historyRowObject>>(() => {
-    try {
-      const storedHistories = localStorage.getItem("history");
-      return storedHistories ? JSON.parse(storedHistories) : [];
-    } catch (error) {
-      console.error("Error reading from localStorage:", error);
-      return [];
-    }
-  });
 
   const handleRowClick = (index: number) => {
     setThisSequence(history[index].sequence);
@@ -123,8 +117,6 @@ function History({ onToggleRowClick }: inputProps) {
         finalSplitIndex = 0;
       }
     }
-    localStorage.setItem("history", JSON.stringify(newHistory));
-
     if (newFadeoutIndex !== -1) {
       setFadeOutIndex(newFadeoutIndex);
     }
@@ -166,7 +158,6 @@ function History({ onToggleRowClick }: inputProps) {
     }
 
     newHistory.splice(splitIndex, 0, historyRowObject);
-    localStorage.setItem("history", JSON.stringify(newHistory));
     setHistory(newHistory);
   }
 

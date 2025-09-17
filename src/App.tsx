@@ -17,7 +17,7 @@ import Settings from "./components/Settings.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Sound from "./components/Sound.tsx";
 
-import { useTimerStore } from "./store.ts";
+import { useTimerStore } from "./timerStore.ts";
 
 interface SoundComponent {
   play: () => void;

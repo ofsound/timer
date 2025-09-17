@@ -1,4 +1,4 @@
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
 
 function AppTools() {
   const thisStep: number = useTimerStore((state) => state.thisStep);

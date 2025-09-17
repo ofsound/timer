@@ -1,4 +1,4 @@
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
 
 function Cinema() {
   const thisRatio = useTimerStore((state) => state.thisRatio);

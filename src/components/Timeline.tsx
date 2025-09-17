@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Runner from "./Runner.tsx";
 
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
 
 type inputProps = {
   timelineComplete: () => void;

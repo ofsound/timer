@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
 
 type inputProps = {
   isActive?: boolean;

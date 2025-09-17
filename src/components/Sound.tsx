@@ -1,13 +1,13 @@
 import { forwardRef, useImperativeHandle } from "react";
 
-import { useTimerStore } from "../store.ts";
+import { useUserStore } from "../userStore.ts";
 
 import sound1 from "../assets/beep_01.wav";
 import sound3 from "../assets/tone2.mp3";
 import sound2 from "../assets/tone3.mp3";
 
 const Sound = forwardRef((_props, ref) => {
-  const soundEffectIndex = useTimerStore((state) => state.soundEffectIndex);
+  const soundEffectIndex = useUserStore((state) => state.soundEffectIndex);
 
   const audioArray: HTMLAudioElement[] = [];
 

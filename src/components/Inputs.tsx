@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
+import { useUserStore } from "../userStore.ts";
 
 import type { MouseEvent } from "react";
 
@@ -9,9 +10,14 @@ function Inputs() {
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
   const inputsAreEnabled = useTimerStore((state) => state.inputsAreEnabled);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
-  const countInTime = useTimerStore((state) => state.countInTime);
 
-  const [buttonValues, setButtonValues] = useState([5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 80, 90]);
+  const countInTime = useUserStore((state) => state.countInTime);
+  const buttonValues = useUserStore((state) => state.buttonValues);
+  const setButtonValues = useUserStore((state) => state.setButtonValues);
+
+  console.log(buttonValues);
+
+  // const [buttonValues, setButtonValues] = useState([]);
 
   const padValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"];
 
@@ -147,8 +153,6 @@ function Inputs() {
     tempButtonValues.sort((a, b) => a - b);
 
     setButtonValues(tempButtonValues);
-    localStorage.setItem("inputs", JSON.stringify(tempButtonValues));
-
     setToggleVariant(!toggleVariant);
   };
 
@@ -173,15 +177,6 @@ function Inputs() {
       }
     }
   }
-
-  useEffect(() => {
-    const storedHistories = localStorage.getItem("inputs");
-    const newArray = storedHistories ? JSON.parse(storedHistories) : [];
-
-    // if (newArray.length) setButtonValues(newArray);
-
-    setButtonValues(newArray);
-  }, []);
 
   return (
     <div>

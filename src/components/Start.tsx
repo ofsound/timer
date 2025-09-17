@@ -1,4 +1,5 @@
-import { useTimerStore } from "../store.ts";
+import { useTimerStore } from "../timerStore.ts";
+import { useUserStore } from "../userStore.ts";
 
 type inputProps = {
   onClick: React.MouseEventHandler<HTMLElement>;
@@ -9,7 +10,7 @@ function Start({ onClick }: inputProps) {
   const thisRatio: number = useTimerStore((state) => state.thisRatio);
   const startIsEnabled: boolean = useTimerStore((state) => state.startIsEnabled);
   const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
-  const countInTime = useTimerStore((state) => state.countInTime);
+  const countInTime = useUserStore((state) => state.countInTime);
 
   let thisLabel: string;
 

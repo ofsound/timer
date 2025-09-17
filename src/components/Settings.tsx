@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { ChangeEvent } from "react";
 
 import gsap from "gsap";
@@ -6,21 +6,21 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
-import { useTimerStore } from "../store.ts";
+import { useUserStore } from "../userStore.ts";
 
 type inputProps = {
   onSoundChange: (newValue: number) => void;
 };
 
 function Settings({ onSoundChange }: inputProps) {
-  const countInTime = useTimerStore((state) => state.countInTime);
-  const setCountInTime = useTimerStore((state) => state.setCountInTime);
+  const countInTime = useUserStore((state) => state.countInTime);
+  const setCountInTime = useUserStore((state) => state.setCountInTime);
 
-  const soundEffectIndex = useTimerStore((state) => state.soundEffectIndex);
-  const setSoundEffectIndex = useTimerStore((state) => state.setSoundEffectIndex);
+  const soundEffectIndex = useUserStore((state) => state.soundEffectIndex);
+  const setSoundEffectIndex = useUserStore((state) => state.setSoundEffectIndex);
 
-  const colorThemeIndex = useTimerStore((state) => state.colorThemeIndex);
-  const setColorThemeIndex = useTimerStore((state) => state.setColorThemeIndex);
+  const colorThemeIndex = useUserStore((state) => state.colorThemeIndex);
+  const setColorThemeIndex = useUserStore((state) => state.setColorThemeIndex);
 
   const [settings, setSettings] = useState<Array<number>>([5, 1, 1]);
 
@@ -46,8 +46,6 @@ function Settings({ onSoundChange }: inputProps) {
     }
 
     setSettings(tempSettings);
-
-    localStorage.setItem("settings", JSON.stringify(tempSettings));
   };
 
   const trySetCountInTime = (newValue: number) => {
@@ -55,7 +53,6 @@ function Settings({ onSoundChange }: inputProps) {
       const tempSettings = [...settings];
       tempSettings[0] = newValue;
       setSettings(tempSettings);
-      localStorage.setItem("settings", JSON.stringify(tempSettings));
       setCountInTime(newValue);
     }
   };
@@ -67,7 +64,6 @@ function Settings({ onSoundChange }: inputProps) {
       const tempSettings = [...settings];
       tempSettings[1] = newValue;
       setSettings(tempSettings);
-      localStorage.setItem("settings", JSON.stringify(tempSettings));
     }
   };
 
@@ -77,20 +73,8 @@ function Settings({ onSoundChange }: inputProps) {
       const tempSettings = [...settings];
       tempSettings[2] = newValue;
       setSettings(tempSettings);
-      localStorage.setItem("settings", JSON.stringify(tempSettings));
     }
   };
-
-  useEffect(() => {
-    const storedHistories = localStorage.getItem("settings");
-    const newArray = storedHistories ? JSON.parse(storedHistories) : [];
-
-    setSettings(newArray);
-
-    setCountInTime(newArray[0]);
-    setSoundEffectIndex(newArray[1]);
-    setColorThemeIndex(newArray[2]);
-  }, [setColorThemeIndex, setCountInTime, setSoundEffectIndex]);
 
   return (
     <div className="absolute top-full left-0 flex h-full w-full flex-col bg-gray-100">
