@@ -201,32 +201,31 @@ function App() {
 
     document.addEventListener("contextmenu", handleContextMenu);
 
-    // Clean up the event listener when the component unmounts
     return () => {
       document.removeEventListener("contextmenu", handleContextMenu);
     };
-  }, []); // Empty dependency array ensures this runs once on mount and unmount
+  }, []);
 
   return (
     <div {...handlers} className="relative z-50 h-full bg-gray-700 duration-300">
       <AppTools />
       <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-600 px-5 py-12">
         <Cinema />
-        <div className="relative mb-auto flex h-13/32 bg-blue-400/40">
+        <div className="/*bg-blue-400/40*/ relative mb-auto flex h-10/32 py-4">
           <Map />
           <button
             onClick={handleResetSequenceClick}
-            className={` ${!startIsEnabled && ""} absolute top-0 -right-6 block h-12 w-12 cursor-pointer`}
+            className={` ${!startIsEnabled && ""} absolute -top-2 -right-6 block h-12 w-12 cursor-pointer`}
           >
             <div className="mx-auto h-8 w-8 rounded-full border-1 border-white bg-gray-600">
               <span className="relative -top-1 text-3xl text-white">×</span>
             </div>
           </button>
         </div>
-        <div className="h-13/32 bg-red-400/40">
+        <div className="/*bg-red-400/40*/ h-16/32">
           <Inputs key={"inputs" + inputsKey} />
         </div>
-        <div className="flex h-6/32 justify-center bg-green-400/40">
+        <div className="/*bg-green-400/40*/ flex h-6/32 items-center justify-center">
           <Start onClick={handleStartClick} />
         </div>
         <History onToggleRowClick={() => toggleHistory()} />

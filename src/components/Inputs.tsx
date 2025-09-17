@@ -60,6 +60,8 @@ function Inputs() {
     const tempButtonValues = [...buttonValues];
     tempButtonValues[editedInputIndex.current] = customInputValue;
 
+    tempButtonValues.sort((a, b) => a - b);
+
     setButtonValues(tempButtonValues);
 
     setToggleVariant(!toggleVariant);
@@ -79,7 +81,11 @@ function Inputs() {
     if (minutes > 0) {
       return `${formattedMinutes}:${formattedSeconds}`;
     } else {
-      return seconds;
+      if (seconds === 0) {
+        return "";
+      } else {
+        return seconds;
+      }
     }
   }
 
@@ -99,65 +105,68 @@ function Inputs() {
           </button>
         ))}
       </div>
-      <div className={`${toggleVariant ? "flex" : "hidden"} gap-10 px-4`}>
-        <div className="mx-auto flex max-h-1/4 w-2/3 flex-wrap justify-between gap-2">
+      <div className={`${toggleVariant ? "flex" : "hidden"} -mt-6 gap-6`}>
+        <div className="pointer-events-none absolute top-0 left-0 z-1 h-screen w-full bg-black opacity-90"></div>
+        <div className="mx-auto flex w-5/8 flex-wrap justify-between gap-2">
           {padValues.map((item, index) => (
             <button
               onClick={() => padButtonClickHandler(item)}
               key={index}
-              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-gray-900 text-2xl tracking-wider text-white shadow-md`}
+              className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} relative z-100 flex aspect-square w-1/4 grow-1 cursor-pointer items-center justify-center rounded-lg border border-gray-500 bg-gray-900 text-2xl tracking-wider text-white shadow-md`}
             >
               <div className="pointer-events-none">{item}</div>
             </button>
           ))}
         </div>
-        <div className="flex w-1/3 flex-col">
+        <div className="relative z-1 flex w-3/8 flex-col">
           <div className="relative">
             <button
               onClick={() => {
                 setCustomInputValue(0);
                 setPadTotal("");
               }}
-              className="absolute top-0 right-0 block h-8 w-8 cursor-pointer"
+              className="absolute -top-1 -right-1 block h-8 w-8 cursor-pointer opacity-50"
             >
-              <span className="relative text-xl text-white">×</span>
+              <div className="h-full w-full text-xl text-white">×</div>
             </button>
             <input
               readOnly
               type="text"
-              className="pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 pr-8 text-right text-3xl font-bold text-white tabular-nums"
+              className="pr pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 text-center text-3xl font-bold text-white tabular-nums"
               value={convertSecondsToMinutesSeconds(customInputValue)}
             />
           </div>
-          <div className="mt-2 flex w-full gap-[4%] self-center-safe">
+          <div className="mt-6 flex w-full gap-3 self-center-safe">
             <button
-              className="b-1 border-bg-black block aspect-square w-1/2 rounded-sm border-1 border-gray-900 bg-gray-500 text-2xl font-bold shadow-md"
+              className="block aspect-square w-1/2 rounded-sm border-4 border-white bg-gray-200 text-2xl font-bold text-black shadow-md"
               onClick={() => trySetCustomInputValue(customInputValue - 1)}
             >
-              <div className="relative -top-[1px] text-4xl text-white">–</div>
+              <div className="relative -top-[.2rem] text-4xl text-black">–</div>
             </button>
             <button
-              className="aspect-square w-1/2 rounded-sm border-1 border-black bg-gray-500 text-2xl font-bold shadow-md"
+              className="aspect-square w-1/2 rounded-sm border-4 border-white bg-gray-200 text-2xl font-bold shadow-md"
               onClick={() => trySetCustomInputValue(customInputValue + 1)}
             >
-              <div className="relative -top-[2px] text-4xl text-white">+</div>
-            </button>
-          </div>
-          <div className="mt-auto flex w-full">
-            <button
-              onClick={handleCancel}
-              className="block aspect-square w-full rotate-180 rounded-lg border-1 border-black bg-red-700 text-4xl text-white"
-            >
-              ✕
-            </button>
-            <button
-              onClick={handleNewCustomValue}
-              className="block aspect-square w-full rounded-lg border-1 border-black bg-green-700 text-4xl text-white"
-            >
-              ⇧
+              <div className="relative -top-[.2rem] text-4xl text-black">+</div>
             </button>
           </div>
         </div>
+      </div>
+      <div
+        className={`${toggleVariant ? "flex" : "hidden"} relative z-10 mt-7 flex w-full gap-3 px-3 font-bold grayscale-50`}
+      >
+        <button
+          onClick={handleCancel}
+          className="text-md block w-full rounded-lg border-1 border-black bg-red-700 py-2 text-white"
+        >
+          ✕ &nbsp; Cancel
+        </button>
+        <button
+          onClick={handleNewCustomValue}
+          className="text-md block w-full rounded-lg border-1 border-black bg-green-700 py-2 text-white"
+        >
+          ⇧ &nbsp; Replace
+        </button>
       </div>
     </div>
   );

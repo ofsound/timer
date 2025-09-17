@@ -32,7 +32,7 @@ function Start({ onClick }: inputProps) {
   return (
     <button
       onClick={onClick}
-      className={`relative block h-22 w-22 ${!startIsEnabled && "pointer-events-none opacity-20 blur-xs"}`}
+      className={`z-block relative h-22 w-22 ${!startIsEnabled && "pointer-events-none relative z-0 opacity-20 blur-xs"}`}
     >
       <div
         className={`absolute top-0 h-22 w-22 cursor-pointer rounded-full ${thisStep === 0 ? "bg-conic from-black to-green-500" : "bg-green-500"} `}
