@@ -196,7 +196,7 @@ function History({ onToggleRowClick }: inputProps) {
         {history.map((historyRow, index) => (
           <div
             key={index}
-            className={`relative ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-200"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-150"}`}
+            className={`relative max-h-1/8 ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-200"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-150"}`}
           >
             <div
               className={`relative flex h-full flex-col px-14 ${index === splitIndex && "animate-pulse [&>*]:opacity-100!"}`}

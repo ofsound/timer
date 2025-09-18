@@ -209,7 +209,7 @@ function App() {
   return (
     <div {...handlers} className="relative z-50 h-full bg-gray-700 duration-300">
       <AppTools />
-      <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-100 px-7 py-6 dark:bg-gray-600">
+      <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-200 px-7 py-6 dark:bg-gray-600">
         <div
           className={`/*bg-blue-400/40*/ ${thisStep < 0 ? "h-10/32 py-4" : "h-5/32 py-4 grayscale-0"} relative mb-auto flex`}
         >
@@ -218,8 +218,8 @@ function App() {
             onClick={handleResetSequenceClick}
             className={`absolute -top-3 -left-7 block h-14 w-14 cursor-pointer`}
           >
-            <div className="mx-auto h-10 w-10 rounded-full border-1 border-white dark:bg-gray-600">
-              <span className="relative -top-[.21rem] left-[0rem] text-4xl text-white">×</span>
+            <div className="mx-auto h-10 w-10 rounded-full border-1 border-black bg-gray-200 dark:border-white dark:bg-gray-600">
+              <span className="relative -top-[.21rem] left-[0rem] text-4xl dark:text-white">×</span>
             </div>
           </button>
         </div>
