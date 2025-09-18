@@ -53,8 +53,8 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
   return (
     <div style={{ width: `${durationSeconds * widthScaleFactor}px` }} className={classesOuter}>
       <div
-        style={{ width: isActive ? (100 * thisRatio).toString() + "%" : "0px" }}
-        className={`absolute h-full bg-green-600 bg-gradient-to-r from-green-600 to-green-400`}
+        style={{ transform: isActive ? "scaleX(" + thisRatio + ")" : "scaleX(0)" }}
+        className={`absolute h-full w-full origin-left bg-green-600 bg-gradient-to-r from-green-600 to-green-400`}
       ></div>
       <div className={classesInner}>
         <div>{convertSecondsToMinutesSeconds(durationSeconds)}</div>

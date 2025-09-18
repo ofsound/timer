@@ -9,7 +9,7 @@ function Cinema() {
   const secondsRemaining = Math.ceil(durationSeconds - durationSeconds * thisRatio);
 
   const styles = {
-    width: (thisRatio * 100).toString() + "%",
+    transform: "scaleX(" + thisRatio + ")",
   };
 
   const stylesIntro = {
@@ -24,7 +24,10 @@ function Cinema() {
       <div className="relative z-2 mx-auto text-center text-6xl font-black text-white">
         {!isNaN(secondsRemaining) && secondsRemaining}
       </div>
-      <div style={styles} className={`${thisStep === 0 ? "hidden" : "block"} absolute top-0 h-full bg-green-600`}></div>
+      <div
+        style={styles}
+        className={`${thisStep === 0 ? "hidden" : "block"} absolute top-0 h-full w-full origin-left bg-green-600`}
+      ></div>
     </div>
   );
 }
