@@ -202,7 +202,7 @@ function History({ onToggleRowClick }: inputProps) {
               className={`relative flex h-full flex-col px-14 ${index === splitIndex && "animate-pulse [&>*]:opacity-100!"}`}
             >
               <div
-                className={`relative flex h-full min-h-12 ${!historyRow.isPinned && "min-h-11! px-5 text-white opacity-40 brightness-80"} ${index === splitIndex && "brightness-100"} `}
+                className={`relative flex h-full min-h-12 ${!historyRow.isPinned && "min-h-11! px-5 text-white opacity-100 brightness-80"} ${index === splitIndex && "brightness-100"} `}
               >
                 <Map
                   onClick={() => {
@@ -212,7 +212,9 @@ function History({ onToggleRowClick }: inputProps) {
                   isHistoryMap={true}
                   historySequence={historyRow.sequence}
                 />
-                <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
+                <div className="flex items-center">
+                  <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
+                </div>
               </div>
             </div>
             <div
