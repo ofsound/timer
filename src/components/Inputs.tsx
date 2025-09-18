@@ -74,7 +74,7 @@ function Inputs() {
         }
 
         if (isMouseDown) {
-          if (timeSinceMouseDown > 500) {
+          if (timeSinceMouseDown > 350) {
             if (mouseDownOnPositiveNotNegative.current) {
               trySetCustomInputValue(customInputValue + deltaInputValue);
             } else {
@@ -213,6 +213,7 @@ function Inputs() {
             <button
               onClick={() => {
                 setCustomInputValue(0);
+                setPadTotal("");
               }}
               className="absolute block h-full w-full cursor-pointer opacity-50"
             >
