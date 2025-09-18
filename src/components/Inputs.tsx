@@ -29,16 +29,16 @@ function Inputs() {
 
   const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const mouseDownOnPositiveNotNegative = useRef(false);
+  const mouseDownOnPlusNotMinus = useRef(false);
 
   const plusElementRef = useRef(null);
   const minusElementRef = useRef(null);
 
   const handleMouseDown = (event: MouseEvent) => {
     if ((event.target as HTMLElement).innerHTML === "+") {
-      mouseDownOnPositiveNotNegative.current = true;
+      mouseDownOnPlusNotMinus.current = true;
     } else {
-      mouseDownOnPositiveNotNegative.current = false;
+      mouseDownOnPlusNotMinus.current = false;
     }
 
     mouseDownStartTime.current = Date.now();
@@ -50,6 +50,8 @@ function Inputs() {
   };
 
   const mouseDownStartTime = useRef(0);
+  const thirdDigitClickTime = useRef(0);
+  const fourthDigitNeverHit = useRef(true);
 
   useEffect(() => {
     if (isMouseDown) {
@@ -73,13 +75,11 @@ function Inputs() {
           deltaInputValue = 30;
         }
 
-        if (isMouseDown) {
-          if (timeSinceMouseDown > 350) {
-            if (mouseDownOnPositiveNotNegative.current) {
-              trySetCustomInputValue(customInputValue + deltaInputValue);
-            } else {
-              trySetCustomInputValue(customInputValue - deltaInputValue);
-            }
+        if (timeSinceMouseDown > 350) {
+          if (mouseDownOnPlusNotMinus.current) {
+            trySetCustomInputValue(customInputValue + deltaInputValue);
+          } else {
+            trySetCustomInputValue(customInputValue - deltaInputValue);
           }
         }
       };
@@ -115,11 +115,30 @@ function Inputs() {
     if (padTotal.length < 2) {
       setPadTotal(padTotal + padButtonValue);
       setCustomInputValue(parseInt(padTotal + padButtonValue));
-    } else {
+    } else if (padTotal.length === 2) {
+      thirdDigitClickTime.current = Date.now();
+
+      setTimeout(() => {
+        if (fourthDigitNeverHit.current) {
+          const newTotal = padTotal + padButtonValue;
+          const secondsTotal = parseInt(newTotal.slice(1));
+          const firstChar = parseInt(newTotal[0]);
+          const computedTotal = secondsTotal + firstChar * 60;
+          setCustomInputValue(computedTotal);
+        }
+      }, 600);
+
+      setPadTotal(padTotal + padButtonValue);
+      setCustomInputValue(parseInt(padTotal + padButtonValue));
+    } else if (padTotal.length === 3) {
+      fourthDigitNeverHit.current = false;
       const newTotal = padTotal + padButtonValue;
-      const secondsTotal = parseInt(newTotal.slice(1));
-      const firstChar = parseInt(newTotal[0]);
-      const computedTotal = secondsTotal + firstChar * 60;
+
+      const minutesChar = parseInt(newTotal.slice(0, 2));
+
+      const secondsTotal = parseInt(newTotal.slice(-2));
+
+      const computedTotal = secondsTotal + minutesChar * 60;
 
       setCustomInputValue(computedTotal);
     }
@@ -144,6 +163,7 @@ function Inputs() {
   const trySetCustomInputValue = (newValue: number) => {
     setPadTotal("");
     setCustomInputValue(newValue);
+    fourthDigitNeverHit.current = true;
   };
 
   const handleNewCustomValue = () => {
@@ -214,6 +234,7 @@ function Inputs() {
               onClick={() => {
                 setCustomInputValue(0);
                 setPadTotal("");
+                fourthDigitNeverHit.current = true;
               }}
               className="absolute block h-full w-full cursor-pointer opacity-50"
             >
