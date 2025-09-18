@@ -128,7 +128,11 @@ function Inputs() {
   const handlersPress = useLongPress((e) => {
     const childElement = (e.target as HTMLElement).firstChild;
     if (childElement) {
-      setCustomInputValue(parseInt((childElement as HTMLElement).innerHTML));
+      const existingValue = (e.target as HTMLInputElement).dataset.value;
+      if (existingValue) {
+        setCustomInputValue(parseInt(existingValue));
+      }
+
       const parentElement = (e.target as HTMLElement).parentElement;
       const children = parentElement?.children;
       const index = Array.prototype.indexOf.call(children, e.target as HTMLElement);
@@ -138,6 +142,7 @@ function Inputs() {
   });
 
   const trySetCustomInputValue = (newValue: number) => {
+    setPadTotal("");
     setCustomInputValue(newValue);
   };
 
@@ -183,6 +188,7 @@ function Inputs() {
             onClick={() => buttonClickHandler(item)}
             {...handlersPress()}
             key={index}
+            data-value={item}
             className={`${!inputsAreEnabled ? "opacity-20 blur-[3px] grayscale" : "hover:border-blue-300"} flex aspect-1/1 max-h-3/7 w-1/6 grow-1 cursor-pointer items-center justify-center rounded-lg border border-blue-500 bg-blue-600 text-lg tracking-wider text-white`}
           >
             <div className="pointer-events-none">{convertSecondsToMinutesSeconds(item)}</div>
@@ -190,7 +196,7 @@ function Inputs() {
         ))}
       </div>
       <div className={`${toggleVariant ? "flex" : "hidden"} -mt-12 gap-6`}>
-        <div className="pointer-events-none absolute top-0 left-0 z-1 h-screen w-full bg-black opacity-90"></div>
+        <div className="pointer-events-none absolute top-0 left-0 z-1 h-screen w-full bg-gray-800 opacity-98"></div>
         <div className="mx-auto flex w-5/8 flex-wrap justify-between gap-2">
           {padValues.map((item, index) => (
             <button
@@ -207,7 +213,6 @@ function Inputs() {
             <button
               onClick={() => {
                 setCustomInputValue(0);
-                setPadTotal("");
               }}
               className="absolute block h-full w-full cursor-pointer opacity-50"
             >
@@ -216,42 +221,40 @@ function Inputs() {
             <input
               readOnly
               type="text"
-              className="pr pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 text-center text-3xl font-bold text-white tabular-nums select-none"
+              className="pointer-events-none mt-0 ml-auto aspect-square w-full flex-1 rounded-md border-1 border-dotted border-black bg-blue-700 text-center text-3xl font-bold text-white tabular-nums select-none"
               value={convertSecondsToMinutesSeconds(customInputValue)}
             />
           </div>
           <div className="mt-6 flex w-full gap-3 self-center-safe">
             <button
-              className="block aspect-square w-1/2 rounded-lg border-4 border-gray-700 bg-gray-200 text-2xl font-bold text-black shadow-md"
+              className="block aspect-square w-1/2 rounded-lg border-2 border-gray-500 bg-gray-300 text-2xl font-bold text-black shadow-md hover:border-blue-300"
               onClick={() => trySetCustomInputValue(customInputValue - 1)}
               ref={minusElementRef}
               onMouseDown={handleMouseDown}
             >
-              <div className="relative -top-[.2rem] text-4xl text-black">–</div>
+              <div className="relative -top-[.2rem] text-4xl text-black select-none">–</div>
             </button>
             <button
-              className="aspect-square w-1/2 rounded-lg border-4 border-gray-700 bg-gray-200 text-2xl font-bold shadow-md"
+              className="aspect-square w-1/2 rounded-lg border-2 border-gray-500 bg-gray-300 text-2xl font-bold shadow-md hover:border-blue-300"
               onClick={() => trySetCustomInputValue(customInputValue + 1)}
               ref={plusElementRef}
               onMouseDown={handleMouseDown}
             >
-              <div className="relative -top-[.2rem] text-4xl text-black">+</div>
+              <div className="relative -top-[.2rem] text-4xl text-black select-none">+</div>
             </button>
           </div>
         </div>
       </div>
-      <div
-        className={`${toggleVariant ? "flex" : "hidden"} relative z-10 mt-7 flex w-full gap-3 px-3 font-bold grayscale-60`}
-      >
+      <div className={`${toggleVariant ? "flex" : "hidden"} relative z-10 mt-7 flex w-full gap-3 grayscale-60`}>
         <button
           onClick={handleCancel}
-          className="text-md block w-full rounded-lg border-1 border-black bg-red-700 py-3 text-white"
+          className="text-md block w-full rounded-lg border-1 border-black bg-red-700 py-3 text-white select-none"
         >
-          <span className="relative top-[.1rem] text-xl">✕</span> &nbsp; Cancel
+          <span className="relative top-[.1rem] text-xl select-none">✕</span> &nbsp; Cancel
         </button>
         <button
           onClick={handleNewCustomValue}
-          className="text-md block w-full rounded-lg border-1 border-black bg-green-700 py-3 text-white"
+          className="text-md block w-full rounded-lg border-1 border-black bg-green-700 py-3 text-white select-none"
         >
           <span className="text-xl">⇧</span> &nbsp; Replace
         </button>
