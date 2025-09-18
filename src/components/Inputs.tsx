@@ -135,11 +135,8 @@ function Inputs() {
       const newTotal = padTotal + padButtonValue;
 
       const minutesChar = parseInt(newTotal.slice(0, 2));
-
       const secondsTotal = parseInt(newTotal.slice(-2));
-
       const computedTotal = secondsTotal + minutesChar * 60;
-
       setCustomInputValue(computedTotal);
     }
   };
@@ -151,7 +148,6 @@ function Inputs() {
       if (existingValue) {
         setCustomInputValue(parseInt(existingValue));
       }
-
       const parentElement = (e.target as HTMLElement).parentElement;
       const children = parentElement?.children;
       const index = Array.prototype.indexOf.call(children, e.target as HTMLElement);
