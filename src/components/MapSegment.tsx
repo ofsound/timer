@@ -12,7 +12,7 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
   const [isVisible, setIsVisible] = useState(false);
 
   const classesOuter = [
-    "relative h-full rounded-lg border border-black overflow-hidden bg-gray-400 text-center text-black first:hidden even:bg-gray-100",
+    "relative h-full rounded-lg border border-black overflow-hidden dark:bg-gray-400 bg-gray-500 text-center text-black first:hidden dark:even:bg-gray-100 even:bg-gray-900",
     isComplete &&
       "border-gray-800 text-gray-800 !opacity-60 bg-[repeating-linear-gradient(45deg,_#c1c1c1_0,_#e1e1e1_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed",
     isHistoryMapSegment && "shadow-[0px_10px_15px_rgba(0,0,0,0.3´)]",
@@ -21,7 +21,7 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
     .join(" ");
 
   const classesInner = [
-    "absolute flex h-full w-full items-center justify-center select-none ",
+    "absolute flex h-full w-full items-center justify-center select-none dark:text-black text-white",
     isHistoryMapSegment && "text-sm font-bold",
     !isHistoryMapSegment && "text-shadow-centered text-lg font-bold transition-all duration-120 opacity-0 scale-95",
     isVisible && "opacity-100 scale-100",
