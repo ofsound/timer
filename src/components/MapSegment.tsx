@@ -13,16 +13,16 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
   const [isVisible, setIsVisible] = useState(false);
 
   const classesOuter = [
-    "relative h-full rounded-lg border border-black overflow-hidden dark:bg-gray-400 bg-gray-500 text-center text-black first:hidden dark:even:bg-gray-100 even:bg-gray-900",
+    "relative h-full rounded-lg border border-black overflow-hidden dark:bg-gray-400 bg-gray-500 text-center text-black first:hidden dark:even:bg-gray-100 even:bg-gray-800",
     isComplete &&
-      "border-gray-800 text-gray-800 !opacity-60 bg-[repeating-linear-gradient(45deg,_#666666_0,_#333333_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed dark:bg-[repeating-linear-gradient(45deg,_#c1c1c1_0,_#e1e1e1_1px,_transparent_0,_transparent_50%)]",
+      "border-gray-800 text-gray-800 !opacity-60 bg-[repeating-linear-gradient(45deg,_#666666_0,_#333333_.14rem,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed dark:bg-[repeating-linear-gradient(45deg,_#c1c1c1_0,_#e1e1e1_.15rem,_transparent_0,_transparent_50%)]",
     isHistoryMapSegment && "dark:shadow-sm",
   ]
     .filter(Boolean)
     .join(" ");
 
   const classesInner = [
-    "absolute flex h-full w-full items-center justify-center  dark:text-black text-white",
+    "absolute flex h-full w-full items-center justify-center dark:text-black text-white",
     isHistoryMapSegment && "text-sm font-bold",
     !isHistoryMapSegment && "text-lg font-bold transition-all duration-120 opacity-0 scale-95",
     isHistoryMapSegment && !isPinnedMapSegment && "text-xs",
