@@ -192,7 +192,7 @@ function Inputs() {
   return (
     <div>
       <div
-        className={` ${toggleVariant ? "hidden" : "flex"} mr-auto ml-auto w-full flex-wrap justify-between gap-[10px]`}
+        className={` ${toggleVariant ? "hidden" : "flex"} mr-auto ml-auto w-full flex-wrap justify-between gap-[.4rem]`}
       >
         {buttonValues.map((item, index) => (
           <button
@@ -200,7 +200,7 @@ function Inputs() {
             {...handlersPress()}
             key={index}
             data-value={item}
-            className="flex aspect-1/1 max-h-3/7 w-1/6 grow-1 cursor-pointer items-center justify-center rounded-lg border border-blue-500 bg-blue-600 text-lg tracking-wider text-white hover:border-blue-300"
+            className="flex aspect-1/1 max-h-3/7 w-1/6 grow-1 cursor-pointer items-center justify-center rounded-lg border-blue-500 bg-blue-600 text-lg tracking-wider text-white hover:border-blue-300"
           >
             <div className="pointer-events-none">{convertSecondsToMinutesSeconds(item)}</div>
           </button>
@@ -261,13 +261,13 @@ function Inputs() {
       <div className={`${toggleVariant ? "flex" : "hidden"} relative z-10 mt-7 flex w-full gap-3 grayscale-60`}>
         <button
           onClick={handleCancel}
-          className="block w-full rounded-lg border-1 border-black bg-red-700 py-3 text-lg text-white"
+          className="block w-full rounded-lg border border-gray-500 bg-gray-900 py-3 text-lg font-bold text-red-600"
         >
           <span className="relative top-[.1rem] text-xl">✕</span> &nbsp; Cancel
         </button>
         <button
           onClick={handleNewCustomValue}
-          className="block w-full rounded-lg border-1 border-black bg-green-700 py-3 text-lg text-white"
+          className="block w-full rounded-lg border border-gray-500 bg-gray-900 py-3 text-lg font-bold text-green-600"
         >
           <span className="text-xl">⇧</span> &nbsp; Replace
         </button>
