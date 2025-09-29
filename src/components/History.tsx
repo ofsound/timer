@@ -202,7 +202,7 @@ function History({ onToggleRowClick }: inputProps) {
               className={`relative flex h-full flex-col px-14 ${index === splitIndex && "animate-pulse-fast [&>*]"}`}
             >
               <div
-                className={`relative flex h-full ${!historyRow.isPinned && "px-8 text-white opacity-100 brightness-80"} ${index === splitIndex && "brightness-100"} `}
+                className={`relative flex h-full ${!historyRow.isPinned && "px-8 text-white opacity-100 brightness-80"} ${index === splitIndex && "animate-pulse-fast brightness-100"} `}
               >
                 <Map
                   onClick={() => {
@@ -219,7 +219,7 @@ function History({ onToggleRowClick }: inputProps) {
               </div>
             </div>
             <div
-              className={`${index !== splitIndex - 1 && "hidden"} absolute right-0 left-0 mx-auto mt-[.9rem] h-1 w-full border-t-[.5rem] border-dotted border-black dark:border-white`}
+              className={`${index !== splitIndex - 1 && "hidden"} absolute right-0 left-0 mx-auto mt-[.9rem] h-1 w-full border-t-[.4rem] border-dotted border-black shadow-xs dark:border-white`}
             ></div>
           </div>
         ))}
