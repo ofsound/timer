@@ -35,8 +35,8 @@ function Cinema() {
   }
 
   return (
-    <div className="pointer-events-none relative flex h-full w-full items-center overflow-hidden rounded-lg border-1 border-gray-200 py-14 tabular-nums">
-      <div style={stylesIntro} className="absolute top-0 h-full w-full bg-gray-400/50 dark:bg-black"></div>
+    <div className="pointer-events-none relative flex h-full w-full items-center overflow-hidden rounded-lg border-1 border-gray-600 py-14 tabular-nums dark:border-gray-200">
+      <div style={stylesIntro} className="absolute top-0 h-full w-full bg-gray-100 dark:bg-black"></div>
       <div className="relative z-2 mx-auto text-center text-6xl font-black text-black dark:text-white">
         {!isNaN(secondsRemaining) && convertSecondsToMinutesSeconds(secondsRemaining)}
       </div>

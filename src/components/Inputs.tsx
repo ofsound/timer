@@ -266,13 +266,13 @@ function Inputs() {
       <div className={`${toggleVariant ? "flex" : "hidden"} relative z-10 mt-7 flex w-full gap-3 grayscale-60`}>
         <button
           onClick={handleCancel}
-          className="text-md block w-full rounded-lg border-1 border-black bg-red-700 py-3 text-white select-none"
+          className="block w-full rounded-lg border-1 border-black bg-red-700 py-3 text-lg text-white select-none"
         >
           <span className="relative top-[.1rem] text-xl select-none">✕</span> &nbsp; Cancel
         </button>
         <button
           onClick={handleNewCustomValue}
-          className="text-md block w-full rounded-lg border-1 border-black bg-green-700 py-3 text-white select-none"
+          className="block w-full rounded-lg border-1 border-black bg-green-700 py-3 text-lg text-white select-none"
         >
           <span className="text-xl">⇧</span> &nbsp; Replace
         </button>

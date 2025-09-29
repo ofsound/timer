@@ -75,12 +75,12 @@ function Settings({ onSoundChange }: inputProps) {
       <div className="mt-5 mb-8 pt-8 text-center text-2xl font-bold tracking-wide dark:text-white">Settings</div>
       <div className="flex flex-1 flex-col [&>*]:flex-1">
         <div className="dark:even:bg-pruple-700 flex w-full justify-center border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200 dark:bg-purple-900 dark:text-white">
-          <div className="flex max-h-max self-center-safe">
-            <div className="text-md mt-[34px] w-30 pr-4 text-right">Count-In Time</div>
+          <div className="flex max-h-max items-center self-center-safe">
+            <div className="text-md w-36 pr-8 text-right">Count-In Time</div>
             <input
               id="countInTime"
               type="text"
-              className="pointer-events-none mt-4 mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums dark:text-black"
+              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums dark:text-black"
               value={countInTime}
               onChange={handleChange}
             />
@@ -102,12 +102,12 @@ function Settings({ onSoundChange }: inputProps) {
           </div>
         </div>
         <div className="dark:even:bg-pruple-700 flex w-full justify-center border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200 dark:bg-purple-900 dark:text-white dark:even:bg-purple-500">
-          <div className="flex max-h-max self-center-safe">
-            <div className="text-md mt-[34px] w-30 pr-4 text-right">Sound Effect</div>
+          <div className="flex max-h-max items-center self-center-safe">
+            <div className="text-md w-36 pr-8 text-right">Sound Effect</div>
             <input
               id="soundEffectIndex"
               type="text"
-              className="pointer-events-none mt-4 mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums"
+              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums"
               value={soundEffectIndex}
               onChange={handleChange}
             />
@@ -129,12 +129,12 @@ function Settings({ onSoundChange }: inputProps) {
           </div>
         </div>
         <div className="dark:even:bg-pruple-700 flex w-full justify-center border-t-1 border-gray-400 bg-purple-100 px-11 py-3 grayscale-70 even:bg-purple-200 dark:bg-purple-900 dark:text-white">
-          <div className="flex max-h-max self-center-safe">
-            <div className="text-md mt-[34px] w-30 pr-4 text-right">Color Theme</div>
+          <div className="flex max-h-max items-center self-center-safe">
+            <div className="text-md w-36 pr-8 text-right">Color Theme</div>
             <input
               id="colorThemeIndex"
               type="text"
-              className="pointer-events-none mt-4 mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums"
+              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums"
               value={colorThemeIndex}
               onChange={handleChange}
             />
