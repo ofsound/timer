@@ -40,7 +40,7 @@ function Settings({ onSoundChange }: inputProps) {
   };
 
   const trySetCountInTime = (newValue: number) => {
-    if (newValue >= 0 && newValue <= 9) {
+    if (newValue >= 0 && newValue <= 60) {
       setCountInTime(newValue);
     }
   };
@@ -80,7 +80,7 @@ function Settings({ onSoundChange }: inputProps) {
             <input
               id="countInTime"
               type="text"
-              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums dark:text-black"
+              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 text-center text-2xl font-bold text-black tabular-nums dark:text-black"
               value={countInTime}
               onChange={handleChange}
             />
@@ -107,7 +107,7 @@ function Settings({ onSoundChange }: inputProps) {
             <input
               id="soundEffectIndex"
               type="text"
-              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums"
+              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 text-center text-2xl font-bold text-black tabular-nums"
               value={soundEffectIndex}
               onChange={handleChange}
             />
@@ -134,7 +134,7 @@ function Settings({ onSoundChange }: inputProps) {
             <input
               id="colorThemeIndex"
               type="text"
-              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 pr-5 text-right text-2xl font-bold text-black tabular-nums"
+              className="pointer-events-none mr-10 ml-auto h-14 w-14 rounded-md border-1 border-dotted bg-gray-100 text-center text-2xl font-bold text-black tabular-nums"
               value={colorThemeIndex}
               onChange={handleChange}
             />

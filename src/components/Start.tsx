@@ -38,7 +38,7 @@ function Start({ onClick }: inputProps) {
         style={{ transform: thisStep === 0 ? `rotate(${thisRatio * 360}deg)` : "rotate(0deg)" }}
       ></div>
       <div
-        className={`${thisStep === 0 ? "bg-black" : "bg-green-500"} ${runningIsPaused && "brightness-70"} absolute top-0 mt-2 ml-2 h-28 w-28 rounded-full shadow-md`}
+        className={`${thisStep === 0 ? "" : "bg-green-500"} ${runningIsPaused && "brightness-70"} absolute top-0 mt-2 ml-2 h-28 w-28 rounded-full shadow-md`}
       ></div>
       <div className={`absolute top-[3.05rem] w-32 text-lg font-bold tracking-wider text-white text-shadow-sm`}>
         {thisLabel}

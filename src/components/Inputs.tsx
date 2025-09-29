@@ -49,8 +49,6 @@ function Inputs() {
   };
 
   const mouseDownStartTime = useRef(0);
-  const thirdDigitClickTime = useRef(0);
-  const fourthDigitNeverHit = useRef(true);
 
   useEffect(() => {
     if (isMouseDown) {
@@ -111,22 +109,15 @@ function Inputs() {
       setPadTotal(padTotal + padButtonValue);
       setCustomInputValue(parseInt(padTotal + padButtonValue));
     } else if (padTotal.length === 2) {
-      thirdDigitClickTime.current = Date.now();
-
-      setTimeout(() => {
-        if (fourthDigitNeverHit.current) {
-          const newTotal = padTotal + padButtonValue;
-          const secondsTotal = parseInt(newTotal.slice(1));
-          const firstChar = parseInt(newTotal[0]);
-          const computedTotal = secondsTotal + firstChar * 60;
-          setCustomInputValue(computedTotal);
-        }
-      }, 600);
-
       setPadTotal(padTotal + padButtonValue);
       setCustomInputValue(parseInt(padTotal + padButtonValue));
+
+      const newTotal = padTotal + padButtonValue;
+      const secondsTotal = parseInt(newTotal.slice(1));
+      const firstChar = parseInt(newTotal[0]);
+      const computedTotal = secondsTotal + firstChar * 60;
+      setCustomInputValue(computedTotal);
     } else if (padTotal.length === 3) {
-      fourthDigitNeverHit.current = false;
       const newTotal = padTotal + padButtonValue;
 
       const minutesChar = parseInt(newTotal.slice(0, 2));
@@ -154,7 +145,6 @@ function Inputs() {
   const trySetCustomInputValue = (newValue: number) => {
     setPadTotal("");
     setCustomInputValue(newValue);
-    fourthDigitNeverHit.current = true;
   };
 
   const handleNewCustomValue = () => {
@@ -168,6 +158,8 @@ function Inputs() {
   };
 
   const handleCancel = () => {
+    setCustomInputValue(0);
+    setPadTotal("");
     setToggleVariant(!toggleVariant);
   };
 
@@ -225,7 +217,6 @@ function Inputs() {
               onClick={() => {
                 setCustomInputValue(0);
                 setPadTotal("");
-                fourthDigitNeverHit.current = true;
               }}
               className="absolute block h-full w-full cursor-pointer opacity-50"
             >
