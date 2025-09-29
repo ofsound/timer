@@ -7,10 +7,13 @@ html {
 }
 
 @theme {
-  --animate-pulse-fast: pulse 5s;
+  --animate-pulse-fast: pulse 2s;
   @keyframes pulse {
     0% {
-      opacity: 0;
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
     }
     100% {
       opacity: 1;

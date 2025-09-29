@@ -6,16 +6,17 @@ type inputProps = {
   isComplete?: boolean;
   durationSeconds: number;
   isHistoryMapSegment?: boolean;
+  isPinnedMapSegment?: boolean;
 };
 
-function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment }: inputProps) {
+function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment, isPinnedMapSegment }: inputProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   const classesOuter = [
     "relative h-full rounded-lg border border-black overflow-hidden dark:bg-gray-400 bg-gray-500 text-center text-black first:hidden dark:even:bg-gray-100 even:bg-gray-900",
     isComplete &&
       "border-gray-800 text-gray-800 !opacity-60 bg-[repeating-linear-gradient(45deg,_#666666_0,_#333333_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed dark:bg-[repeating-linear-gradient(45deg,_#c1c1c1_0,_#e1e1e1_1px,_transparent_0,_transparent_50%)]",
-    isHistoryMapSegment && "shadow-[0px_10px_15px_rgba(0,0,0,0.3´)]",
+    isHistoryMapSegment && "shadow-[0px_10px_15px_rgba(0,0,0,0.3)]",
   ]
     .filter(Boolean)
     .join(" ");
@@ -23,7 +24,8 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
   const classesInner = [
     "absolute flex h-full w-full items-center justify-center  dark:text-black text-white",
     isHistoryMapSegment && "text-sm font-bold",
-    !isHistoryMapSegment && "text-shadow-centered text-lg font-bold transition-all duration-120 opacity-0 scale-95",
+    !isHistoryMapSegment && "text-lg font-bold transition-all duration-120 opacity-0 scale-95",
+    isHistoryMapSegment && !isPinnedMapSegment && "text-xs",
     isVisible && "opacity-100 scale-100",
   ]
     .filter(Boolean)

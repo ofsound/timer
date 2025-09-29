@@ -196,13 +196,13 @@ function History({ onToggleRowClick }: inputProps) {
         {history.map((historyRow, index) => (
           <div
             key={index}
-            className={`relative max-h-1/8 ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-200"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-150"}`}
+            className={`relative ${!historyRow.isPinned ? "mb-3 max-h-1/13" : "mb-4 max-h-1/9"} ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-200"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-150"} ${index === splitIndex && "mt-4"}`}
           >
             <div
-              className={`relative flex h-full flex-col px-14 ${index === splitIndex && "animate-pulse [&>*]:opacity-100!"}`}
+              className={`relative flex h-full flex-col px-14 ${index === splitIndex && "animate-pulse-fast [&>*]"}`}
             >
               <div
-                className={`relative flex h-full min-h-12 ${!historyRow.isPinned && "min-h-11! px-5 text-white opacity-100 brightness-80"} ${index === splitIndex && "brightness-100"} `}
+                className={`relative flex h-full ${!historyRow.isPinned && "px-8 text-white opacity-100 brightness-80"} ${index === splitIndex && "brightness-100"} `}
               >
                 <Map
                   onClick={() => {
@@ -210,6 +210,7 @@ function History({ onToggleRowClick }: inputProps) {
                     onToggleRowClick();
                   }}
                   isHistoryMap={true}
+                  isPinnedMap={historyRow.isPinned}
                   historySequence={historyRow.sequence}
                 />
                 <div className="flex items-center">
@@ -218,7 +219,7 @@ function History({ onToggleRowClick }: inputProps) {
               </div>
             </div>
             <div
-              className={`${index !== splitIndex - 1 && "hidden"} absolute right-0 left-0 mx-auto mt-[6.5px] h-1 w-full max-w-7/8 border-b-4 border-dotted border-gray-400`}
+              className={`${index !== splitIndex - 1 && "hidden"} absolute right-0 left-0 mx-auto mt-[.9rem] h-1 w-full border-t-[.5rem] border-dotted border-black dark:border-white`}
             ></div>
           </div>
         ))}

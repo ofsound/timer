@@ -4,18 +4,19 @@ import { useTimerStore } from "../timerStore.ts";
 
 type inputProps = {
   isHistoryMap?: boolean;
+  isPinnedMap?: boolean;
   historySequence?: number[];
   onClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-function Map({ isHistoryMap, onClick, historySequence }: inputProps) {
+function Map({ isHistoryMap, isPinnedMap, onClick, historySequence }: inputProps) {
   const thisStep = useTimerStore((state) => state.thisStep);
   const thisSequence = useTimerStore((state) => state.thisSequence);
 
   return (
     <div
       onClick={isHistoryMap ? onClick : undefined}
-      className={`${thisStep === 0 && !isHistoryMap && ""} ${isHistoryMap ? "mt-4 flex min-w-0 gap-1 border-none" : "border-gray:800 flex h-full w-full max-w-full min-w-0 justify-start gap-1 rounded-lg border border-dashed p-1 dark:border-gray-300"}`}
+      className={`${thisStep === 0 && !isHistoryMap && ""} ${isHistoryMap ? "flex min-w-0 gap-1 border-none" : "border-gray:800 flex w-full max-w-full min-w-0 justify-start gap-1 rounded-lg border border-dashed p-1 dark:border-gray-300"} ${isHistoryMap && isPinnedMap && ""} `}
     >
       {!isHistoryMap &&
         thisSequence.map((durationSeconds, index) => (
@@ -30,7 +31,12 @@ function Map({ isHistoryMap, onClick, historySequence }: inputProps) {
 
       {isHistoryMap &&
         historySequence?.map((durationSeconds, index) => (
-          <MapSegment key={index} durationSeconds={durationSeconds} isHistoryMapSegment={isHistoryMap} />
+          <MapSegment
+            key={index}
+            durationSeconds={durationSeconds}
+            isHistoryMapSegment={isHistoryMap}
+            isPinnedMapSegment={isPinnedMap}
+          />
         ))}
     </div>
   );
