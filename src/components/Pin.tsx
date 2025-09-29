@@ -7,7 +7,7 @@ function Pin({ onClick, isPinned }: inputProps) {
   return (
     <div
       onClick={onClick}
-      className={`${!isPinned && "grayscale-30"} absolute -right-8 cursor-pointer px-2 pt-4 duration-200 select-none`}
+      className={`${!isPinned && "grayscale-30"} absolute -right-8 cursor-pointer px-2 pt-4 duration-200`}
     >
       📌
     </div>

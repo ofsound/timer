@@ -21,7 +21,7 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
     .join(" ");
 
   const classesInner = [
-    "absolute flex h-full w-full items-center justify-center select-none dark:text-black text-white",
+    "absolute flex h-full w-full items-center justify-center  dark:text-black text-white",
     isHistoryMapSegment && "text-sm font-bold",
     !isHistoryMapSegment && "text-shadow-centered text-lg font-bold transition-all duration-120 opacity-0 scale-95",
     isVisible && "opacity-100 scale-100",

@@ -32,7 +32,6 @@ function App() {
 
   // const startIsEnabled = useTimerStore((state) => state.startIsEnabled);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
-  const setInputsAreEnabled = useTimerStore((state) => state.setInputsAreEnabled);
 
   const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
   const setRunningIsPaused = useTimerStore((state) => state.setRunningIsPaused);
@@ -64,7 +63,6 @@ function App() {
 
     setShowTimeline(false);
 
-    setInputsAreEnabled(true);
     setStartIsEnabled(false);
 
     setRunningIsPaused(false);
@@ -76,7 +74,6 @@ function App() {
         soundRef.current?.play();
         setThisStep(0);
         setShowTimeline(true);
-        setInputsAreEnabled(false);
         break;
       case 0:
         break;
@@ -207,7 +204,7 @@ function App() {
   }, []);
 
   return (
-    <div {...handlers} className="relative z-50 h-full bg-gray-700 duration-300">
+    <div {...handlers} className="relative z-50 h-full bg-gray-700 duration-300 select-none">
       <AppTools />
       <div ref={slidingContent} className="mx-auto flex h-full flex-col bg-gray-200 px-7 py-6 dark:bg-gray-600">
         <div
@@ -218,7 +215,7 @@ function App() {
             onClick={handleResetSequenceClick}
             className={`absolute -top-3 -left-7 block h-14 w-14 cursor-pointer`}
           >
-            <div className="mx-auto h-10 w-10 rounded-full border-1 border-black bg-gray-200 dark:border-white dark:bg-gray-600">
+            <div className="mx-auto h-10 w-10 rounded-full border-1 border-black bg-gray-200 shadow dark:border-white dark:bg-gray-600">
               <span className="relative -top-[.21rem] left-[0rem] text-4xl dark:text-white">×</span>
             </div>
           </button>
