@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTimerStore } from "../timerStore.ts";
 
 type inputProps = {
@@ -11,6 +11,11 @@ type inputProps = {
 
 function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment, isPinnedMapSegment }: inputProps) {
   const [isVisible, setIsVisible] = useState(false);
+
+  const outerRef = useRef(null);
+  const innerRef = useRef(null);
+  const [outerWidth, setOuterWidth] = useState(0);
+  const [innerWidth, setInnerWidth] = useState(0);
 
   const classesOuter = [
     "relative h-full rounded-lg border border-black overflow-hidden dark:bg-gray-400 bg-gray-500 text-center text-black first:hidden dark:even:bg-gray-100 even:bg-gray-800",
@@ -27,6 +32,7 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
     !isHistoryMapSegment && "text-lg font-bold transition-all duration-120 opacity-0 scale-95",
     isHistoryMapSegment && !isPinnedMapSegment && "text-xs",
     isVisible && "opacity-100 scale-100",
+    innerWidth > outerWidth && "hidden",
   ]
     .filter(Boolean)
     .join(" ");
@@ -50,16 +56,35 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
 
   useEffect(() => {
     setIsVisible(true);
+
+    if (outerRef.current) {
+      setOuterWidth((outerRef.current as HTMLElement).clientWidth);
+    }
+    if (innerRef.current) {
+      setInnerWidth((innerRef.current as HTMLElement).clientWidth);
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (outerRef.current) {
+        setOuterWidth((outerRef.current as HTMLElement).clientWidth);
+      }
+    });
+
+    if (outerRef.current) {
+      resizeObserver.observe(outerRef.current);
+    }
   }, []);
 
   return (
-    <div style={{ width: `${durationSeconds * widthScaleFactor}px` }} className={classesOuter}>
+    <div style={{ width: `${durationSeconds * widthScaleFactor}px` }} className={classesOuter} ref={outerRef}>
+      <div className="hidden text-xs">{innerWidth}</div>
+      <div className="hidden text-xs">{outerWidth}</div>
       <div
         style={{ transform: isActive ? "scaleX(" + thisRatio + ")" : "scaleX(0)" }}
         className={`absolute h-full w-full origin-left bg-green-600 bg-gradient-to-r from-green-600 to-green-400`}
       ></div>
       <div className={classesInner}>
-        <div>{convertSecondsToMinutesSeconds(durationSeconds)}</div>
+        <div ref={innerRef}>{convertSecondsToMinutesSeconds(durationSeconds)}</div>
       </div>
     </div>
   );
