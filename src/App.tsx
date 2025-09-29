@@ -17,6 +17,8 @@ import Settings from "./components/Settings.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Sound from "./components/Sound.tsx";
 
+import useEscapeKey from "./useEscapeKey";
+
 import { useTimerStore } from "./timerStore.ts";
 
 interface SoundComponent {
@@ -30,7 +32,6 @@ function App() {
   const setThisRatio = useTimerStore((state) => state.setThisRatio);
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
 
-  // const startIsEnabled = useTimerStore((state) => state.startIsEnabled);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
   const runningIsPaused = useTimerStore((state) => state.runningIsPaused);
@@ -67,6 +68,8 @@ function App() {
 
     setRunningIsPaused(false);
   };
+
+  useEscapeKey(handleResetSequenceClick);
 
   const handleStartClick = () => {
     switch (thisStep) {
