@@ -195,15 +195,13 @@ function App() {
   };
 
   useEffect(() => {
-    const handleContextMenu = (e: Event) => {
-      e.preventDefault();
-    };
-
-    document.addEventListener("contextmenu", handleContextMenu);
-
-    return () => {
-      document.removeEventListener("contextmenu", handleContextMenu);
-    };
+    // const handleContextMenu = (e: Event) => {
+    //   e.preventDefault();
+    // };
+    // document.addEventListener("contextmenu", handleContextMenu);
+    // return () => {
+    //   document.removeEventListener("contextmenu", handleContextMenu);
+    // };
   }, []);
 
   return (

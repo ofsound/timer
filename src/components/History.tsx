@@ -75,8 +75,8 @@ function History({ onToggleRowClick }: inputProps) {
   // i got bullied into this!!
 
   return (
-    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-200 pt-6 pb-18 text-white dark:bg-gray-800">
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col bg-blue-800 [&>*]:flex-1">
+    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-200 text-white dark:bg-gray-800">
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col bg-blue-800 py-5 [&>*]:flex-1">
         {saved.map((savedRow, index) => (
           <div key={index} className={`relative`}>
             <div className={`relative flex h-full flex-col px-14`}>
@@ -91,14 +91,21 @@ function History({ onToggleRowClick }: inputProps) {
                   historySequence={savedRow.sequence}
                 />
                 <div className="flex items-center">
-                  <button onClick={() => handleSavedButtonClick(index)}>X</button>
+                  <button
+                    className="ml-4 block h-8 w-8 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-xl font-bold text-black shadow-md"
+                    onClick={() => handleSavedButtonClick(index)}
+                  >
+                    <div className="relative -top-[1px]">-</div>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col [&>*]:flex-1">
+      <div className="bg-blue-800 px-2 pb-1 text-sm">△▴ Saved ▾▽</div>
+      <div className="bg-blue-900 px-2 pt-1 text-right text-sm">▾▽ Recent △▴</div>
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col bg-blue-900 py-5 [&>*]:flex-1">
         {recent.map((recentRow, index) => (
           <div key={index} className={`relative`}>
             <div className={`relative flex h-full flex-col px-14`}>
@@ -113,7 +120,12 @@ function History({ onToggleRowClick }: inputProps) {
                   historySequence={recentRow.sequence}
                 />
                 <div className="flex items-center">
-                  <button onClick={() => handleRecentButtonClick(index)}>+</button>
+                  <button
+                    className="ml-4 block h-8 w-8 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-xl font-bold text-black shadow-md"
+                    onClick={() => handleRecentButtonClick(index)}
+                  >
+                    <div className="relative -top-[1px]">+</div>
+                  </button>
                 </div>
               </div>
             </div>
