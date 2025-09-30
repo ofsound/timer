@@ -38,18 +38,16 @@ function History({ onToggleRowClick }: inputProps) {
 
   const handleRecentButtonClick = (index: number) => {
     const newSaved = [...saved];
-    const newRecent = [...recent];
 
-    newSaved.push(recent[index]);
-
-    newRecent.splice(index, 1);
-
-    setSaved(newSaved);
-    setRecent(newRecent);
+    if (newSaved.length !== 5) {
+      newSaved.push(recent[index]);
+      setSaved(newSaved);
+    }
   };
 
   const handleSavedButtonClick = (index: number) => {
     const newSaved = [...saved];
+
     newSaved.splice(index, 1);
     setSaved(newSaved);
   };
@@ -62,6 +60,11 @@ function History({ onToggleRowClick }: inputProps) {
         isAlternating: isAlternating,
         sequence: thisSequence,
       };
+
+      if (newRecent.length === 5) {
+        newRecent.shift();
+      }
+
       newRecent.push(recentRowObject);
       setRecent(newRecent);
     }
@@ -76,57 +79,53 @@ function History({ onToggleRowClick }: inputProps) {
 
   return (
     <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-200 text-white dark:bg-gray-800">
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col bg-blue-800 py-5 [&>*]:flex-1">
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col gap-2 bg-blue-800 py-5 [&>*]:max-h-12">
         {saved.map((savedRow, index) => (
-          <div key={index} className={`relative`}>
-            <div className={`relative flex h-full flex-col px-14`}>
-              <div className={`relative flex h-full`}>
-                <Map
-                  onClick={() => {
-                    handleSavedRowClick(index);
-                    onToggleRowClick();
-                  }}
-                  isHistoryMap={true}
-                  isAlternatingMap={savedRow.isAlternating}
-                  historySequence={savedRow.sequence}
-                />
-                <div className="flex items-center">
-                  <button
-                    className="ml-4 block h-8 w-8 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-xl font-bold text-black shadow-md"
-                    onClick={() => handleSavedButtonClick(index)}
-                  >
-                    <div className="relative -top-[1px]">-</div>
-                  </button>
-                </div>
+          <div key={index} className={`relative flex h-full flex-col px-12`}>
+            <div className={`relative flex h-full`}>
+              <Map
+                onClick={() => {
+                  handleSavedRowClick(index);
+                  onToggleRowClick();
+                }}
+                isHistoryMap={true}
+                isAlternatingMap={savedRow.isAlternating}
+                historySequence={savedRow.sequence}
+              />
+              <div className="flex items-center">
+                <button
+                  className="ml-4 block h-8 w-8 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-xl font-bold text-black shadow-md"
+                  onClick={() => handleSavedButtonClick(index)}
+                >
+                  <div className="relative -top-[1px]">-</div>
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="bg-blue-800 px-2 pb-1 text-sm">△▴ Saved ▾▽</div>
-      <div className="bg-blue-900 px-2 pt-1 text-right text-sm">▾▽ Recent △▴</div>
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col bg-blue-900 py-5 [&>*]:flex-1">
+      <div className="bg-blue-800 px-2 pb-1 text-sm font-bold tracking-wide">△▴ Saved ▾▽</div>
+      <div className="bg-blue-900 px-2 pt-1 text-right text-sm font-bold tracking-wide">▾▽ Recent △▴</div>
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col-reverse justify-end gap-2 bg-blue-900 py-5 [&>*]:max-h-12">
         {recent.map((recentRow, index) => (
-          <div key={index} className={`relative`}>
-            <div className={`relative flex h-full flex-col px-14`}>
-              <div className={`relative flex h-full`}>
-                <Map
-                  onClick={() => {
-                    handleRecentRowClick(index);
-                    onToggleRowClick();
-                  }}
-                  isHistoryMap={true}
-                  isAlternatingMap={recentRow.isAlternating}
-                  historySequence={recentRow.sequence}
-                />
-                <div className="flex items-center">
-                  <button
-                    className="ml-4 block h-8 w-8 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-xl font-bold text-black shadow-md"
-                    onClick={() => handleRecentButtonClick(index)}
-                  >
-                    <div className="relative -top-[1px]">+</div>
-                  </button>
-                </div>
+          <div key={index} className={`last:animate-pulse-fast flex h-full flex-col px-12`}>
+            <div className={`relative flex h-full`}>
+              <Map
+                onClick={() => {
+                  handleRecentRowClick(index);
+                  onToggleRowClick();
+                }}
+                isHistoryMap={true}
+                isAlternatingMap={recentRow.isAlternating}
+                historySequence={recentRow.sequence}
+              />
+              <div className="flex items-center">
+                <button
+                  className="ml-4 block h-8 w-8 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-xl font-bold text-black shadow-md"
+                  onClick={() => handleRecentButtonClick(index)}
+                >
+                  <div className="relative -top-[1px]">+</div>
+                </button>
               </div>
             </div>
           </div>
