@@ -16,11 +16,7 @@ function Map({ isHistoryMap, isAlternatingMap, onClick, historySequence }: input
   const isAlternating = useTimerStore((state) => state.isAlternating);
   const setIsAlternating = useTimerStore((state) => state.setIsAlternating);
 
-  // maybe the alternating map switch is actually in updating the zustand?
-
   const onMiniMapClick = () => {
-    console.log("lock!");
-
     setIsAlternating(!isAlternating);
   };
 
