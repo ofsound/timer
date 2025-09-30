@@ -7,9 +7,17 @@ type inputProps = {
   durationSeconds: number;
   isHistoryMapSegment?: boolean;
   isPinnedMapSegment?: boolean;
+  isAlternatingMapSegment?: boolean;
 };
 
-function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment, isPinnedMapSegment }: inputProps) {
+function MapSegment({
+  isActive,
+  isComplete,
+  durationSeconds,
+  isHistoryMapSegment,
+  isPinnedMapSegment,
+  isAlternatingMapSegment,
+}: inputProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   const outerRef = useRef(null);
@@ -18,7 +26,8 @@ function MapSegment({ isActive, isComplete, durationSeconds, isHistoryMapSegment
   const [innerWidth, setInnerWidth] = useState(0);
 
   const classesOuter = [
-    "relative h-full rounded-lg border border-black overflow-hidden dark:bg-gray-400 bg-gray-500 text-center text-black first:hidden dark:even:bg-gray-100 even:bg-gray-800",
+    "relative h-full rounded-lg border border-black overflow-hidden dark:bg-gray-100 bg-gray-800 text-center text-black first:hidden ",
+    isAlternatingMapSegment && "dark:odd:bg-gray-400 odd:bg-gray-500",
     isComplete &&
       "border-gray-800 text-gray-800 !opacity-60 bg-[repeating-linear-gradient(45deg,_#666666_0,_#333333_.14rem,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed dark:bg-[repeating-linear-gradient(45deg,_#c1c1c1_0,_#e1e1e1_.15rem,_transparent_0,_transparent_50%)]",
     isHistoryMapSegment && "dark:shadow-sm",

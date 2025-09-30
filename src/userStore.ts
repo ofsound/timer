@@ -2,8 +2,13 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware'
 
 interface historyRowObject {
-  isPinned: boolean;
   sequence: number[];
+  isPinned: boolean;
+}
+
+interface sequenceRowObject {
+  sequence: number[];
+  isAlternating: boolean;
 }
 
 type UserStore = {
@@ -21,6 +26,14 @@ type UserStore = {
 
   history: historyRowObject[],
   setHistory: (history: historyRowObject[]) => void;
+
+  recent: sequenceRowObject[],
+  setRecent: (history: sequenceRowObject[]) => void;
+
+  saved: sequenceRowObject[],
+  setSaved: (saved: sequenceRowObject[]) => void;
+
+
 }
 
 export const useUserStore = create<UserStore>()(
@@ -45,6 +58,14 @@ export const useUserStore = create<UserStore>()(
       history: [],
       setHistory: (newValue: historyRowObject[]) => {
         set({ history: newValue })
+      },
+      recent: [],
+      setRecent: (newValue: sequenceRowObject[]) => {
+        set({ recent: newValue })
+      },
+      saved: [],
+      setSaved: (newValue: sequenceRowObject[]) => {
+        set({ saved: newValue })
       }
     }),
     {

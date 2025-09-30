@@ -6,7 +6,13 @@ import type { MouseEvent } from "react";
 
 import { useLongPress } from "use-long-press";
 
-function Inputs() {
+import useEscapeKey from "../useEscapeKey.ts";
+
+type inputProps = {
+  escapeKeyToApp: () => void;
+};
+
+function Inputs({ escapeKeyToApp }: inputProps) {
   const setThisSequence = useTimerStore((state) => state.setThisSequence);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
@@ -162,6 +168,16 @@ function Inputs() {
     setPadTotal("");
     setToggleVariant(!toggleVariant);
   };
+
+  const handleEscapeKey = () => {
+    if (toggleVariant) {
+      handleCancel();
+    } else {
+      escapeKeyToApp();
+    }
+  };
+
+  useEscapeKey(handleEscapeKey);
 
   function convertSecondsToMinutesSeconds(totalSeconds: number) {
     const minutes = Math.floor(totalSeconds / 60);

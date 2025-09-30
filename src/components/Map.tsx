@@ -5,11 +5,12 @@ import { useTimerStore } from "../timerStore.ts";
 type inputProps = {
   isHistoryMap?: boolean;
   isPinnedMap?: boolean;
+  isAlternatingMap?: boolean;
   historySequence?: number[];
   onClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-function Map({ isHistoryMap, isPinnedMap, onClick, historySequence }: inputProps) {
+function Map({ isHistoryMap, isPinnedMap, isAlternatingMap, onClick, historySequence }: inputProps) {
   const thisStep = useTimerStore((state) => state.thisStep);
   const thisSequence = useTimerStore((state) => state.thisSequence);
 
@@ -26,6 +27,7 @@ function Map({ isHistoryMap, isPinnedMap, onClick, historySequence }: inputProps
             isComplete={thisStep > index ? true : false}
             durationSeconds={durationSeconds}
             isHistoryMapSegment={isHistoryMap}
+            isAlternatingMapSegment={isAlternatingMap}
           />
         ))}
 
@@ -36,6 +38,7 @@ function Map({ isHistoryMap, isPinnedMap, onClick, historySequence }: inputProps
             durationSeconds={durationSeconds}
             isHistoryMapSegment={isHistoryMap}
             isPinnedMapSegment={isPinnedMap}
+            isAlternatingMapSegment={isAlternatingMap}
           />
         ))}
     </div>

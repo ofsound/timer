@@ -17,7 +17,7 @@ import Settings from "./components/Settings.tsx";
 import Timeline from "./components/Timeline.tsx";
 import Sound from "./components/Sound.tsx";
 
-import useEscapeKey from "./useEscapeKey";
+// import useEscapeKey from "./useEscapeKey";
 
 import { useTimerStore } from "./timerStore.ts";
 
@@ -69,7 +69,7 @@ function App() {
     setRunningIsPaused(false);
   };
 
-  useEscapeKey(handleResetSequenceClick);
+  // useEscapeKey(handleResetSequenceClick);
 
   const handleStartClick = () => {
     switch (thisStep) {
@@ -196,7 +196,7 @@ function App() {
 
   useEffect(() => {
     const handleContextMenu = (e: Event) => {
-      e.preventDefault(); // Prevents the default context menu from appearing
+      e.preventDefault();
     };
 
     document.addEventListener("contextmenu", handleContextMenu);
@@ -213,7 +213,7 @@ function App() {
         <div
           className={`/*bg-blue-400/40*/ ${thisStep < 0 ? "h-10/32 py-4" : "h-5/32 py-4 grayscale-0"} relative mb-auto flex`}
         >
-          <Map />
+          <Map isAlternatingMap={false} />
           <button
             onClick={handleResetSequenceClick}
             className={`absolute -top-3 -left-7 block h-14 w-14 cursor-pointer`}
@@ -227,7 +227,7 @@ function App() {
           <Cinema />
         </div>
         <div className={`${thisStep < 0 ? "flex" : "hidden"} h-14/32`}>
-          <Inputs key={"inputs" + inputsKey} />
+          <Inputs key={"inputs" + inputsKey} escapeKeyToApp={handleResetSequenceClick} />
         </div>
         <div className="/*bg-green-400/40*/ flex h-8/32 items-center justify-center">
           <Start onClick={handleStartClick} />
