@@ -1,15 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import Map from "../components/Map.tsx";
-import Pin from "../components/Pin.tsx";
 
 import { useTimerStore } from "../timerStore.ts";
 import { useUserStore } from "../userStore.ts";
-
-interface historyRowObject {
-  isPinned: boolean;
-  sequence: number[];
-}
 
 type inputProps = {
   onToggleRowClick: () => void;
@@ -22,138 +16,55 @@ function History({ onToggleRowClick }: inputProps) {
   const thisStep = useTimerStore((state) => state.thisStep);
   const setStartIsEnabled = useTimerStore((state) => state.setStartIsEnabled);
 
-  const history = useUserStore((state) => state.history);
-  const setHistory = useUserStore((state) => state.setHistory);
+  const saved = useUserStore((state) => state.saved);
+  const setSaved = useUserStore((state) => state.setSaved);
+
+  const recent = useUserStore((state) => state.recent);
+  const setRecent = useUserStore((state) => state.setRecent);
+
+  const isAlternating = useTimerStore((state) => state.isAlternating);
+  // const setIsAlternating = useTimerStore((state) => state.setIsAlternating);
 
   const firstRenderAfterStart = useRef(true);
 
-  const [fadeOutIndex, setFadeOutIndex] = useState(-1);
-  const [fadeInIndexStart, setFadeInIndexStart] = useState(-1);
-  const [fadeInIndexArm, setFadeInIndexArm] = useState(-1);
-
-  const handleRowClick = (index: number) => {
-    setThisSequence(history[index].sequence);
+  const handleRecentRowClick = (index: number) => {
+    setThisSequence(recent[index].sequence);
     setStartIsEnabled(true);
   };
 
-  function moveArrayRow(arr: historyRowObject[], fromIndex: number, toIndex: number) {
-    const elementToMove = arr.splice(fromIndex, 1)[0];
-    arr.splice(toIndex, 0, elementToMove);
-    return arr;
-  }
+  const handleSavedRowClick = (index: number) => {
+    setThisSequence(saved[index].sequence);
+    setStartIsEnabled(true);
+  };
 
-  const [splitIndex, setSplitIndex] = useState(() => {
-    let prevPinExists = false;
+  const handleRecentButtonClick = (index: number) => {
+    const newSaved = [...saved];
+    const newRecent = [...recent];
 
-    for (let i = 0; i < history.length; i++) {
-      if (history[i].isPinned) {
-        prevPinExists = true;
-      }
-      if (prevPinExists && !history[i].isPinned) {
-        return i;
-        break;
-      }
-    }
+    newSaved.push(recent[index]);
 
-    if (history[0]) {
-      if (history[0].isPinned) {
-        return history.length;
-      } else {
-        return 0;
-      }
-    }
+    newRecent.splice(index, 1);
 
-    return 0;
-  });
+    setSaved(newSaved);
+    setRecent(newRecent);
+  };
 
-  const handlePinClick = (index: number) => {
-    let newHistory = [...history];
-
-    newHistory[index].isPinned = !newHistory[index].isPinned;
-
-    let newSplitIndex: number = -1;
-    let newFadeoutIndex: number = -1;
-    let newFadeinIndex: number = -1;
-
-    let finalSplitIndex: number = -1;
-
-    if (newHistory[index].isPinned) {
-      let prevPinExists = false;
-
-      for (let i = 0; i < newHistory.length; i++) {
-        if (newHistory[i].isPinned && i !== index) {
-          prevPinExists = true;
-        }
-
-        if ((prevPinExists && !newHistory[i].isPinned) || (prevPinExists && i === index)) {
-          newHistory = moveArrayRow(newHistory, index, i);
-          newSplitIndex = i + 1;
-          newFadeinIndex = i;
-          break;
-        }
-      }
-      if (!prevPinExists) {
-        newHistory = moveArrayRow(newHistory, index, 0);
-        newSplitIndex = 0;
-      }
-    } else {
-      newFadeoutIndex = index;
-      newHistory.splice(index, 1);
-      newSplitIndex = splitIndex - 1;
-    }
-
-    newFadeoutIndex = index;
-
-    newHistory[index].isPinned = !newHistory[index].isPinned;
-    newHistory[index].isPinned = !newHistory[index].isPinned;
-
-    finalSplitIndex = newSplitIndex;
-
-    if (newHistory[0] && newSplitIndex === -1) {
-      if (newHistory[0].isPinned) {
-        finalSplitIndex = newHistory.length;
-      } else {
-        finalSplitIndex = 0;
-      }
-    }
-    if (newFadeoutIndex !== -1) {
-      setFadeOutIndex(newFadeoutIndex);
-    }
-
-    setTimeout(() => {
-      setHistory(newHistory);
-      setSplitIndex(finalSplitIndex);
-      setFadeOutIndex(-1);
-      setFadeInIndexArm(newFadeinIndex);
-
-      setTimeout(() => {
-        setFadeInIndexStart(newFadeinIndex);
-      }, 100);
-    }, 250);
+  const handleSavedButtonClick = (index: number) => {
+    const newSaved = [...saved];
+    newSaved.splice(index, 1);
+    setSaved(newSaved);
   };
 
   useEffect(() => {
     if (thisStep === 0 && firstRenderAfterStart.current) {
       firstRenderAfterStart.current = false;
-      const newHistory = [...history];
-      const historyRowObject = {
-        isPinned: false,
+      const newRecent = [...recent];
+      const recentRowObject = {
+        isAlternating: isAlternating,
         sequence: thisSequence,
       };
-      if (newHistory.length > 7) {
-        const attemptSplice = (pinIndex: number) => {
-          if (!newHistory[pinIndex].isPinned) {
-            newHistory.splice(pinIndex, 1);
-            return;
-          } else {
-            attemptSplice(pinAttemptIndex++);
-          }
-        };
-        let pinAttemptIndex = 0;
-        attemptSplice(pinAttemptIndex);
-      }
-      newHistory.splice(splitIndex, 0, historyRowObject);
-      setHistory(newHistory);
+      newRecent.push(recentRowObject);
+      setRecent(newRecent);
     }
 
     if (thisStep === -1 && !firstRenderAfterStart.current) {
@@ -161,40 +72,52 @@ function History({ onToggleRowClick }: inputProps) {
     }
 
     return () => {};
-  }, [history, setHistory, splitIndex, thisSequence, thisStep]);
+  }, [recent, setRecent, isAlternating, thisSequence, thisStep]);
   // i got bullied into this!!
 
   return (
     <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-200 pt-6 pb-18 text-white dark:bg-gray-800">
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col [&>*]:flex-1">
-        {history.map((historyRow, index) => (
-          <div
-            key={index}
-            className={`relative ${!historyRow.isPinned ? "mb-3 max-h-1/13" : "mb-4 max-h-1/9"} ${fadeOutIndex === index && "scale-0 opacity-0 transition-all duration-200"} ${fadeInIndexArm === index && "scale-0 opacity-0"} ${fadeInIndexStart === index && "scale-100 opacity-100 transition-all duration-150"} ${index === splitIndex && "mt-4"}`}
-          >
-            <div
-              className={`relative flex h-full flex-col px-14 ${index === splitIndex && "animate-pulse-fast [&>*]"}`}
-            >
-              <div
-                className={`relative flex h-full ${!historyRow.isPinned && "px-8 text-white opacity-100 brightness-80"} ${index === splitIndex && "animate-pulse-fast brightness-100"} `}
-              >
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col bg-blue-800 [&>*]:flex-1">
+        {saved.map((savedRow, index) => (
+          <div key={index} className={`relative`}>
+            <div className={`relative flex h-full flex-col px-14`}>
+              <div className={`relative flex h-full`}>
                 <Map
                   onClick={() => {
-                    handleRowClick(index);
+                    handleSavedRowClick(index);
                     onToggleRowClick();
                   }}
                   isHistoryMap={true}
-                  isPinnedMap={historyRow.isPinned}
-                  historySequence={historyRow.sequence}
+                  isAlternatingMap={savedRow.isAlternating}
+                  historySequence={savedRow.sequence}
                 />
                 <div className="flex items-center">
-                  <Pin isPinned={historyRow.isPinned} onClick={() => handlePinClick(index)} />
+                  <button onClick={() => handleSavedButtonClick(index)}>X</button>
                 </div>
               </div>
             </div>
-            <div
-              className={`${index !== splitIndex - 1 && "hidden"} absolute right-0 left-0 mx-auto mt-[.9rem] h-1 w-full border-t-[.4rem] border-dotted border-black shadow-xs dark:border-white`}
-            ></div>
+          </div>
+        ))}
+      </div>
+      <div className="mx-auto mb-auto flex w-full flex-1 flex-col [&>*]:flex-1">
+        {recent.map((recentRow, index) => (
+          <div key={index} className={`relative`}>
+            <div className={`relative flex h-full flex-col px-14`}>
+              <div className={`relative flex h-full`}>
+                <Map
+                  onClick={() => {
+                    handleRecentRowClick(index);
+                    onToggleRowClick();
+                  }}
+                  isHistoryMap={true}
+                  isAlternatingMap={recentRow.isAlternating}
+                  historySequence={recentRow.sequence}
+                />
+                <div className="flex items-center">
+                  <button onClick={() => handleRecentButtonClick(index)}>+</button>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>

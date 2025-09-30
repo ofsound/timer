@@ -14,9 +14,18 @@ function Map({ isHistoryMap, isPinnedMap, isAlternatingMap, onClick, historySequ
   const thisStep = useTimerStore((state) => state.thisStep);
   const thisSequence = useTimerStore((state) => state.thisSequence);
 
+  const isAlternating = useTimerStore((state) => state.isAlternating);
+  const setIsAlternating = useTimerStore((state) => state.setIsAlternating);
+
+  // maybe the alternating map switch is actually in updating the zustand?
+
+  const onMiniMapClick = () => {
+    setIsAlternating(!isAlternating);
+  };
+
   return (
     <div
-      onClick={isHistoryMap ? onClick : undefined}
+      onClick={isHistoryMap ? onClick : onMiniMapClick}
       className={`${thisStep === 0 && !isHistoryMap && ""} ${isHistoryMap ? "flex min-w-0 gap-1 border-none" : "border-gray:800 flex w-full max-w-full min-w-0 justify-start gap-1 rounded-lg border border-dashed p-1 dark:border-gray-300"} ${isHistoryMap && isPinnedMap && ""} `}
     >
       {!isHistoryMap &&

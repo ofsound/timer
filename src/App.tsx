@@ -213,7 +213,7 @@ function App() {
         <div
           className={`/*bg-blue-400/40*/ ${thisStep < 0 ? "h-10/32 py-4" : "h-5/32 py-4 grayscale-0"} relative mb-auto flex`}
         >
-          <Map isAlternatingMap={false} />
+          <Map />
           <button
             onClick={handleResetSequenceClick}
             className={`absolute -top-3 -left-7 block h-14 w-14 cursor-pointer`}
