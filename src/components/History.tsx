@@ -104,8 +104,12 @@ function History({ onToggleRowClick }: inputProps) {
           </div>
         ))}
       </div>
-      <div className="bg-blue-800 px-2 pb-1 text-sm font-bold tracking-wide">△▴ Saved ▾▽</div>
-      <div className="bg-blue-900 px-2 pt-1 text-right text-sm font-bold tracking-wide">▾▽ Recent △▴</div>
+      <div className="bg-blue-800 px-2 pb-1 text-sm font-bold tracking-wide">
+        Saved <span className="text-xs">△</span>
+      </div>
+      <div className="bg-blue-900 px-2 pt-1 text-right text-sm font-bold tracking-wide">
+        <span className="text-xs">▽</span> Recent
+      </div>
       <div className="mx-auto mb-auto flex w-full flex-1 flex-col-reverse justify-end gap-2 bg-blue-900 py-5 [&>*]:max-h-12">
         {recent.map((recentRow, index) => (
           <div key={index} className={`last:animate-pulse-fast flex h-full flex-col px-12`}>
