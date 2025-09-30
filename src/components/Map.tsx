@@ -4,13 +4,12 @@ import { useTimerStore } from "../timerStore.ts";
 
 type inputProps = {
   isHistoryMap?: boolean;
-  isPinnedMap?: boolean;
   isAlternatingMap?: boolean;
   historySequence?: number[];
   onClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-function Map({ isHistoryMap, isPinnedMap, isAlternatingMap, onClick, historySequence }: inputProps) {
+function Map({ isHistoryMap, isAlternatingMap, onClick, historySequence }: inputProps) {
   const thisStep = useTimerStore((state) => state.thisStep);
   const thisSequence = useTimerStore((state) => state.thisSequence);
 
@@ -20,13 +19,15 @@ function Map({ isHistoryMap, isPinnedMap, isAlternatingMap, onClick, historySequ
   // maybe the alternating map switch is actually in updating the zustand?
 
   const onMiniMapClick = () => {
+    console.log("lock!");
+
     setIsAlternating(!isAlternating);
   };
 
   return (
     <div
       onClick={isHistoryMap ? onClick : onMiniMapClick}
-      className={`${thisStep === 0 && !isHistoryMap && ""} ${isHistoryMap ? "flex min-w-0 gap-1 border-none" : "border-gray:800 flex w-full max-w-full min-w-0 justify-start gap-1 rounded-lg border border-dashed p-1 dark:border-gray-300"} ${isHistoryMap && isPinnedMap && ""} `}
+      className={`${thisStep === 0 && !isHistoryMap && ""} ${isHistoryMap ? "flex min-w-0 gap-1 border-none" : "border-gray:800 flex w-full max-w-full min-w-0 justify-start gap-1 rounded-lg border border-dashed p-1 dark:border-gray-300"}`}
     >
       {!isHistoryMap &&
         thisSequence.map((durationSeconds, index) => (
@@ -36,7 +37,7 @@ function Map({ isHistoryMap, isPinnedMap, isAlternatingMap, onClick, historySequ
             isComplete={thisStep > index ? true : false}
             durationSeconds={durationSeconds}
             isHistoryMapSegment={isHistoryMap}
-            isAlternatingMapSegment={isAlternatingMap}
+            isAlternatingMapSegment={isAlternating}
           />
         ))}
 
@@ -46,7 +47,6 @@ function Map({ isHistoryMap, isPinnedMap, isAlternatingMap, onClick, historySequ
             key={index}
             durationSeconds={durationSeconds}
             isHistoryMapSegment={isHistoryMap}
-            isPinnedMapSegment={isPinnedMap}
             isAlternatingMapSegment={isAlternatingMap}
           />
         ))}

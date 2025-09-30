@@ -1,10 +1,5 @@
 import type { ChangeEvent } from "react";
 
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(useGSAP);
-
 import { useUserStore } from "../userStore.ts";
 
 type inputProps = {
@@ -84,7 +79,6 @@ function Settings({ onSoundChange }: inputProps) {
               value={countInTime}
               onChange={handleChange}
             />
-
             <div className="flex flex-col gap-3 dark:text-black">
               <button
                 className="block h-10 w-10 rounded-sm border-1 border-dotted border-gray-900 bg-gray-100 text-2xl font-bold text-black shadow-md"

@@ -23,7 +23,6 @@ function History({ onToggleRowClick }: inputProps) {
   const setRecent = useUserStore((state) => state.setRecent);
 
   const isAlternating = useTimerStore((state) => state.isAlternating);
-  // const setIsAlternating = useTimerStore((state) => state.setIsAlternating);
 
   const firstRenderAfterStart = useRef(true);
 

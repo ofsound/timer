@@ -6,7 +6,7 @@ type inputProps = {
   isComplete?: boolean;
   durationSeconds: number;
   isHistoryMapSegment?: boolean;
-  isPinnedMapSegment?: boolean;
+
   isAlternatingMapSegment?: boolean;
 };
 
@@ -15,7 +15,6 @@ function MapSegment({
   isComplete,
   durationSeconds,
   isHistoryMapSegment,
-  isPinnedMapSegment,
   isAlternatingMapSegment,
 }: inputProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,7 +38,6 @@ function MapSegment({
     "absolute flex h-full w-full items-center justify-center dark:text-black text-white",
     isHistoryMapSegment && "text-sm font-bold",
     !isHistoryMapSegment && "text-lg font-bold transition-all duration-120 opacity-0 scale-95",
-    isHistoryMapSegment && !isPinnedMapSegment && "text-xs",
     isVisible && "opacity-100 scale-100",
     innerWidth > outerWidth && "hidden",
   ]
