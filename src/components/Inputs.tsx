@@ -198,7 +198,7 @@ function Inputs({ escapeKeyToApp }: inputProps) {
   }
 
   return (
-    <div>
+    <div className="max-w mx-auto w-full max-w-[28rem]">
       <div
         className={` ${toggleVariant ? "hidden" : "flex"} mr-auto ml-auto w-full flex-wrap justify-between gap-[.4rem]`}
       >
@@ -214,7 +214,7 @@ function Inputs({ escapeKeyToApp }: inputProps) {
           </button>
         ))}
       </div>
-      <div className={`${toggleVariant ? "flex" : "hidden"} -mt-12 gap-6`}>
+      <div className={`${toggleVariant ? "flex" : "hidden"} mx-auto -mt-12 gap-6`}>
         <div className="absolute top-0 left-0 z-1 h-screen w-full bg-gray-800 opacity-98" onClick={handleCancel}></div>
         <div className="mx-auto flex w-5/8 flex-wrap justify-between gap-2">
           {padValues.map((item, index) => (

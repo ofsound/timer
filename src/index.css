@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 html {
-  font-size: 4.1vw;
+  font-size: clamp(6px, 4.1vw, 24px);
 }
 
 @theme {

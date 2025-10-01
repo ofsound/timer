@@ -78,8 +78,8 @@ function History({ onToggleRowClick }: inputProps) {
   // i got bullied into this!!
 
   return (
-    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-200 text-white dark:bg-gray-800">
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col gap-2 bg-blue-800 py-5 [&>*]:max-h-12">
+    <div className="absolute -top-full left-0 flex h-full w-full flex-col bg-gray-200 text-white dark:bg-gray-800 [@media(min-aspect-ratio:16/9)]:flex-row">
+      <div className="mx-auto mb-auto flex h-full w-full flex-1 flex-col gap-2 bg-blue-800 py-5 [&>*]:max-h-12 [@media(min-aspect-ratio:16/9)]:w-1/2">
         {saved.map((savedRow, index) => (
           <div key={index} className={`relative flex h-full flex-col px-12`}>
             <div className={`relative flex h-full`}>
@@ -104,13 +104,13 @@ function History({ onToggleRowClick }: inputProps) {
           </div>
         ))}
       </div>
-      <div className="bg-blue-800 px-2 pb-1 text-sm font-bold tracking-wide">
+      {/* <div className="bg-blue-800 px-2 pb-1 text-sm font-bold tracking-wide">
         Saved <span className="text-xs">△</span>
       </div>
       <div className="bg-blue-900 px-2 pt-1 text-right text-sm font-bold tracking-wide">
         <span className="text-xs">▽</span> Recent
-      </div>
-      <div className="mx-auto mb-auto flex w-full flex-1 flex-col-reverse justify-end gap-2 bg-blue-900 py-5 [&>*]:max-h-12">
+      </div> */}
+      <div className="mx-auto mb-auto flex h-full w-full flex-1 flex-col-reverse justify-end gap-2 bg-blue-900 py-5 [&>*]:max-h-12 [@media(min-aspect-ratio:16/9)]:w-1/2">
         {recent.map((recentRow, index) => (
           <div key={index} className={`last:animate-pulse-fast flex h-full flex-col px-12`}>
             <div className={`relative flex h-full`}>
